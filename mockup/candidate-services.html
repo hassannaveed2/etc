@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Candidate Services | Education Testing Council</title>
+  <meta name="description" content="Registration guidance, roll number slips, results, test schedules, test-day guidance and candidate policies for ETC tests.">
+  <meta name="theme-color" content="#1F5E45">
+  <link rel="icon" href="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="assets/js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script defer src="assets/js/media.js"></script>
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/lib.js"></script>
+  <script defer src="assets/js/partials.js"></script>
+  <script defer src="assets/js/render.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body data-page="candidate" class="bg-white font-sans text-ink">
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="relative isolate overflow-hidden bg-green-900 text-white on-dark">
+      <img data-media="candidateCentre" data-decorative class="absolute inset-y-0 right-0 h-full w-full lg:w-3/5 object-cover" width="2000" height="1493">
+      <div class="absolute inset-0 bg-gradient-to-r from-green-900 via-green-900/95 to-green-900/40" aria-hidden="true"></div>
+      <div class="relative max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <nav aria-label="Breadcrumb" class="text-sm text-white/70"><ol class="flex flex-wrap items-center gap-2"><li><a class="hover:text-white" href="index.html">Home</a></li><li aria-hidden="true">/</li><li aria-current="page" class="text-white">Candidate Services</li></ol></nav>
+        <p class="eyebrow mt-8">Candidate Services</p>
+        <h1 class="mt-3 font-serif text-4xl sm:text-5xl font-semibold leading-tight max-w-2xl">Everything you need, from registration to results</h1>
+        <p class="mt-4 max-w-xl text-lg text-white/80">Clear guidance on every step, with direct links to the official ETC portal for registration, admit cards and results.</p>
+      </div>
+    </section>
+
+    <!-- Four services -->
+    <section aria-labelledby="svc-title" class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <h2 id="svc-title" class="sr-only">Candidate services</h2>
+      <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <li id="register" class="scroll-mt-48 flex flex-col rounded-2xl border border-line p-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-green-700 font-serif text-white">1</span>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-green-700">Register</h3>
+          <p class="mt-2 text-sm text-muted">Read the official notice for your test, then create an account, complete the form and pay the fee on the official portal before the deadline.</p>
+          <div class="mt-auto pt-5" data-portal="registration" data-portal-text="Go to registration "></div>
+        </li>
+        <li id="admit-card" class="scroll-mt-48 flex flex-col rounded-2xl border border-line p-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-green-700 font-serif text-white">2</span>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-green-700">Admit card</h3>
+          <p class="mt-2 text-sm text-muted">Your roll number slip shows your test centre, date and reporting time. It is usually available about ten days before the test.</p>
+          <div class="mt-auto pt-5" data-portal="admitCard" data-portal-text="Download roll number slip "></div>
+        </li>
+        <li id="results" class="scroll-mt-48 flex flex-col rounded-2xl border border-line p-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-green-700 font-serif text-white">3</span>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-green-700">Results</h3>
+          <p class="mt-2 text-sm text-muted">Results are released after post-hoc analysis of every item and published on the official results portal. Check result notices for dates.</p>
+          <div class="mt-auto pt-5" data-portal="results" data-portal-text="View results "></div>
+        </li>
+        <li class="flex flex-col rounded-2xl border border-line p-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-green-700 font-serif text-white">4</span>
+          <h3 class="mt-4 font-serif text-xl font-semibold text-green-700">Schedule</h3>
+          <p class="mt-2 text-sm text-muted">Upcoming tests, registration deadlines and test dates, with links to each official notice.</p>
+          <a href="#schedule" class="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-900">See the schedule</a>
+        </li>
+      </ul>
+      <div class="mt-6 flex gap-3 rounded-xl bg-cream-50 p-5 text-sm ring-1 ring-gold-300/50">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0 text-gold-600" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <p><span class="font-semibold">The official ETC/HEC portal is the only place to register, pay, download admit cards and view results.</span> This website provides guidance and links; it never asks for payment or card details.</p>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" aria-labelledby="schedule-title" class="scroll-mt-40 bg-mint-50 border-y border-line">
+      <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div><p class="eyebrow">Plan ahead</p><h2 id="schedule-title" class="mt-3 font-serif text-3xl font-semibold text-green-700">Upcoming test schedule</h2></div>
+          <span class="inline-flex items-center rounded bg-gold-100 px-2 py-1 text-xs font-bold uppercase tracking-wider text-gold-600">Sample dates</span>
+        </div>
+        <div class="table-wrap mt-8" tabindex="0" role="region" aria-label="Upcoming test schedule">
+          <table class="data-table">
+            <thead><tr><th scope="col">Session</th><th scope="col">Registration closes</th><th scope="col">Test date</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Details</span></th></tr></thead>
+            <tbody id="schedule-body"></tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs text-muted">Official dates are confirmed in the notice for each test. <a class="font-semibold text-green-700 hover:underline" href="news.html?type=Schedule">See schedule notices</a>.</p>
+      </div>
+    </section>
+
+    <!-- Test day -->
+    <section id="test-day" aria-labelledby="day-title" class="scroll-mt-40 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <p class="eyebrow">Test day</p>
+          <h2 id="day-title" class="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">Your test-day journey</h2>
+          <p class="mt-4 text-muted">The same steps, the same rules and the same timing for every candidate, in every city.</p>
+          <div class="mt-8 rounded-2xl bg-green-900 p-6 text-white on-dark">
+            <p class="font-semibold text-gold-300">Bring with you</p>
+            <ul class="mt-3 space-y-2 text-sm text-white/85">
+              <li class="flex gap-2"><svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0 text-gold-300" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4.5 4.5L19 7"/></svg>Printed admit card (roll number slip)</li>
+              <li class="flex gap-2"><svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0 text-gold-300" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4.5 4.5L19 7"/></svg>Original CNIC or B-Form</li>
+              <li class="flex gap-2"><svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0 text-gold-300" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4.5 4.5L19 7"/></svg>Only the items permitted in your instructions</li>
+            </ul>
+            <p class="mt-4 text-xs text-white/60">Mobile phones, smart watches and other electronic devices are not allowed.</p>
+          </div>
+        </div>
+        <ol class="lg:col-span-8 relative space-y-4 before:absolute before:left-5 before:top-2 before:bottom-2 before:w-px before:bg-line">
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">1</span><div class="pt-1.5"><h3 class="font-semibold">Registration</h3><p class="mt-1 text-sm text-muted">Register and pay online, then receive your admit card with centre, date and time.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">2</span><div class="pt-1.5"><h3 class="font-semibold">Arrival and identity check</h3><p class="mt-1 text-sm text-muted">You are verified against your admit card and identity document.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">3</span><div class="pt-1.5"><h3 class="font-semibold">Seating and instructions</h3><p class="mt-1 text-sm text-muted">You are seated according to the seating plan and given standard instructions.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">4</span><div class="pt-1.5"><h3 class="font-semibold">Test administration</h3><p class="mt-1 text-sm text-muted">Sealed papers are opened in front of candidates and timing is strictly followed.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">5</span><div class="pt-1.5"><h3 class="font-semibold">Collection and return</h3><p class="mt-1 text-sm text-muted">Answer sheets are counted, sealed and returned securely to ETC.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-serif text-green-700 ring-2 ring-green-700">6</span><div class="pt-1.5"><h3 class="font-semibold">Scanning and analysis</h3><p class="mt-1 text-sm text-muted">Answer sheets are scanned, scored and analysed, including post-hoc item analysis.</p></div></li>
+          <li class="relative flex gap-5"><span class="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold-500 font-serif text-green-950">7</span><div class="pt-1.5"><h3 class="font-semibold">Results</h3><p class="mt-1 text-sm text-muted">Results are published online and shared with client institutions.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Rights & responsibilities -->
+    <section id="policies" aria-labelledby="rights-title" class="scroll-mt-40 bg-cream-50 border-y border-gold-300/50">
+      <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <p class="eyebrow">Transparency</p>
+        <h2 id="rights-title" class="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">Our commitment to candidates</h2>
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <div class="rounded-2xl bg-white p-7 ring-1 ring-line">
+            <h3 class="font-serif text-xl font-semibold text-green-700">What you can expect from ETC</h3>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Clear, advance information about the test purpose, format, syllabus, timing, fee and rules.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Equal treatment under the same conditions, wherever and whenever the test is taken.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Questions that have been reviewed for accuracy and fairness, and statistically checked.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Reasonable arrangements for candidates with disabilities or special needs, on request.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Protection of personal data and confidentiality of results.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>Timely results, and a clear route to raise questions or complaints.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500"></span>A fair hearing before any decision on a case of alleged unfair means.</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl bg-white p-7 ring-1 ring-line">
+            <h3 class="font-serif text-xl font-semibold text-green-700">What ETC expects from you</h3>
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>Read all instructions and follow the test rules.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>Provide accurate personal information and carry valid identification.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>Arrive on time and bring only permitted items.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>Do your own work honestly; any form of cheating or impersonation leads to disciplinary action.</li>
+              <li class="flex gap-3"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>Keep the content of the test confidential.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+          <div id="unfair-means" class="scroll-mt-40 rounded-2xl bg-green-900 p-7 text-white on-dark">
+            <h3 class="font-serif text-xl font-semibold">Unfair means</h3>
+            <p class="mt-3 text-sm text-white/80">Cases of alleged unfair means are heard by ETC’s independent Quality Assurance Department through a set, documented procedure. The candidate is always heard before a decision is made.</p>
+            <a href="resources.html?type=Policy" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold hover:text-gold-300">Read the unfair means policy</a>
+          </div>
+          <div id="accessibility" class="scroll-mt-40 rounded-2xl bg-white p-7 ring-1 ring-line">
+            <h3 class="font-serif text-xl font-semibold text-green-700">Accessibility &amp; special accommodations</h3>
+            <p class="mt-3 text-sm text-ink/80">ETC provides reasonable arrangements for candidates with disabilities or special needs. Request them during registration with supporting documents, so arrangements can be confirmed before your test.</p>
+            <a href="notice.html?id=n-accommodations-2026" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-900">How to request special arrangements</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex flex-col gap-6 rounded-2xl bg-mint-50 p-8 sm:flex-row sm:items-center sm:justify-between ring-1 ring-line">
+        <div><h2 class="font-serif text-2xl font-semibold text-green-700">Still have a question?</h2><p class="mt-1 text-muted">Browse answers to common questions, or contact the ETC helpline.</p></div>
+        <div class="flex flex-wrap gap-3"><a href="faqs.html" class="rounded-md bg-green-700 px-5 py-3 font-semibold text-white hover:bg-green-800">Help &amp; FAQs</a><a href="contact.html" class="rounded-md border border-green-700/30 px-5 py-3 font-semibold text-green-700 hover:bg-white">Contact us</a></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    (window.ETC = window.ETC || {}).pageInits = (window.ETC.pageInits || []).concat(function () {
+      ETC.$$("[data-portal]").forEach(function (el) {
+        el.innerHTML = ETC.portalLink(el.getAttribute("data-portal"), el.getAttribute("data-portal-text"), "inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-800");
+      });
+      document.getElementById("schedule-body").innerHTML = ETC.data.schedule.map(function (s) {
+        var t = ETC.getTest(s.test);
+        return '<tr><td><span class="font-semibold">' + ETC.render.esc(s.session) + '</span><span class="block text-xs text-muted">' + ETC.render.esc(t.name) + "</span></td>" +
+          '<td class="whitespace-nowrap">' + ETC.formatDate(s.regCloses) + '</td><td class="whitespace-nowrap">' + ETC.formatDate(s.testDate) + "</td><td>" + ETC.render.statusChip(s.status) + "</td>" +
+          '<td><a class="whitespace-nowrap font-semibold text-green-700 hover:underline" href="test.html?test=' + t.slug + '#schedule">Details<span class="sr-only"> for ' + ETC.render.esc(s.session) + "</span></a></td></tr>";
+      }).join("");
+    });
+  </script>
+</body>
+</html>

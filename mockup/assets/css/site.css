@@ -1,5 +1,6 @@
 /* The few rules Tailwind utilities can't express cleanly. */
-html { scroll-behavior: smooth; scroll-padding-top: 9rem; }
+/* Anchor targets set their own scroll-mt-* to clear the sticky header. */
+html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
 /* Visible, consistent focus ring (gold on light, pale gold on dark) */
@@ -21,7 +22,8 @@ body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
 .data-table td { padding: .7rem .9rem; border-bottom: 1px solid #D7E2DB; vertical-align: top; }
 .data-table tbody tr:nth-child(even) td { background: #F4F9F6; }
 .data-table td.num, .data-table th.num { text-align: center; font-variant-numeric: tabular-nums; }
-.table-wrap { overflow-x: auto; border: 1px solid #D7E2DB; border-radius: .75rem; background: #fff; }
+/* position: relative keeps absolutely positioned sr-only text inside the scroll container */
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid #D7E2DB; border-radius: .75rem; background: #fff; }
 .table-wrap:focus-visible { outline-offset: 4px; }
 
 /* Reveal-on-scroll (only when JS has marked the page and motion is allowed) */

@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "etc-mockup",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5173", "--directory", "mockup"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve.mjs", "5173"],
       "port": 5173
     }
   ]

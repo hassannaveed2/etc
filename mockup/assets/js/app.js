@@ -178,7 +178,7 @@
       tabs.forEach(function (t, k) {
         t.addEventListener("click", function () { select(t); });
         t.addEventListener("keydown", function (e) {
-          var n = e.key === "ArrowRight" ? k + 1 : e.key === "ArrowLeft" ? k - 1 : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : null;
+          var n = e.key === "ArrowRight" || e.key === "ArrowDown" ? k + 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? k - 1 : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : null;
           if (n === null) return;
           e.preventDefault();
           select(tabs[(n + tabs.length) % tabs.length], true);
@@ -198,6 +198,74 @@
         var open = btn.getAttribute("aria-expanded") === "true";
         btn.setAttribute("aria-expanded", String(!open));
         d.getElementById(btn.getAttribute("aria-controls")).hidden = open;
+      });
+    });
+  }
+
+  /* Forms: <form data-validate data-success-title="..." data-success-text="...">.
+     Client-side validation with accessible errors; nothing is sent anywhere in the mockup. */
+  function initForms(root) {
+    $$("form[data-validate]", root).forEach(function (form) {
+      if (form._v) return;
+      form._v = true;
+      form.setAttribute("novalidate", "");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var controls = $$("input[name], select[name], textarea[name]", form);
+        var fields = controls.map(function (c) {
+          var label = form.querySelector('label[for="' + c.id + '"]');
+          return {
+            name: c.name,
+            value: c.value,
+            required: c.required,
+            type: c.type === "email" ? "email" : c.type === "number" ? "number" : null,
+            label: label ? label.textContent.replace(/\*|\(optional\)/g, "").trim() : null,
+          };
+        });
+        var res = ETC.validateForm(fields);
+        var first = null;
+        controls.forEach(function (c) {
+          var errId = c.name + "-error";
+          var old = d.getElementById(errId);
+          if (old) old.remove();
+          var desc = (c.getAttribute("aria-describedby") || "").split(" ").filter(function (x) { return x && x !== errId; });
+          var msg = res.errors[c.name];
+          if (msg) {
+            var p = d.createElement("p");
+            p.id = errId;
+            p.className = "mt-1.5 text-sm font-medium text-red-700";
+            p.textContent = msg;
+            c.insertAdjacentElement("afterend", p);
+            desc.push(errId);
+            c.setAttribute("aria-invalid", "true");
+            c.classList.add("border-red-600");
+            if (!first) first = c;
+          } else {
+            c.removeAttribute("aria-invalid");
+            c.classList.remove("border-red-600");
+          }
+          if (desc.length) c.setAttribute("aria-describedby", desc.join(" "));
+          else c.removeAttribute("aria-describedby");
+        });
+        var summary = form.querySelector("[data-error-summary]");
+        if (summary) {
+          var n = Object.keys(res.errors).length;
+          summary.hidden = res.valid;
+          summary.textContent = n ? "Please correct " + n + (n === 1 ? " field" : " fields") + " below." : "";
+        }
+        if (!res.valid) { first.focus(); return; }
+        var panel = d.createElement("div");
+        panel.setAttribute("role", "status");
+        panel.tabIndex = -1;
+        panel.className = "rounded-2xl border border-green-700/30 bg-mint-50 p-8";
+        panel.innerHTML =
+          '<span class="grid h-12 w-12 place-items-center rounded-full bg-green-700 text-white">' + ETC.icon("check", "h-6 w-6") + "</span>" +
+          '<h3 class="mt-4 font-serif text-2xl font-semibold text-green-700"></h3><p class="mt-2 text-ink/80"></p>' +
+          '<p class="mt-4 text-xs text-muted">Mockup only — this form is not connected yet. In the live site, submissions are delivered securely to the designated ETC address.</p>';
+        panel.querySelector("h3").textContent = form.getAttribute("data-success-title") || "Thank you";
+        panel.querySelector("p").textContent = form.getAttribute("data-success-text") || "We have received your message.";
+        form.replaceWith(panel);
+        panel.focus();
       });
     });
   }
@@ -227,6 +295,7 @@
 
   /* Re-run element-level initialisers after a renderer injects new markup. */
   ETC.enhance = function (root) {
+    initForms(root);
     initScrollspy(root);
     initMedia(root);
     initReveal(root);
@@ -244,6 +313,16 @@
     initCarousels(d);
     ETC.enhance(d);
     (ETC.pageInits || []).forEach(function (fn) { fn(); });
+    /* Markup is injected after parsing and the Tailwind CDN styles it asynchronously,
+       so re-apply the initial #hash scroll once layout has settled (and again on load). */
+    if (location.hash.length > 1) {
+      var toHash = function () {
+        var target = d.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (target) target.scrollIntoView({ behavior: "instant" });
+      };
+      setTimeout(toHash, 150);
+      w.addEventListener("load", function () { setTimeout(toHash, 50); });
+    }
   }
 
   if (d.readyState === "loading") d.addEventListener("DOMContentLoaded", init);
