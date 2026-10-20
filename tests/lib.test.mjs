@@ -38,6 +38,31 @@ test("filterNotices by test and query", () => {
   assert.ok(q.length > 0 && q.every((n) => (n.title + " " + n.summary + " " + n.test).toLowerCase().includes("law-gat")));
 });
 
+test("filterNotices by published-since date (date filter, spec §3 row 8)", () => {
+  const ETC = lib();
+  const res = ETC.filterNotices(ETC.data.notices, { since: "2026-10-01" });
+  assert.ok(res.length > 0);
+  assert.ok(res.every((n) => n.published >= "2026-10-01"));
+  assert.ok(res.length < ETC.data.notices.length);
+});
+
+test("sinceDate maps a period to an ISO lower bound relative to today", () => {
+  const ETC = lib();
+  assert.equal(ETC.sinceDate("30", "2026-10-20"), "2026-09-20");
+  assert.equal(ETC.sinceDate("90", "2026-10-20"), "2026-07-22");
+  assert.equal(ETC.sinceDate("year", "2026-10-20"), "2026-01-01");
+  assert.equal(ETC.sinceDate("", "2026-10-20"), null);
+});
+
+test("filterTests by category and level (directory filters, spec §3 row 3)", () => {
+  const ETC = lib();
+  const ug = ETC.filterTests(ETC.data.tests, { level: "Undergraduate" });
+  assert.deepEqual([...ug.map((t) => t.slug)].sort(), ["lat", "usat"]);
+  assert.deepEqual([...ETC.filterTests(ETC.data.tests, { category: "Postgraduate", level: "PhD" }).map((t) => t.slug)], ["haat"]);
+  assert.equal(ETC.filterTests(ETC.data.tests, {}).length, 6);
+  assert.equal(ETC.filterTests(ETC.data.tests, { category: "Licensing", level: "PhD" }).length, 0);
+});
+
 test("filterNotices returns [] for an unmatched query", () => {
   const ETC = lib();
   assert.equal(ETC.filterNotices(ETC.data.notices, { q: "zzzz" }).length, 0);
@@ -115,7 +140,7 @@ test("renderNoticeDetail shows sample chip, deadline, attachments and related no
   const ETC = withRender();
   const out = ETC.render.noticeDetail("n-usat-reg-dec-2026");
   assert.equal(out.title, "USAT December 2026 session: registration open | ETC");
-  for (const s of ["Sample", "20 Nov 2026", "USAT candidate instructions", "Related notices", "notice.html?id=n-usat-result-sep-2026"]) {
+  for (const s of ["Sample", "20 Nov 2026", "USAT candidate instructions", "Related notices", "notice.html?id=n-usat-result-sep-2026", "data-share", "Share notice"]) {
     assert.ok(out.html.includes(s), `missing ${s}`);
   }
 });

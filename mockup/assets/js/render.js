@@ -304,7 +304,9 @@
           '<span class="block text-xs text-muted">PDF · ' + esc(a.size) + "</span></span>" + icon("download", "h-5 w-5 text-gold-500") + "</li>";
       }).join("") + "</ul>" +
       '<div class="mt-10 flex flex-wrap gap-3" data-noprint>' +
-      '<button type="button" onclick="window.print()" class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">' + icon("print", "h-4 w-4") + "Print notice</button>" +
+      '<button type="button" data-share data-share-title="' + esc(n.title) + '" class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">' + icon("external", "h-4 w-4") + "Share notice</button>" +
+      '<button type="button" data-print class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">' + icon("print", "h-4 w-4") + "Print notice</button>" +
+      '<p data-share-status role="status" class="w-full text-sm text-muted"></p>' +
       '<a href="news.html" class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">All notices</a></div>' +
       "</article>" +
       '<aside class="lg:col-span-4 min-w-0" aria-labelledby="related-h">' +

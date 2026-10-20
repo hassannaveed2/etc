@@ -74,13 +74,15 @@ These are linked to, never rebuilt: registration, payments, admit-card generatio
 | `green-900` | `#0F2E22` | Story sections, footer |
 | `green-700` | `#1F5E45` | Primary brand, headings, buttons |
 | `green-500` | `#2E7D5B` | Table headers, hover |
-| `gold-500` | `#B8913A` | Accent rules, eyebrows, focus ring |
+| `gold-500` | `#B8913A` | Accent rules, buttons on dark, large accents (not small text) |
+| `gold-600` | `#7E6224` | Eyebrows and small gold text (AA on white, mint, cream, gold-100) |
+| `focus` | `#8A6A24` on light, `#D9BE7C` on dark | Focus ring (≥ 3:1) |
 | `gold-300` | `#D9BE7C` | Accent on dark backgrounds |
 | `mint-50` | `#EEF5F0` | Tiles and surfaces |
 | `cream-50` | `#FAF6EA` | Alternate tiles, quote band |
 | `ink` | `#12261E` | Body text |
 | `muted` | `#56655E` | Secondary text |
-| Status | open `#1F7A4D`, closing `#B26A00`, result `#1D5C96`, closed `#6B7280` | Notice chips |
+| Status | open `#1F7A4D`, closing `#955800`, result `#1D5C96`, closed `#5B6270` (all ≥ 4.5:1 on their chip tint; enforced by tests/contrast.test.mjs) | Notice chips |
 
 - **Typography:** *Source Serif 4* for display and headings, *Inter* for UI and body (Google Fonts). Eyebrows are letter-spaced uppercase gold, matching the PDF's "S E C T I O N" style.
 - **Layout:** max width 1280 px; 12-column grid; generous whitespace.

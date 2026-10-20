@@ -38,11 +38,13 @@
     <section class="scroll-mt-40 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="list-title">
       <h2 id="list-title" class="sr-only">Notices</h2>
       <form id="notice-filters" role="search" aria-label="Filter notices" class="grid gap-4 rounded-2xl bg-mint-50 p-5 ring-1 ring-line sm:grid-cols-2 lg:grid-cols-12 lg:items-end">
-        <div class="lg:col-span-5"><label for="nq" class="block text-sm font-semibold">Search notices</label><input id="nq" name="q" type="search" placeholder="e.g. USAT registration" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"></div>
-        <div class="lg:col-span-3"><label for="ntype" class="block text-sm font-semibold">Notice type</label>
+        <div class="lg:col-span-4"><label for="nq" class="block text-sm font-semibold">Search notices</label><input id="nq" name="q" type="search" placeholder="e.g. USAT registration" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"></div>
+        <div class="lg:col-span-2"><label for="ntype" class="block text-sm font-semibold">Notice type</label>
           <select id="ntype" name="type" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"><option value="">All types</option><option>Admission</option><option>Schedule</option><option>Result</option><option>Recruitment</option><option>General</option></select></div>
         <div class="lg:col-span-3"><label for="ntest" class="block text-sm font-semibold">Related test</label>
           <select id="ntest" name="test" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"><option value="">All tests</option><option value="lat">LAT</option><option value="law-gat">LAW-GAT</option><option value="hat">HAT-General</option><option value="haat">HAAT-Subject</option><option value="usat">USAT</option><option value="customized">Customized / recruitment</option><option value="general">General</option></select></div>
+        <div class="lg:col-span-2"><label for="nperiod" class="block text-sm font-semibold">Published</label>
+          <select id="nperiod" name="period" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"><option value="">Any time</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option><option value="year">This year</option></select></div>
         <div class="lg:col-span-1"><button type="button" data-reset-filters class="w-full rounded-md px-3 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-white">Clear</button></div>
       </form>
       <p id="notice-count" class="mt-6 text-sm text-muted" aria-live="polite"></p>
@@ -61,7 +63,10 @@
         list: document.getElementById("notice-list"),
         pager: document.getElementById("notice-pager"),
         count: document.getElementById("notice-count"),
-        query: function (f) { return ETC.filterNotices(ETC.data.notices, f); },
+        query: function (f) {
+          var today = new Date().toISOString().slice(0, 10);
+          return ETC.filterNotices(ETC.data.notices, { type: f.type, test: f.test, q: f.q, since: ETC.sinceDate(f.period, today) });
+        },
         render: ETC.render.noticeRow,
         perPage: 6,
         noun: "notices",

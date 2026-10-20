@@ -24,9 +24,26 @@
     return list.filter(function (n) {
       if (f.type && n.type !== f.type) return false;
       if (f.test && n.test !== f.test) return false;
+      if (f.since && n.published < f.since) return false;
       if (q && norm(n.title + " " + n.summary + " " + n.test).indexOf(q) === -1) return false;
       return true;
     }).sort(byNewest);
+  };
+
+  /* Published-date filter period ("30" | "90" days | "year") → ISO lower bound, or null for any date. */
+  ETC.sinceDate = function (period, todayIso) {
+    if (!period) return null;
+    var p = String(todayIso).split("-").map(Number);
+    if (period === "year") return p[0] + "-01-01";
+    var d = new Date(Date.UTC(p[0], p[1] - 1, p[2] - Number(period)));
+    return d.toISOString().slice(0, 10);
+  };
+
+  ETC.filterTests = function (list, f) {
+    f = f || {};
+    return list.filter(function (t) {
+      return (!f.category || t.category === f.category) && (!f.level || t.level === f.level);
+    });
   };
 
   ETC.filterResources = function (list, f) {

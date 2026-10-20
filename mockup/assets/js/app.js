@@ -39,7 +39,8 @@
       });
     });
     d.addEventListener("click", function (e) {
-      if (!e.target.closest("[data-mega-panel]")) closeAll();
+      /* Close on outside clicks, and on link clicks inside a panel (in-page #anchors don't navigate away). */
+      if (!e.target.closest("[data-mega-panel]") || e.target.closest("[data-mega-panel] a")) closeAll();
     });
     d.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;
@@ -64,14 +65,16 @@
       var f = focusables();
       if (f[0]) f[0].focus();
     }
-    function close() {
+    function close(returnFocus) {
       drawer.classList.add("hidden");
       toggle.setAttribute("aria-expanded", "false");
       d.body.style.overflow = "";
-      toggle.focus();
+      if (returnFocus !== false) toggle.focus();
     }
     toggle.addEventListener("click", open);
     $$("[data-drawer-close]", drawer).forEach(function (el) { el.addEventListener("click", close); });
+    /* A drawer link may be an in-page #anchor that doesn't unload the page: close so the target shows. */
+    $$("a[href]", drawer).forEach(function (a) { a.addEventListener("click", function () { close(false); }); });
     drawer.addEventListener("keydown", function (e) {
       if (e.key === "Escape") return close();
       if (e.key !== "Tab") return;
@@ -135,8 +138,10 @@
         dots.forEach(function (dt, k) { dt.setAttribute("aria-current", String(k === i)); });
         if (live) live.textContent = "Slide " + (i + 1) + " of " + slides.length;
       }
-      function play() { stop(); timer = setInterval(function () { show(i + 1); }, 7000); }
-      function stop() { if (timer) clearInterval(timer); timer = null; }
+      /* WAI-ARIA carousel: silent while auto-rotating, announced when the user is in control. */
+      function setLive(rotating) { if (live) live.setAttribute("aria-live", rotating ? "off" : "polite"); }
+      function play() { stop(); setLive(true); timer = setInterval(function () { show(i + 1); }, 7000); }
+      function stop() { if (timer) clearInterval(timer); timer = null; setLive(false); }
       function setPlaying(p) {
         playing = p;
         if (pauseBtn) {
@@ -309,7 +314,13 @@
         b.addEventListener("click", function () { page = Number(b.getAttribute("data-page")); draw(true); });
       });
       ETC.enhance(opts.list);
-      if (focusList) { opts.list.closest("section").scrollIntoView({ behavior: "smooth" }); }
+      if (focusList) {
+        /* The clicked pager button was just destroyed: move focus to the result count so keyboard
+           and screen-reader users land at the top of the new page of results. */
+        opts.count.setAttribute("tabindex", "-1");
+        opts.count.focus({ preventScroll: true });
+        opts.list.closest("section").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      }
     }
     function pagerHtml(pages) {
       var btn = function (n, label, disabled, current) {
@@ -363,8 +374,33 @@
     });
   }
 
+  /* Share (Web Share API, falling back to copying the link) and print buttons. */
+  function initShare(root) {
+    $$("[data-share]", root).forEach(function (b) {
+      if (b._share) return;
+      b._share = true;
+      var status = b.parentNode.querySelector("[data-share-status]");
+      var say = function (msg) { if (status) status.textContent = msg; };
+      b.addEventListener("click", function () {
+        var data = { title: b.getAttribute("data-share-title") || d.title, url: location.href };
+        if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(data.url).then(function () { say("Link copied to clipboard."); }, function () { say("Copy this link: " + data.url); });
+        } else {
+          say("Copy this link: " + data.url);
+        }
+      });
+    });
+    $$("[data-print]", root).forEach(function (b) {
+      if (b._print) return;
+      b._print = true;
+      b.addEventListener("click", function () { w.print(); });
+    });
+  }
+
   /* Re-run element-level initialisers after a renderer injects new markup. */
   ETC.enhance = function (root) {
+    initShare(root);
     initForms(root);
     initScrollspy(root);
     initMedia(root);

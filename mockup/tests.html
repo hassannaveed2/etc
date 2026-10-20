@@ -45,6 +45,14 @@
           <button type="button" aria-pressed="false" data-cat="Recruitment" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">Recruitment &amp; customized</button>
         </div>
       </div>
+      <div role="group" aria-label="Filter tests by level" id="level-filters" class="mt-4 flex flex-wrap items-center gap-2">
+        <span class="mr-1 text-xs font-semibold uppercase tracking-eyebrow text-gold-600">Level</span>
+        <button type="button" aria-pressed="true" data-level="" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">Any level</button>
+        <button type="button" aria-pressed="false" data-level="Undergraduate" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">Undergraduate</button>
+        <button type="button" aria-pressed="false" data-level="MS / MPhil" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">MS / MPhil</button>
+        <button type="button" aria-pressed="false" data-level="PhD" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">PhD</button>
+        <button type="button" aria-pressed="false" data-level="Professional" class="rounded-full px-4 py-2 text-sm font-semibold ring-1 ring-line text-muted aria-pressed:bg-green-700 aria-pressed:text-white aria-pressed:ring-green-700 hover:text-green-700">Professional</button>
+      </div>
       <p id="test-count" class="mt-4 text-sm text-muted" aria-live="polite"></p>
       <div id="test-grid" class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
     </section>
@@ -87,16 +95,20 @@
     (window.ETC = window.ETC || {}).pageInits = (window.ETC.pageInits || []).concat(function () {
       var R = ETC.render, tests = ETC.data.tests;
       var grid = document.getElementById("test-grid"), count = document.getElementById("test-count");
-      var buttons = ETC.$$("#test-filters button");
-      function show(cat) {
-        var list = tests.filter(function (t) { return !cat || t.category === cat; });
-        grid.innerHTML = list.map(R.testCard).join("");
-        count.textContent = "Showing " + list.length + " of " + tests.length + " tests";
-        buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-cat") === cat)); });
+      var catButtons = ETC.$$("#test-filters button"), levelButtons = ETC.$$("#level-filters button");
+      var state = { category: "", level: "" };
+      function show() {
+        var list = ETC.filterTests(tests, state);
+        grid.innerHTML = list.length ? list.map(R.testCard).join("") :
+          '<div class="col-span-full rounded-2xl border border-dashed border-line p-10 text-center"><p class="font-serif text-xl text-green-700">No tests match these filters.</p><p class="mt-1 text-sm text-muted">Try another purpose or level.</p></div>';
+        count.textContent = list.length ? "Showing " + list.length + " of " + tests.length + " tests" : "No tests match these filters.";
+        catButtons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-cat") === state.category)); });
+        levelButtons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-level") === state.level)); });
         ETC.enhance(grid);
       }
-      buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-cat")); }); });
-      show("");
+      catButtons.forEach(function (b) { b.addEventListener("click", function () { state.category = b.getAttribute("data-cat"); show(); }); });
+      levelButtons.forEach(function (b) { b.addEventListener("click", function () { state.level = b.getAttribute("data-level"); show(); }); });
+      show();
       document.getElementById("compare-body").innerHTML = tests.map(function (t) {
         return '<tr><td><a class="font-semibold text-green-700 hover:underline" href="test.html?test=' + t.slug + '">' + R.esc(t.code) + '</a><span class="block text-xs text-muted">' + R.esc(t.name) + "</span></td>" +
           "<td>" + R.esc(t.audience) + "</td><td>" + R.esc(t.short) + "</td><td>" + R.esc(t.frequency) + '</td><td class="whitespace-nowrap">' + ETC.formatFee(t.fee) + "</td></tr>";
