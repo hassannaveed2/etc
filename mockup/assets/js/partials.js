@@ -90,9 +90,11 @@
       '<a href="index.html" class="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label="Education Testing Council — home">' +
       '<img data-media="etcCrest" class="' + (onDark ? "crest-roundel h-16 w-16 object-contain" : "h-11 sm:h-14 w-auto shrink-0") + '" width="57" height="64">' +
       '<span class="min-w-0 leading-tight">' +
-      '<span class="block truncate font-serif text-[17px] sm:text-xl font-semibold ' + (onDark ? "text-white" : "text-green-700") + '">Education Testing Council</span>' +
-      '<span class="block truncate text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase ' + (onDark ? "text-gold-300" : "text-gold-600") + '">' +
-      '<span class="sm:hidden">HEC · Pakistan</span><span class="hidden sm:inline">Higher Education Commission · Pakistan</span></span>' +
+      '<span class="block ' + (onDark ? "" : "truncate ") + 'font-serif text-[17px] sm:text-xl font-semibold ' + (onDark ? "text-white" : "text-green-700") + '">Education Testing Council</span>' +
+      (onDark
+        ? '<span class="mt-1 block text-[11px] font-semibold tracking-[0.16em] uppercase text-gold-300">Higher Education Commission · Pakistan</span>'
+        : '<span class="block truncate text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase text-gold-600">' +
+          '<span class="sm:hidden">HEC · Pakistan</span><span class="hidden sm:inline">Higher Education Commission · Pakistan</span></span>') +
       "</span></a>"
     );
   }
@@ -200,7 +202,7 @@
       '<div class="flex shrink-0 items-center gap-1 sm:gap-3">' +
       '<img data-media="hecCrest" class="hidden md:block h-12 w-auto opacity-90" width="53" height="60">' +
       '<span class="hidden md:block h-10 w-px bg-line mx-1"></span>' +
-      '<a href="resources.html" class="p-2 rounded-full text-ink/70 hover:bg-mint-50 hover:text-green-700" aria-label="Search the site">' + ETC.icon("search") + "</a>" +
+      '<a href="resources.html" class="hidden sm:block p-2 rounded-full text-ink/70 hover:bg-mint-50 hover:text-green-700" aria-label="Search the site">' + ETC.icon("search") + "</a>" +
       '<a href="tests.html" class="hidden sm:inline-flex items-center gap-2 rounded-md bg-green-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-800">Find a Test' + ETC.icon("arrow", "h-4 w-4") + "</a>" +
       '<button type="button" data-menu-toggle aria-controls="mobile-drawer" aria-expanded="false" class="lg:hidden p-2 -mr-2 text-ink" aria-label="Open menu">' + ETC.icon("menu", "h-6 w-6") + "</button>" +
       "</div></div>" +
