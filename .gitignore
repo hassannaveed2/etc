@@ -1,0 +1,20 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Dependencies / build
+node_modules/
+.next/
+out/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local scratch
+tmp/
+*.log
