@@ -1,0 +1,14 @@
+{
+  "name": "etc-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Education Testing Council website — Phase 1 HTML mockup",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "upload": "node --env-file=.env.local scripts/upload-to-spaces.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1153.0"
+  }
+}
