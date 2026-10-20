@@ -270,6 +270,76 @@
     });
   }
 
+  /* Filterable, paginated list (news, resources).
+     opts: { form, list, pager, count, query(filters) -> items[], render(item) -> html, perPage, noun } */
+  ETC.filterList = function (opts) {
+    var form = opts.form, per = opts.perPage || 6, page = 1;
+    var fields = $$("select[name], input[name]", form);
+    var params = new URLSearchParams(location.search);
+    fields.forEach(function (f) { if (params.get(f.name)) f.value = params.get(f.name); });
+
+    function filters() {
+      var o = {};
+      fields.forEach(function (f) { if (f.value) o[f.name] = f.value; });
+      return o;
+    }
+    function syncUrl(f) {
+      var p = new URLSearchParams(f);
+      history.replaceState(null, "", location.pathname + (p.toString() ? "?" + p : ""));
+    }
+    function draw(focusList) {
+      var f = filters(), items = opts.query(f), pages = Math.max(1, Math.ceil(items.length / per));
+      page = Math.min(page, pages);
+      var slice = items.slice((page - 1) * per, page * per);
+      syncUrl(f);
+      opts.count.textContent = items.length
+        ? "Showing " + ((page - 1) * per + 1) + "–" + ((page - 1) * per + slice.length) + " of " + items.length + " " + opts.noun
+        : "";
+      if (!items.length) {
+        opts.list.innerHTML = '<li class="col-span-full rounded-2xl border border-dashed border-line p-10 text-center">' +
+          '<p class="font-serif text-xl text-green-700">No ' + opts.noun + " match your filters.</p>" +
+          '<p class="mt-1 text-sm text-muted">Try a different search term, or clear the filters.</p>' +
+          '<button type="button" data-reset class="mt-5 rounded-md bg-green-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-800">Reset filters</button></li>';
+        opts.list.querySelector("[data-reset]").addEventListener("click", reset);
+      } else {
+        opts.list.innerHTML = slice.map(opts.render).join("");
+      }
+      opts.pager.innerHTML = pages > 1 ? pagerHtml(pages) : "";
+      $$("button[data-page]", opts.pager).forEach(function (b) {
+        b.addEventListener("click", function () { page = Number(b.getAttribute("data-page")); draw(true); });
+      });
+      ETC.enhance(opts.list);
+      if (focusList) { opts.list.closest("section").scrollIntoView({ behavior: "smooth" }); }
+    }
+    function pagerHtml(pages) {
+      var btn = function (n, label, disabled, current) {
+        return '<li><button type="button" data-page="' + n + '"' + (disabled ? " disabled" : "") + (current ? ' aria-current="page"' : "") +
+          ' class="min-w-10 h-10 rounded-md px-3 text-sm font-semibold ring-1 ring-line hover:ring-green-700 disabled:opacity-40 disabled:hover:ring-line aria-[current=page]:bg-green-700 aria-[current=page]:text-white aria-[current=page]:ring-green-700">' + label + "</button></li>";
+      };
+      var out = btn(page - 1, '<span class="sr-only">Previous page</span><span aria-hidden="true">‹</span>', page === 1);
+      for (var n = 1; n <= pages; n++) out += btn(n, '<span class="sr-only">Page </span>' + n, false, n === page);
+      out += btn(page + 1, '<span class="sr-only">Next page</span><span aria-hidden="true">›</span>', page === pages);
+      return '<nav aria-label="Pagination"><ul class="flex flex-wrap items-center gap-2">' + out + "</ul></nav>";
+    }
+    function reset() {
+      fields.forEach(function (f) { f.value = ""; });
+      page = 1;
+      draw();
+      fields[0].focus();
+    }
+    var t = null;
+    fields.forEach(function (f) {
+      f.addEventListener(f.tagName === "SELECT" ? "change" : "input", function () {
+        clearTimeout(t);
+        t = setTimeout(function () { page = 1; draw(); }, f.tagName === "SELECT" ? 0 : 200);
+      });
+    });
+    form.addEventListener("submit", function (e) { e.preventDefault(); page = 1; draw(); });
+    var r = form.querySelector("[data-reset-filters]");
+    if (r) r.addEventListener("click", reset);
+    draw();
+  };
+
   /* "On this page" scrollspy: marks the link of the section currently in view. */
   function initScrollspy(root) {
     $$('nav[aria-label="On this page"]', root).forEach(function (nav) {

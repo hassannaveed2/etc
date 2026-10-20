@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News &amp; Notices | Education Testing Council</title>
+  <meta name="description" content="Official ETC announcements: registration, schedules, results and recruitment notices.">
+  <meta name="theme-color" content="#1F5E45">
+  <link rel="icon" href="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="assets/js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script defer src="assets/js/media.js"></script>
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/lib.js"></script>
+  <script defer src="assets/js/partials.js"></script>
+  <script defer src="assets/js/render.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body data-page="news" class="bg-white font-sans text-ink">
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="relative isolate overflow-hidden bg-green-900 text-white on-dark">
+      <img data-media="noticeDefault" data-decorative class="absolute inset-0 h-full w-full object-cover opacity-30" width="2000" height="1131">
+      <div class="absolute inset-0 bg-gradient-to-r from-green-950/95 to-green-900/70" aria-hidden="true"></div>
+      <div class="relative max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <nav aria-label="Breadcrumb" class="text-sm text-white/70"><ol class="flex flex-wrap items-center gap-2"><li><a class="hover:text-white" href="index.html">Home</a></li><li aria-hidden="true">/</li><li aria-current="page" class="text-white">News &amp; Notices</li></ol></nav>
+        <p class="eyebrow mt-8">News &amp; Notices</p>
+        <h1 class="mt-3 font-serif text-4xl sm:text-5xl font-semibold leading-tight">Official announcements</h1>
+        <p class="mt-4 max-w-2xl text-lg text-white/80">Registration, schedules, results and recruitment notices from the Education Testing Council.</p>
+      </div>
+    </section>
+
+    <section class="scroll-mt-40 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="list-title">
+      <h2 id="list-title" class="sr-only">Notices</h2>
+      <form id="notice-filters" role="search" aria-label="Filter notices" class="grid gap-4 rounded-2xl bg-mint-50 p-5 ring-1 ring-line sm:grid-cols-2 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-5"><label for="nq" class="block text-sm font-semibold">Search notices</label><input id="nq" name="q" type="search" placeholder="e.g. USAT registration" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"></div>
+        <div class="lg:col-span-3"><label for="ntype" class="block text-sm font-semibold">Notice type</label>
+          <select id="ntype" name="type" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"><option value="">All types</option><option>Admission</option><option>Schedule</option><option>Result</option><option>Recruitment</option><option>General</option></select></div>
+        <div class="lg:col-span-3"><label for="ntest" class="block text-sm font-semibold">Related test</label>
+          <select id="ntest" name="test" class="mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:ring-0"><option value="">All tests</option><option value="lat">LAT</option><option value="law-gat">LAW-GAT</option><option value="hat">HAT-General</option><option value="haat">HAAT-Subject</option><option value="usat">USAT</option><option value="customized">Customized / recruitment</option><option value="general">General</option></select></div>
+        <div class="lg:col-span-1"><button type="button" data-reset-filters class="w-full rounded-md px-3 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-white">Clear</button></div>
+      </form>
+      <p id="notice-count" class="mt-6 text-sm text-muted" aria-live="polite"></p>
+      <ul id="notice-list" class="mt-2 border-t border-line"></ul>
+      <div id="notice-pager" class="mt-8"></div>
+      <p class="mt-8 text-xs text-muted">All notices shown are sample content for the mockup.</p>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    (window.ETC = window.ETC || {}).pageInits = (window.ETC.pageInits || []).concat(function () {
+      ETC.filterList({
+        form: document.getElementById("notice-filters"),
+        list: document.getElementById("notice-list"),
+        pager: document.getElementById("notice-pager"),
+        count: document.getElementById("notice-count"),
+        query: function (f) { return ETC.filterNotices(ETC.data.notices, f); },
+        render: ETC.render.noticeRow,
+        perPage: 6,
+        noun: "notices",
+      });
+    });
+  </script>
+</body>
+</html>

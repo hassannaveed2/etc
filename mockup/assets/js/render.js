@@ -268,6 +268,71 @@
     return { title: (isCustom ? t.name : t.code + " — " + t.name) + " | ETC", html: html };
   };
 
+  /* Notice detail page body. */
+  R.noticeDetail = function (id) {
+    var n = id ? ETC.getNotice(id) : null;
+    if (!n) return { notFound: true };
+    var t = ETC.getTest(n.test);
+    var related = ETC.filterNotices(ETC.data.notices, { test: n.test }).filter(function (x) { return x.id !== n.id; }).slice(0, 3);
+
+    var html =
+      '<section class="relative overflow-hidden bg-green-900 text-white on-dark"><div class="absolute inset-0 pattern-dots" aria-hidden="true"></div>' +
+      '<div class="relative max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">' +
+      '<nav aria-label="Breadcrumb" class="text-sm text-white/70"><ol class="flex flex-wrap items-center gap-2">' +
+      '<li><a class="hover:text-white" href="index.html">Home</a></li><li aria-hidden="true">/</li>' +
+      '<li><a class="hover:text-white" href="news.html">News &amp; Notices</a></li><li aria-hidden="true">/</li>' +
+      '<li aria-current="page" class="text-white">' + esc(n.type) + " notice</li></ol></nav>" +
+      '<div class="mt-8 flex flex-wrap items-center gap-2 text-sm"><span class="font-semibold uppercase tracking-wider text-gold-300">' + esc(n.type) + "</span>" +
+      '<span class="text-white/40">•</span><span>' + esc(t ? t.code : "General") + "</span>" +
+      '<span class="rounded-full bg-white px-0.5">' + R.statusChip(n.status) + "</span>" + R.sampleChip() + "</div>" +
+      '<h1 class="mt-4 max-w-4xl font-serif text-3xl sm:text-5xl font-semibold leading-tight">' + esc(n.title) + "</h1>" +
+      '<p class="mt-4 max-w-3xl text-lg text-white/80">' + esc(n.summary) + "</p></div></section>" +
+
+      '<div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-12 grid gap-10 lg:grid-cols-12">' +
+      '<article class="lg:col-span-8 min-w-0">' +
+      '<dl class="grid grid-cols-2 sm:grid-cols-3 gap-4 rounded-2xl bg-mint-50 p-5 ring-1 ring-line">' +
+      '<div><dt class="text-xs uppercase tracking-wider text-muted">Published</dt><dd class="mt-1 font-semibold"><time datetime="' + n.published + '">' + ETC.formatDate(n.published) + "</time></dd></div>" +
+      (n.deadline ? '<div><dt class="text-xs uppercase tracking-wider text-muted">Deadline</dt><dd class="mt-1 font-semibold text-status-closing"><time datetime="' + n.deadline + '">' + ETC.formatDate(n.deadline) + "</time></dd></div>" : "") +
+      '<div><dt class="text-xs uppercase tracking-wider text-muted">Related test</dt><dd class="mt-1 font-semibold">' +
+      (t ? '<a class="text-green-700 hover:underline" href="test.html?test=' + t.slug + '">' + esc(t.code) + "</a>" : "General") + "</dd></div></dl>" +
+      '<div class="mt-8 space-y-5 text-lg leading-relaxed text-ink/90">' + n.body.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + "</div>" +
+      '<h2 class="mt-10 font-serif text-2xl font-semibold text-green-700">Attachments</h2>' +
+      '<ul class="mt-4 grid gap-3 sm:grid-cols-2">' + n.attachments.map(function (a, k) {
+        return '<li class="group relative flex items-center gap-4 rounded-xl border border-line p-4 hover:border-green-700">' +
+          '<span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-mint-50 text-green-700">' + icon("file", "h-5 w-5") + "</span>" +
+          '<span class="min-w-0 flex-1"><a href="#attachment-' + k + '" class="font-semibold leading-snug after:absolute after:inset-0 group-hover:text-green-700">' + esc(a.label) + "</a>" +
+          '<span class="block text-xs text-muted">PDF · ' + esc(a.size) + "</span></span>" + icon("download", "h-5 w-5 text-gold-500") + "</li>";
+      }).join("") + "</ul>" +
+      '<div class="mt-10 flex flex-wrap gap-3" data-noprint>' +
+      '<button type="button" onclick="window.print()" class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">' + icon("print", "h-4 w-4") + "Print notice</button>" +
+      '<a href="news.html" class="inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-green-700 ring-1 ring-green-700/30 hover:bg-mint-50">All notices</a></div>' +
+      "</article>" +
+      '<aside class="lg:col-span-4 min-w-0" aria-labelledby="related-h">' +
+      (t && t.slug !== "customized"
+        ? '<div class="rounded-2xl bg-green-900 p-6 text-white on-dark"><p class="text-sm font-semibold text-gold-300">Ready to apply?</p>' +
+          '<p class="mt-2 text-sm text-white/80">Registration and payment are handled only on the official ETC portal.</p>' +
+          ETC.portalLink("registration", "Register for " + esc(t.code) + " ", "mt-4 inline-flex items-center gap-2 rounded-md bg-gold-500 px-4 py-2.5 text-sm font-semibold text-green-950 hover:bg-gold-300") + "</div>"
+        : "") +
+      '<h2 id="related-h" class="mt-8 font-serif text-xl font-semibold text-green-700">Related notices</h2>' +
+      (related.length
+        ? '<ul class="mt-3 divide-y divide-line">' + related.map(function (r) {
+            return '<li class="py-3"><a class="font-semibold leading-snug hover:text-green-700" href="notice.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + "</a>" +
+              '<span class="block text-xs text-muted">' + ETC.formatDate(r.published) + "</span></li>";
+          }).join("") + "</ul>"
+        : '<p class="mt-3 text-sm text-muted">No related notices.</p>') +
+      "</aside></div>";
+
+    return { title: n.title + " | ETC", html: html };
+  };
+
+  R.noticeNotFound = function () {
+    return '<section class="relative overflow-hidden bg-green-900 text-white on-dark"><div class="absolute inset-0 pattern-dots" aria-hidden="true"></div>' +
+      '<div class="relative max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-20"><p class="eyebrow">News &amp; Notices</p>' +
+      '<h1 class="mt-3 font-serif text-4xl sm:text-5xl font-semibold">Notice not found</h1>' +
+      '<p class="mt-4 max-w-xl text-lg text-white/80">This notice may have been withdrawn or the link may be incomplete.</p>' +
+      '<a href="news.html" class="mt-8 inline-flex rounded-md bg-gold-500 px-5 py-3 font-semibold text-green-950 hover:bg-gold-300">Browse all notices</a></div></section>';
+  };
+
   R.testNotFound = function () {
     return '<section class="relative overflow-hidden bg-green-900 text-white on-dark"><div class="absolute inset-0 pattern-dots" aria-hidden="true"></div>' +
       '<div class="relative max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-20"><p class="eyebrow">Tests &amp; Assessments</p>' +

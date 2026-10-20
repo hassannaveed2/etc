@@ -105,6 +105,21 @@ test("renderTestDetail for customized shows By agreement and no portal fee", () 
   assert.ok(ETC.render.testDetail("customized").html.includes("By agreement"));
 });
 
+test("renderNoticeDetail returns not-found for an unknown id", () => {
+  const ETC = withRender();
+  assert.equal(ETC.render.noticeDetail("bad").notFound, true);
+  assert.equal(ETC.render.noticeDetail(null).notFound, true);
+});
+
+test("renderNoticeDetail shows sample chip, deadline, attachments and related notices", () => {
+  const ETC = withRender();
+  const out = ETC.render.noticeDetail("n-usat-reg-dec-2026");
+  assert.equal(out.title, "USAT December 2026 session: registration open | ETC");
+  for (const s of ["Sample", "20 Nov 2026", "USAT candidate instructions", "Related notices", "notice.html?id=n-usat-result-sep-2026"]) {
+    assert.ok(out.html.includes(s), `missing ${s}`);
+  }
+});
+
 test("mediaUrl/localUrl map every key to CDN and local fallback", () => {
   const { ETC } = loadScripts(["assets/js/media.js"]);
   for (const k of Object.keys(ETC.media)) {
