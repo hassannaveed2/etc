@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test details | Education Testing Council</title>
+  <meta name="description" content="Purpose, eligibility, pattern, syllabus, fees, schedule and registration links for ETC national tests.">
+  <meta name="theme-color" content="#1F5E45">
+  <link rel="icon" href="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="assets/js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script defer src="assets/js/media.js"></script>
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/lib.js"></script>
+  <script defer src="assets/js/partials.js"></script>
+  <script defer src="assets/js/render.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body data-page="test" class="bg-white font-sans text-ink">
+  <div id="site-header"></div>
+
+  <main id="main">
+    <noscript><p class="max-w-site mx-auto p-8">Please enable JavaScript to view test details, or <a class="underline" href="tests.html">browse all tests</a>.</p></noscript>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    (window.ETC = window.ETC || {}).pageInits = (window.ETC.pageInits || []).concat(function () {
+      var main = document.getElementById("main");
+      var slug = new URLSearchParams(location.search).get("test");
+      var out = ETC.render.testDetail(slug);
+      if (out.notFound) {
+        document.title = "Test not found | Education Testing Council";
+        main.innerHTML = ETC.render.testNotFound();
+      } else {
+        document.title = out.title;
+        main.innerHTML = out.html;
+      }
+      ETC.enhance(main);
+      if (location.hash) { var t = document.querySelector(location.hash); if (t) t.scrollIntoView(); }
+    });
+  </script>
+</body>
+</html>

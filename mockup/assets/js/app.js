@@ -202,8 +202,32 @@
     });
   }
 
+  /* "On this page" scrollspy: marks the link of the section currently in view. */
+  function initScrollspy(root) {
+    $$('nav[aria-label="On this page"]', root).forEach(function (nav) {
+      var links = $$('a[href^="#"]', nav);
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+      if (!("IntersectionObserver" in w)) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          links.forEach(function (a) {
+            var on = a === map[en.target.id];
+            if (on) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+            a.classList.toggle("text-green-700", on);
+            a.classList.toggle("font-semibold", on);
+            a.classList.toggle("lg:border-gold-500", on);
+          });
+        });
+      }, { rootMargin: "-35% 0px -60% 0px" });
+      Object.keys(map).forEach(function (id) { var s = d.getElementById(id); if (s) io.observe(s); });
+    });
+  }
+
   /* Re-run element-level initialisers after a renderer injects new markup. */
   ETC.enhance = function (root) {
+    initScrollspy(root);
     initMedia(root);
     initReveal(root);
     initCounters(root);

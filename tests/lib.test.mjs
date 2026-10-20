@@ -81,6 +81,30 @@ test("validateForm flags required and email", () => {
   assert.deepEqual(Object.keys(good.errors), []);
 });
 
+const withRender = () =>
+  loadScripts(["assets/js/media.js", "assets/js/data.js", "assets/js/lib.js", "assets/js/partials.js", "assets/js/render.js"]).ETC;
+
+test("renderTestDetail returns not-found for unknown slug", () => {
+  const ETC = withRender();
+  assert.equal(ETC.render.testDetail("x").notFound, true);
+  assert.equal(ETC.render.testDetail(null).notFound, true);
+});
+
+test("renderTestDetail for USAT includes categories, common core and the fee note", () => {
+  const ETC = withRender();
+  const out = ETC.render.testDetail("usat");
+  assert.equal(out.notFound, undefined);
+  assert.equal(out.title, "USAT — Undergraduate Studies Admission Test | ETC");
+  for (const s of ["USAT-COM", "Common Core", "Rs. 2,000", ETC.render.feeNote, 'id="overview"', 'id="eligibility"', 'id="pattern"', 'id="fees"', 'id="schedule"', 'id="services"']) {
+    assert.ok(out.html.includes(s), `missing ${s}`);
+  }
+});
+
+test("renderTestDetail for customized shows By agreement and no portal fee", () => {
+  const ETC = withRender();
+  assert.ok(ETC.render.testDetail("customized").html.includes("By agreement"));
+});
+
 test("mediaUrl/localUrl map every key to CDN and local fallback", () => {
   const { ETC } = loadScripts(["assets/js/media.js"]);
   for (const k of Object.keys(ETC.media)) {
