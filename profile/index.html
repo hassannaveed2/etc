@@ -211,7 +211,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ceo-band .shade-l { background: linear-gradient(90deg, rgba(11, 35, 26, .9) 0%, rgba(11, 35, 26, .76) 55%, rgba(11, 35, 26, .7) 100%); }
 .principles.glass div, .principles.glass div:nth-child(even) { background: rgba(255, 255, 255, .78); backdrop-filter: blur(6px); border: 1px solid rgba(227, 221, 208, .9); box-shadow: 0 6px 16px -10px rgba(40, 32, 15, .35); }
 
-.hall-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11, 35, 26, .9) 0%, rgba(11, 35, 26, .78) 55%, rgba(11, 35, 26, .88) 100%); }
 .msg-right { position: relative; z-index: 2; }
 
 .ed-band { height: 236px; }
@@ -230,6 +229,27 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ceo-band .qmark { color: var(--gold-hi); }
 .ceo-portrait { position: absolute; left: 50px; top: 116px; width: 160px; height: 196px; z-index: 3; box-shadow: 0 14px 30px -12px rgba(11, 35, 26, .55); }
 .ceo-who { position: absolute; left: 236px; top: 226px; }
+
+/* Chairman — right page: editorial split, quote panel + full-height photograph */
+.chair-right { background: var(--deep); color: #fff; padding: 0; }
+.chair-glow { position: absolute; inset: 0; background:
+  radial-gradient(80% 70% at 0% 0%, rgba(46, 125, 91, .38), transparent 60%),
+  radial-gradient(60% 60% at 30% 100%, rgba(184, 145, 58, .14), transparent 65%);
+  background-color: var(--deep); }
+.chair-glow::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(217, 190, 124, .12) 1px, transparent 1.3px); background-size: 20px 20px; }
+.chair-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 43%; margin: 0; overflow: hidden; }
+.chair-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 46% 12%; }
+.chair-photo::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 2; background: linear-gradient(180deg, #E2C77F, #B8913A); }
+.chair-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(11, 35, 26, .8) 0%, transparent 26%); }
+.chair-panel { position: absolute; left: 50px; top: 44px; bottom: 64px; width: calc(57% - 86px); display: flex; flex-direction: column; justify-content: center; }
+.chair-panel .eyebrow { align-self: flex-start; }
+.qmark.big { font-size: 110px; height: 52px; margin-top: 26px; color: var(--gold); }
+.chair-quote { font-size: 25px; line-height: 1.3; margin-top: 10px; color: #fff; }
+.chair-quote .gold { font-style: italic; }
+.chair-sign { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+.chair-sign .rule { width: 34px; height: 2px; background: var(--gold); flex: none; }
+.chair-sign .who small { color: rgba(255, 255, 255, .65); line-height: 1.5; }
+.chair-right .foot { z-index: 3; }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
@@ -360,17 +380,18 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">03</span><span>Chairman’s message</span></div>
         </section>
-      <section class="page dark" data-label="Chairman’s message">
-          <img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/chairman-hall.jpg" alt="">
-          <div class="hall-shade"></div>
-          <div class="msg-right">
-            <div>
-              <div class="portrait has-photo"><img src="img/chairman.jpg" alt="Chairman, Board of Governors, Education Testing Council" width="560" height="720"></div>
-              <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors · Education Testing Council</small></div>
-            </div>
-            <div>
-              <div class="qmark" aria-hidden="true">“</div>
-              <blockquote class="quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold" style="font-style:italic">merit.</span></blockquote>
+      <section class="page chair-right" data-label="Chairman’s message">
+          <div class="chair-glow" aria-hidden="true"></div>
+          <figure class="chair-photo">
+            <img src="img/chairman.jpg" alt="Chairman, Board of Governors, Education Testing Council" width="640" height="943">
+          </figure>
+          <div class="chair-panel">
+            <span class="eyebrow light">In the Chairman’s words</span>
+            <div class="qmark big" aria-hidden="true">“</div>
+            <blockquote class="quote chair-quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold">merit.</span></blockquote>
+            <div class="chair-sign">
+              <span class="rule" aria-hidden="true"></span>
+              <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors<br>Education Testing Council</small></div>
             </div>
           </div>
           <div class="foot"><span>Institutional Profile 2026</span><span class="folio">04</span></div>
