@@ -311,6 +311,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .chair-photo::after { background: linear-gradient(0deg, rgba(11, 35, 26, .55) 0%, transparent 22%); }
 .chair-right .foot .folio { color: #fff; }
 
+/* CEO page alignment: quote sits on the band's bottom edge; name aligns to the portrait's bottom edge (116 + 196 = 312px) */
+.ceo-band .inner { top: auto; bottom: 22px; }
+.ceo-who { top: auto; bottom: calc(560px - 312px); }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
