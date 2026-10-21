@@ -301,6 +301,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .commit div:first-child { border-left: 0; padding-left: 0; }
 .commit b { font-size: 13.5px; }
 
+/* ---------- One background for every inner page (paper, as on Contents) ---------- */
+.ed-band.soft { background: var(--paper); }
+.chair-right { background: var(--paper); color: var(--ink); }
+.chair-glow { background: none; background-color: transparent; }
+.chair-glow::after { display: none; }
+.chair-quote { color: var(--deep); }
+.chair-sign .who small { color: var(--muted); }
+.chair-photo::after { background: linear-gradient(0deg, rgba(11, 35, 26, .55) 0%, transparent 22%); }
+.chair-right .foot .folio { color: #fff; }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
@@ -436,7 +446,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             <img src="img/chairman.jpg" alt="Chairman, Board of Governors, Education Testing Council" width="640" height="943">
           </figure>
           <div class="chair-panel">
-            <span class="eyebrow light">In the Chairman’s words</span>
+            <span class="eyebrow">In the Chairman’s words</span>
             <div class="qmark big" aria-hidden="true">“</div>
             <blockquote class="quote chair-quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold">merit.</span></blockquote>
             <div class="chair-sign">
@@ -461,7 +471,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">05</span><span>Executive Director’s message</span></div>
         </section>
-      <section class="page cream" data-label="Executive Director’s message">
+      <section class="page" data-label="Executive Director’s message">
           <div class="band ed-band soft">
             <div class="inner">
               <div>
@@ -498,7 +508,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">07</span><span>CEO’s message</span></div>
         </section>
-      <section class="page fill" style="background:var(--mint)" data-label="CEO’s message">
+      <section class="page fill" data-label="CEO’s message">
           <div class="band ceo-band"><img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/ceo-cbt.jpg" alt="Candidates at computers in a computer-based testing centre"><div class="shade-l"></div>
             <div class="inner">
               <div class="qmark" aria-hidden="true">“</div>
