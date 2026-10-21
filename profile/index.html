@@ -315,6 +315,15 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ceo-band .inner { top: auto; bottom: 22px; }
 .ceo-who { top: auto; bottom: calc(560px - 312px); }
 
+/* Chairman photo blends into the paper: wider panel, left edge dissolves, no divider */
+.chair-photo { width: 64%; }
+.chair-photo img { object-position: 24% 50%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 46%);
+          mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 46%); }
+.chair-photo::before, .chair-photo::after { display: none; }
+.chair-panel { width: 312px; }
+.chair-right .foot .folio { color: var(--ink); }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
@@ -447,7 +456,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
       <section class="page chair-right" data-label="Chairman’s message">
           <div class="chair-glow" aria-hidden="true"></div>
           <figure class="chair-photo">
-            <img src="img/chairman.jpg" alt="Chairman, Board of Governors, Education Testing Council" width="640" height="943">
+            <img src="img/chairman-wide.jpg" alt="Dr Muhammad Imtiaz Haider, Chairman, Board of Governors, Education Testing Council" width="1400" height="1045">
           </figure>
           <div class="chair-panel">
             <span class="eyebrow">In the Chairman’s words</span>
