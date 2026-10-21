@@ -107,6 +107,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .portrait img { width: 46%; opacity: .14; filter: grayscale(1); }
 .portrait span { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 8px; font-weight: 800; letter-spacing: 1.6px;
   text-transform: uppercase; color: #8C8A80; }
+.portrait.has-photo { background: #E4DDCD; }
+.portrait.has-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; opacity: 1; filter: none; }
 .who b { display: block; font-family: var(--display); font-weight: 700; font-size: 12.5px; }
 .who small { display: block; margin-top: 2px; font-size: 9.5px; color: var(--muted); }
 .dark .who small { color: rgba(255, 255, 255, .62); }
@@ -199,10 +201,15 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
   linear-gradient(90deg, var(--deep) 30%, rgba(11, 35, 26, .55) 52%, rgba(11, 35, 26, .12) 78%),
   linear-gradient(0deg, rgba(11, 35, 26, .96) 0%, rgba(11, 35, 26, .55) 30%, transparent 55%); }
 
-.toc-band { height: 165px; }
+.toc-band { height: 190px; background: var(--paper); }
+/* Contents band: soft, paper-toned photo that dissolves into the page instead of a dark strip */
+.toc-band .photo { opacity: .55; filter: saturate(.7) sepia(.18) brightness(1.1) contrast(.92);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 100%); }
+.shade-paper { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(251, 249, 244, .35) 0%, rgba(251, 249, 244, .1) 35%, rgba(251, 249, 244, .55) 70%, var(--paper) 100%),
+  linear-gradient(90deg, rgba(251, 249, 244, .55) 0%, transparent 45%); }
 .principles.glass { position: relative; inset: auto; z-index: 2; margin-top: 14px; }
 .ceo-band .shade-l { background: linear-gradient(90deg, rgba(11, 35, 26, .9) 0%, rgba(11, 35, 26, .76) 55%, rgba(11, 35, 26, .7) 100%); }
-.principles.glass div, .principles.glass div:nth-child(even) { background: rgba(251, 249, 244, .93); backdrop-filter: blur(4px); }
+.principles.glass div, .principles.glass div:nth-child(even) { background: rgba(255, 255, 255, .78); backdrop-filter: blur(6px); border: 1px solid rgba(227, 221, 208, .9); box-shadow: 0 6px 16px -10px rgba(40, 32, 15, .35); }
 
 .hall-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11, 35, 26, .9) 0%, rgba(11, 35, 26, .78) 55%, rgba(11, 35, 26, .88) 100%); }
 .msg-right { position: relative; z-index: 2; }
@@ -316,8 +323,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">01</span><span>Contents</span></div>
         </section>
       <section class="page" data-label="Contents">
-          <div class="band toc-band"><img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/contents-omr.jpg" alt="A candidate filling in an OMR answer sheet"><div class="shade-b"></div></div>
-          <span class="eyebrow light lift">Our principles</span>
+          <div class="band toc-band"><img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/contents-omr.jpg" alt="A candidate filling in an OMR answer sheet"><div class="shade-paper"></div></div>
+          <span class="eyebrow lift">Our principles</span>
           <div class="principles glass">
             <div><b>Merit</b><span>Opportunity earned through ability and performance.</span></div>
             <div><b>Transparency</b><span>Processes clear, explained and open to scrutiny.</span></div>
@@ -358,7 +365,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="hall-shade"></div>
           <div class="msg-right">
             <div>
-              <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
+              <div class="portrait has-photo"><img src="img/chairman.jpg" alt="Chairman, Board of Governors, Education Testing Council" width="560" height="720"></div>
               <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors · Education Testing Council</small></div>
             </div>
             <div>
