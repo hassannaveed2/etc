@@ -1,12 +1,15 @@
-# Publishes the Institutional Profile booklet (profile/) to GitHub Pages.
+# Publishes to GitHub Pages:
+#   /          Institutional Profile booklet (profile/)
+#   /website/  Frontend website mockup (mockup/)
 # One-time setup: repo Settings → Pages → Source: "GitHub Actions".
-name: Deploy profile to Pages
+name: Deploy to Pages
 
 on:
   push:
     branches: [main]
     paths:
       - "profile/**"
+      - "mockup/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -28,8 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/configure-pages@v5
+      - name: Assemble site
+        run: |
+          mkdir _site
+          cp -r profile/. _site/
+          cp -r mockup _site/website
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: profile
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
