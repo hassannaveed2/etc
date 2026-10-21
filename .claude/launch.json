@@ -6,6 +6,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["scripts/serve.mjs", "5173"],
       "port": 5173
+    },
+    {
+      "name": "etc-profile",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve.mjs", "5174", "profile"],
+      "port": 5174
     }
   ]
 }

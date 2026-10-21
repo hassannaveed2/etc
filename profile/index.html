@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Institutional Profile 2026 — Education Testing Council</title>
+<meta name="description" content="Education Testing Council Institutional Profile 2026 — A5 landscape booklet mockup (pages 1–6 of the profile).">
+<link rel="icon" href="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Mulish:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ETC palette */
+  --deep: #0B231A; --deep-2: #0F2E22; --green: #1F5E45; --green-2: #2E7D5B; --sage: #DCEBE2;
+  --gold: #B8913A; --gold-hi: #D9BE7C; --gold-ink: #7E6224;
+  --g-gold: linear-gradient(90deg, #E2C77F, #B8913A);
+  --ink: #12261E; --muted: #56655E; --line: #E3DDD0;
+  --paper: #FBF9F4; --cream: #F5EFE1; --mint: #EEF5F0; --canvas: #E7E3DA;
+  --display: "Outfit", system-ui, sans-serif;
+  --body: "Mulish", system-ui, sans-serif;
+  --quote: "Source Serif 4", Georgia, serif;
+  /* A5 landscape at 96 dpi */
+  --pw: 794px; --ph: 560px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { background: var(--canvas); color: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold-ink); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- Viewer chrome ---------- */
+.topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; height: 56px; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 0 20px; background: rgba(251, 249, 244, .92); backdrop-filter: blur(8px); border-bottom: 1px solid #D9D3C6; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand img { height: 34px; width: auto; }
+.brand b { font-family: var(--display); font-weight: 700; font-size: 15px; white-space: nowrap; }
+.brand span { color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.controls { display: flex; gap: 8px; flex-shrink: 0; }
+.seg { display: flex; border: 1px solid #CFC8B9; border-radius: 8px; overflow: hidden; background: #fff; }
+.seg button, .btn { border: 0; background: transparent; padding: 7px 12px; font-size: 12.5px; font-weight: 700; color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--deep); color: #fff; }
+.btn { border: 1px solid #CFC8B9; border-radius: 8px; background: #fff; }
+.btn:hover, .seg button:hover:not([aria-pressed="true"]) { background: var(--mint); }
+
+.stage { position: fixed; inset: 56px 0 56px 0; display: grid; place-items: center; }
+.frame { position: relative; }
+.spread { display: flex; transform-origin: top left; box-shadow: 0 30px 60px -30px rgba(40, 32, 15, .45), 0 2px 6px rgba(40, 32, 15, .12); }
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); z-index: 15; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #D4CDBE;
+  background: #fff; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(40, 32, 15, .12); color: var(--ink); }
+.nav-arrow:disabled { opacity: .35; cursor: default; }
+.nav-arrow.prev { left: 18px; } .nav-arrow.next { right: 18px; }
+.pager { position: fixed; inset: auto 0 0 0; height: 56px; z-index: 15; display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 12.5px; }
+.pager .label { font-weight: 700; } .pager .count { color: var(--muted); }
+.dots { display: flex; gap: 6px; }
+.dots button { width: 8px; height: 8px; border-radius: 99px; border: 0; background: #C9C1B0; padding: 0; transition: width .25s; }
+.dots button[aria-current="true"] { width: 22px; background: var(--gold); }
+
+/* All-pages mode */
+.all { position: fixed; inset: 56px 0 0 0; overflow-y: auto; padding: 28px 24px 60px; display: none; }
+.all .row { margin: 0 auto 34px; }
+.all .row-label { font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+body.mode-all .all { display: block; }
+body.mode-all .stage, body.mode-all .nav-arrow, body.mode-all .pager { display: none; }
+
+/* ---------- Page base ---------- */
+.page { position: relative; width: var(--pw); height: var(--ph); flex: none; overflow: hidden; background: var(--paper); padding: 44px 50px 60px; }
+.spread .page + .page::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 28px; z-index: 5; pointer-events: none;
+  background: linear-gradient(90deg, rgba(60, 45, 15, .10), transparent); }
+.spread .page:first-child:not(:last-child)::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 28px; z-index: 5; pointer-events: none;
+  background: linear-gradient(270deg, rgba(60, 45, 15, .12), transparent); }
+.dark { background: var(--deep); color: #fff; }
+.cream { background: var(--cream); }
+
+.eyebrow { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase; color: var(--green);
+  padding-bottom: 6px; border-bottom: 2px solid var(--gold); }
+.dark .eyebrow { color: var(--gold-hi); }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2px; line-height: 1.02; }
+.h2 { font-size: 36px; margin-top: 16px; }
+.h2 .gold, .gold { background: var(--g-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { margin-top: 10px; font-family: var(--display); font-weight: 500; font-size: 13.5px; color: var(--green-2); letter-spacing: -.1px; }
+.dark .sub { color: var(--gold-hi); }
+.body { font-size: 10.3px; line-height: 1.62; color: #2A3A33; }
+.body p + p { margin-top: 8px; }
+.body .lead { font-weight: 800; color: var(--ink); }
+.cols { columns: 2; column-gap: 26px; margin-top: 20px; }
+.cols p { break-inside: avoid-column; }
+
+.foot { position: absolute; left: 50px; right: 50px; bottom: 26px; display: flex; justify-content: space-between; align-items: center;
+  font-size: 8.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #8C8A80; }
+.foot .folio { font-family: var(--display); font-size: 11px; letter-spacing: 0; color: var(--ink); }
+.dark .foot { color: rgba(255, 255, 255, .55); } .dark .foot .folio { color: #fff; }
+
+.qmark { font-family: var(--quote); font-size: 74px; line-height: .6; height: 34px; color: var(--gold); }
+.quote { font-family: var(--quote); font-style: italic; font-weight: 400; letter-spacing: -.2px; }
+
+.portrait { position: relative; border: 3px solid var(--gold); border-radius: 14px; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 15%, #F4F0E6, #E4DDCD); display: grid; place-items: center; }
+.portrait img { width: 46%; opacity: .14; filter: grayscale(1); }
+.portrait span { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 8px; font-weight: 800; letter-spacing: 1.6px;
+  text-transform: uppercase; color: #8C8A80; }
+.who b { display: block; font-family: var(--display); font-weight: 700; font-size: 12.5px; }
+.who small { display: block; margin-top: 2px; font-size: 9.5px; color: var(--muted); }
+.dark .who small { color: rgba(255, 255, 255, .62); }
+
+/* ---------- Cover ---------- */
+.cover { padding: 40px 50px; background:
+  radial-gradient(90% 120% at 100% 0%, rgba(46, 125, 91, .45), transparent 55%),
+  radial-gradient(70% 90% at 0% 100%, rgba(184, 145, 58, .16), transparent 60%), var(--deep); }
+.cover .dots-bg { position: absolute; inset: 0; background-image: radial-gradient(rgba(217, 190, 124, .13) 1px, transparent 1.3px); background-size: 20px 20px; }
+.cover .watermark { position: absolute; right: -70px; top: 50%; transform: translateY(-50%); width: 360px; opacity: .07; filter: grayscale(1) brightness(3); }
+.cover .crests { position: relative; display: flex; align-items: center; gap: 12px; }
+.roundel { width: 46px; height: 46px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 0 0 2px rgba(217, 190, 124, .55); }
+.roundel img { width: 36px; height: 36px; object-fit: contain; }
+.cover .crests .divider { width: 1px; height: 30px; background: rgba(255, 255, 255, .25); margin: 0 4px; }
+.cover .crests p { font-size: 9px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255, 255, 255, .75); line-height: 1.5; }
+.cover h1 { position: relative; margin-top: 54px; font-size: 64px; letter-spacing: -2.4px; line-height: .98; }
+.cover .values { position: relative; margin-top: 16px; font-family: var(--display); font-size: 13px; font-weight: 500; color: var(--gold-hi); letter-spacing: .4px; }
+.cover .tag { position: relative; margin-top: 8px; max-width: 420px; font-size: 10.5px; line-height: 1.6; color: rgba(255, 255, 255, .72); }
+.cover .stats { position: absolute; left: 50px; right: 50px; bottom: 40px; display: grid; grid-template-columns: repeat(3, 1fr) 1.1fr; gap: 22px; align-items: end; }
+.stat { border-top: 2px solid var(--gold); padding-top: 10px; }
+.stat b { display: block; font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: -1px; line-height: 1; }
+.stat span { display: block; margin-top: 4px; font-size: 9.5px; font-weight: 700; }
+.stat small { display: block; font-size: 8.5px; color: rgba(255, 255, 255, .55); }
+.edition { text-align: right; font-size: 8.5px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255, 255, 255, .6); line-height: 1.7; }
+.edition em { display: block; font-style: normal; font-family: var(--display); font-size: 14px; letter-spacing: 0; text-transform: none; color: #fff; }
+
+/* ---------- Contents ---------- */
+.toc { margin-top: 18px; list-style: none; }
+.toc li { display: grid; grid-template-columns: 30px 1fr auto; align-items: baseline; gap: 10px; padding: 6.4px 0; border-bottom: 1px solid var(--line); }
+.toc .n { font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--gold-ink); }
+.toc .t { font-family: var(--display); font-weight: 600; font-size: 13.5px; letter-spacing: -.2px; }
+.toc .t small { display: block; margin-top: 1px; font-family: var(--body); font-weight: 500; font-size: 9px; letter-spacing: 0; color: var(--muted); }
+.toc .p { font-family: var(--display); font-weight: 700; font-size: 12px; color: var(--green); }
+.toc-intro { margin-top: 10px; max-width: 300px; font-size: 10.3px; line-height: 1.6; color: var(--muted); }
+.principles { position: absolute; left: 50px; right: 50px; bottom: 60px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.principles div { border-radius: 10px; background: var(--mint); padding: 10px 12px; }
+.principles div:nth-child(even) { background: var(--cream); }
+.principles b { display: block; font-family: var(--display); font-size: 12.5px; color: var(--green); }
+.principles span { display: block; margin-top: 2px; font-size: 8.8px; line-height: 1.45; color: var(--muted); }
+
+/* ---------- Message spreads ---------- */
+.msg-right { display: grid; grid-template-columns: 210px 1fr; gap: 34px; align-items: center; height: 100%; padding-bottom: 6px; }
+.msg-right .portrait { height: 270px; }
+.msg-right .who { margin-top: 12px; }
+.msg-right .quote { font-size: 25px; line-height: 1.28; margin-top: 16px; }
+.signoff { margin-top: 18px; padding-left: 12px; border-left: 3px solid var(--gold); }
+
+.prio-head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; }
+.prio-quote { font-size: 17px; line-height: 1.32; margin-top: 10px; color: var(--deep); }
+.mini { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.mini .portrait { width: 40px; height: 40px; border-radius: 50%; border-width: 2px; }
+.mini .portrait img { width: 60%; }
+.prio { margin-top: 18px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.prio .card { grid-column: span 2; position: relative; border-radius: 12px; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--green-2); padding: 12px 14px 13px; }
+.prio .card:nth-child(n+4) { grid-column: span 3; }
+.prio .card i { font-style: normal; font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -.6px; color: var(--gold); line-height: 1; }
+.prio .card b { display: block; margin-top: 6px; font-family: var(--display); font-weight: 700; font-size: 12.5px; }
+.prio .card span { display: block; margin-top: 3px; font-size: 9.2px; line-height: 1.5; color: var(--muted); }
+
+.ceo-top { display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center; }
+.ceo-top .portrait { height: 190px; }
+.ceo-top .quote { font-size: 20px; line-height: 1.3; margin-top: 12px; }
+.commit { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.commit div { border-radius: 12px; background: var(--paper); padding: 12px 13px; border-top: 3px solid var(--gold); }
+.commit b { display: block; font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--green); }
+.commit span { display: block; margin-top: 4px; font-size: 9px; line-height: 1.5; color: var(--muted); }
+
+
+.principles.top { position: static; margin-top: 14px; }
+.toc-right { position: absolute; left: 50px; right: 50px; top: 185px; margin: 0; }
+/* Pages whose blocks stretch to fill the sheet */
+.fill { display: flex; flex-direction: column; }
+.fill .prio { flex: 1; grid-auto-rows: 1fr; margin-bottom: 4px; }
+.fill .prio .card { display: flex; flex-direction: column; justify-content: flex-end; }
+.fill .prio .card i { font-size: 30px; margin-bottom: auto; }
+.fill .bottom { margin-top: auto; margin-bottom: 4px; }
+.fill .commit div { min-height: 112px; display: flex; flex-direction: column; }
+.fill .ceo-top .portrait { height: 220px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .brand span, .brand b { display: none; }
+  .nav-arrow { width: 38px; height: 38px; top: auto; bottom: 9px; transform: none; }
+  .nav-arrow.prev { left: 10px; } .nav-arrow.next { right: 10px; }
+  .pager .count { display: none; }
+}
+
+/* ---------- Print: one A5 landscape sheet per page ---------- */
+.print-flow { display: none; }
+@page { size: A5 landscape; margin: 0; }
+@media print {
+  body { background: #fff; }
+  .topbar, .stage, .nav-arrow, .pager, .all { display: none !important; }
+  .print-flow { display: block; }
+  .print-flow .page { width: 210mm; height: 148mm; break-after: page; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (prefers-reduced-motion: reduce) { .dots button { transition: none; } }
+</style>
+</head>
+<body class="mode-spreads">
+
+<header class="topbar">
+  <div class="brand">
+    <img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="" width="31" height="34">
+    <b>Education Testing Council</b>
+    <span>Institutional Profile 2026 · A5 landscape booklet</span>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="View mode">
+      <button type="button" data-mode="spreads" aria-pressed="true">Spreads</button>
+      <button type="button" data-mode="all" aria-pressed="false">All pages</button>
+    </div>
+    <button type="button" class="btn" id="print">Print / PDF</button>
+  </div>
+</header>
+
+<main>
+  <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Education Testing Council — Institutional Profile 2026 (booklet)</h1>
+  <div class="stage" aria-live="polite"><div class="frame" id="frame"></div></div>
+  <button type="button" class="nav-arrow prev" id="prev" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+  <button type="button" class="nav-arrow next" id="next" aria-label="Next spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+  <nav class="pager" aria-label="Booklet pages"><span class="label" id="label"></span><span class="count" id="count"></span><div class="dots" id="dots"></div></nav>
+  <div class="all" id="all"></div>
+</main>
+
+<div class="print-flow" id="print-flow" aria-hidden="true"></div>
+
+<!-- ================= PAGES (source of truth; the viewer arranges them) ================= -->
+<div id="pages" hidden>
+
+  <!-- Front cover — PDF p.1 -->
+  <section class="page cover dark" data-label="Front cover">
+    <div class="dots-bg"></div>
+    <img class="watermark" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="">
+    <div class="crests">
+      <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt="Higher Education Commission crest"></span>
+      <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="Education Testing Council crest"></span>
+      <span class="divider"></span>
+      <p>Higher Education Commission<br>Pakistan</p>
+    </div>
+    <h1>Education<br>Testing <span class="gold">Council.</span></h1>
+    <p class="values">Institutional Profile &nbsp;·&nbsp; Merit · Transparency · Fairness · Quality</p>
+    <p class="tag">A national assessment platform supporting admissions, scholarships, recruitment, licensing and professional opportunities across Pakistan.</p>
+    <div class="stats">
+      <div class="stat"><b>1.85 M</b><span>Candidates tested</span><small>Since July 2021</small></div>
+      <div class="stat"><b>103</b><span>Test centres</span><small>In 40 cities</small></div>
+      <div class="stat"><b>230,685</b><span>Bank items</span><small>Developed to date</small></div>
+      <p class="edition">Knowledge for a<br>brighter Pakistan<em>2026 Edition</em></p>
+    </div>
+  </section>
+
+  <!-- Contents (1/2) — PDF p.2 -->
+  <section class="page" data-label="Contents">
+    <span class="eyebrow">Contents</span>
+    <h2 class="h2">Inside this <span class="gold">profile.</span></h2>
+    <p class="toc-intro">Who we are, how we work, and the evidence behind every ETC assessment.</p>
+    <ol class="toc">
+      <li><span class="n">01</span><span class="t">Chairman’s Message</span><span class="p">4</span></li>
+      <li><span class="n">02</span><span class="t">Message from the Executive Director</span><span class="p">5</span></li>
+      <li><span class="n">03</span><span class="t">Message from the Chief Executive Officer</span><span class="p">6</span></li>
+      <li><span class="n">04</span><span class="t">ETC at a Glance</span><span class="p">7</span></li>
+      <li><span class="n">05</span><span class="t">About the Education Testing Council</span><span class="p">8</span></li>
+      <li><span class="n">06</span><span class="t">Vision, Mission and Core Values</span><span class="p">9</span></li>
+      <li><span class="n">07</span><span class="t">Governance and Organization</span><span class="p">10</span></li>
+      <li><span class="n">08</span><span class="t">What We Offer</span><span class="p">11</span></li>
+      <li><span class="n">09</span><span class="t">Products of ETC</span><span class="p">13</span></li>
+      <li><span class="n">10</span><span class="t">Test Development and Evaluation</span><span class="p">16</span></li>
+    </ol>
+    <div class="foot"><span class="folio">01</span><span>Contents</span></div>
+  </section>
+
+  <!-- Contents (2/2) — PDF p.3 -->
+  <section class="page" data-label="Contents">
+    <span class="eyebrow">Our principles</span>
+    <div class="principles top">
+      <div><b>Merit</b><span>Opportunity earned through ability and performance.</span></div>
+      <div><b>Transparency</b><span>Processes clear, explained and open to scrutiny.</span></div>
+      <div><b>Fairness</b><span>Every candidate assessed impartially, under the same rules.</span></div>
+      <div><b>Quality</b><span>Consistent standards, continuously improved.</span></div>
+    </div>
+    <ol class="toc toc-right">
+      <li><span class="n">11</span><span class="t">The ETC Item Bank</span><span class="p">18</span></li>
+      <li><span class="n">12</span><span class="t">Psychometric Properties of Test Items</span><span class="p">20</span></li>
+      <li><span class="n">13</span><span class="t">Reliability and Validity of ETC Assessments</span><span class="p">22</span></li>
+      <li><span class="n">14</span><span class="t">Quality Standards and Quality Assurance</span><span class="p">24</span></li>
+      <li><span class="n">15</span><span class="t">Test Operations and National Reach</span><span class="p">26</span></li>
+      <li><span class="n">16</span><span class="t">What Sets ETC Apart</span><span class="p">27</span></li>
+      <li><span class="n">17</span><span class="t">Track Record and Clients</span><span class="p">27</span></li>
+      <li><span class="n">18</span><span class="t">Transparency and Our Commitment to Candidates</span><span class="p">28</span></li>
+      <li><span class="n">19</span><span class="t">Strategic Roadmap</span><span class="p">29</span></li>
+      <li><span class="n">20</span><span class="t">Glossary of Assessment Terms</span><span class="p">30</span></li>
+    </ol>
+    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">02</span></div>
+  </section>
+
+  <!-- Chairman (left) — PDF p.4 -->
+  <section class="page" data-label="Chairman’s message">
+    <span class="eyebrow">Section 01 · Chairman’s message</span>
+    <h2 class="h2">Every door opens<br>for the right <span class="gold">reason.</span></h2>
+    <p class="sub">Merit · Transparency · Fairness · Quality</p>
+    <div class="body cols">
+      <p>It gives me great pleasure to present the institutional profile of the Education Testing Council (ETC). ETC was created with one simple belief: every young person in Pakistan deserves an equal chance to show what they know and what they can do. A well-made test is one of the fairest tools a nation has for opening doors to education, scholarships, jobs and professions.</p>
+      <p>For many students, a single test result can shape the next chapter of their life. That is why we treat every assessment as a serious public trust. Our tests must measure ability and effort, not background, connections or luck. To achieve this, ETC follows standardized procedures, secure examination practices and international good practice in test design, so that the same rules apply to every candidate, in every city.</p>
+      <p>Over the past few years, ETC has grown into a national assessment platform. It now serves universities, government departments, regulatory bodies and professional councils across the country. Each new partnership reflects growing confidence in our methods, and each one reminds us that confidence must be earned again with every test we deliver.</p>
+      <p>Looking ahead, our priorities are clear. We will keep strengthening the quality of our questions, the security of our operations and the clarity of our communication with candidates. We will invest in technology, research and people, so that our assessments remain reliable, valid and fair as the needs of the country change.</p>
+      <p>I am grateful to the Higher Education Commission, the members of the Board of Governors, our partner institutions and the dedicated ETC team for their support. I invite all stakeholders to join us in building a culture where opportunity follows merit, and where every candidate can trust the result they receive.</p>
+    </div>
+    <div class="foot"><span class="folio">03</span><span>Chairman’s message</span></div>
+  </section>
+
+  <!-- Chairman (right) -->
+  <section class="page dark" data-label="Chairman’s message">
+    <div class="msg-right">
+      <div>
+        <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
+        <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors · Education Testing Council</small></div>
+      </div>
+      <div>
+        <div class="qmark" aria-hidden="true">“</div>
+        <blockquote class="quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold" style="font-style:italic">merit.</span></blockquote>
+      </div>
+    </div>
+    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">04</span></div>
+  </section>
+
+  <!-- Executive Director (left) — PDF p.5 -->
+  <section class="page" data-label="Executive Director’s message">
+    <span class="eyebrow">Section 02 · Executive Director</span>
+    <h2 class="h2">Strengthening<br><span class="gold">assessment.</span></h2>
+    <p class="sub">Message from the Executive Director, Higher Education Commission</p>
+    <div class="body cols">
+      <p>The Higher Education Commission established the Education Testing Council to give Pakistan a credible, professionally managed and self-sustaining national testing body. Our aim is straightforward: to make sure that access to higher education and professional opportunities is decided by merit, through processes that are open, consistent and trusted.</p>
+      <p>Assessment in the modern world is changing quickly. Institutions need tests that are standardized, secure and quick to report, while candidates need clear information and fair treatment. ETC responds to these needs by combining sound measurement methods with appropriate technology. Every stage, from writing a question to publishing a result, is guided by evidence and checked for quality.</p>
+      <p>A central priority is public and institutional confidence. This depends on good governance, clear procedures, secure examination arrangements and timely results. ETC will continue to build its professional capacity so that every assessment is delivered with impartiality and accountability.</p>
+      <p>Looking forward, ETC will expand its support for admissions, scholarships, recruitment and professional licensing. It will deepen collaboration with universities, public-sector organizations, employers and professional bodies. Through careful use of digital tools, the Council will make assessment more accessible, efficient and responsive to the people it serves.</p>
+      <p>In the end, ETC’s work is about Pakistan’s human capital. By measuring knowledge, skills and potential fairly, it helps the right people reach the right opportunities, and strengthens the culture of merit across our education system.</p>
+    </div>
+    <div class="foot"><span class="folio">05</span><span>Executive Director’s message</span></div>
+  </section>
+
+  <!-- Executive Director (right) -->
+  <section class="page cream fill" data-label="Executive Director’s message">
+    <div class="prio-head">
+      <div>
+        <span class="eyebrow">Strategic priorities</span>
+        <p class="quote prio-quote">“Strengthening assessment through integrity, innovation, standardization and excellent service.”</p>
+      </div>
+      <div class="mini">
+        <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt=""></div>
+        <div class="who"><b>[Executive Director’s name]</b><small>Executive Director, HEC</small></div>
+      </div>
+    </div>
+    <div class="prio">
+      <div class="card"><i>01</i><b>Assessment Excellence</b><span>Standardized, reliable and well-designed assessment practices.</span></div>
+      <div class="card"><i>02</i><b>Integrity &amp; Security</b><span>Strong controls so that every examination is credible and secure.</span></div>
+      <div class="card"><i>03</i><b>Digital Transformation</b><span>Technology-enabled, efficient assessment and candidate services.</span></div>
+      <div class="card"><i>04</i><b>Stakeholder Confidence</b><span>Transparent processes and responsive service delivery.</span></div>
+      <div class="card"><i>05</i><b>Institutional Capacity</b><span>Professional standards, good governance and continuous improvement.</span></div>
+    </div>
+    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">06</span></div>
+  </section>
+
+  <!-- CEO (left) — PDF p.6 -->
+  <section class="page" data-label="CEO’s message">
+    <span class="eyebrow">Section 03 · Chief Executive Officer</span>
+    <h2 class="h2">Building confidence<br>in <span class="gold">assessment.</span></h2>
+    <p class="sub">Message from the Chief Executive Officer, Education Testing Council</p>
+    <div class="body cols">
+      <p>At ETC, we hold ourselves to one simple principle: every candidate deserves a test that is fair, transparent, secure and consistent. Whether a young person is applying to a law college, a scholarship holder is entering a PhD programme, or a professional is seeking a licence, they should be able to trust that the result reflects their own ability.</p>
+      <p>To make this possible, we have built our work on professional standards and operational discipline. Each question in our item bank is written by trained subject experts, reviewed by several committees, tried out on real candidates and analysed statistically before it is used to make decisions. After every live test, we study the results again, so that weak or unclear questions are corrected or removed. This cycle of checking and improving is what gives our scores their meaning.</p>
+      <p>Technology is an important partner in this effort. We use automated paper generation from a calibrated item bank, optical scanning for fast and accurate marking, and online services for registration and results. As we move forward, we plan a gradual shift to computer-based testing, stronger identity verification and smarter monitoring, always with careful safeguards for data protection and confidentiality.</p>
+      <p>Our responsibility does not end with conducting examinations. We work closely with institutions to help them identify talent and make sound decisions. We listen to candidates, answer their concerns and treat complaints seriously. We believe a testing body must earn trust through its actions: open processes, accountable governance, responsive service and a culture of quality.</p>
+      <p>I thank our Board of Governors, the Higher Education Commission, our subject experts and the entire ETC team for their commitment. Together, we will continue to grow ETC into an institution that Pakistan can rely on for fair and meaningful assessment.</p>
+    </div>
+    <div class="foot"><span class="folio">07</span><span>CEO’s message</span></div>
+  </section>
+
+  <!-- CEO (right) -->
+  <section class="page fill" style="background:var(--mint)" data-label="CEO’s message">
+    <div class="ceo-top">
+      <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
+      <div>
+        <div class="qmark" aria-hidden="true">“</div>
+        <blockquote class="quote">Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.</blockquote>
+        <div class="who" style="margin-top:12px"><b>[CEO’s name]</b><small>Chief Executive Officer · Education Testing Council</small></div>
+      </div>
+    </div>
+    <div class="bottom"><h3 style="font-size:15px;letter-spacing:-.3px">Leadership commitments</h3>
+    <div class="commit" style="margin-top:10px">
+      <div><b>Integrity</b><span>Protecting the credibility and impartiality of every assessment.</span></div>
+      <div><b>Quality</b><span>Applying consistent standards and improving continuously.</span></div>
+      <div><b>Innovation</b><span>Using appropriate technology to modernize assessment delivery.</span></div>
+      <div><b>Service</b><span>Keeping candidates and institutions at the centre of our work.</span></div>
+    </div></div>
+    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">08</span></div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var pages = Array.prototype.slice.call(document.querySelectorAll("#pages > .page"));
+  var PW = 794, PH = 560;
+  var frame = document.getElementById("frame"), all = document.getElementById("all");
+  var prev = document.getElementById("prev"), next = document.getElementById("next");
+  var label = document.getElementById("label"), count = document.getElementById("count"), dots = document.getElementById("dots");
+  var mode = "spreads", view = 0, views = [];
+
+  // Print flow: an independent copy of every page, one A5 sheet each.
+  var pf = document.getElementById("print-flow");
+  pages.forEach(function (p) { pf.appendChild(p.cloneNode(true)); });
+
+  function isNarrow() { return window.innerWidth < 900; }
+  function buildViews() {
+    views = isNarrow() ? pages.map(function (_, i) { return [i]; }) : [[0], [1, 2], [3, 4], [5, 6], [7, 8]];
+  }
+  function pageNums(v) {
+    var nums = v.filter(function (i) { return i > 0; }).map(function (i) { return String(i).padStart(2, "0"); });
+    return nums.length ? "Pages " + nums.join("–") : "Cover";
+  }
+  function spreadEl(v, scale) {
+    var wrap = document.createElement("div");
+    wrap.style.width = PW * v.length * scale + "px";
+    wrap.style.height = PH * scale + "px";
+    var sp = document.createElement("div");
+    sp.className = "spread";
+    sp.style.transform = "scale(" + scale + ")";
+    v.forEach(function (i) { sp.appendChild(pages[i]); });
+    wrap.appendChild(sp);
+    return wrap;
+  }
+  function renderSpread() {
+    var v = views[view];
+    var availW = window.innerWidth - (isNarrow() ? 24 : 150), availH = window.innerHeight - 56 - 56 - 40;
+    var scale = Math.min(availW / (PW * (isNarrow() ? 1 : 2)), availH / PH, 1.6);
+    frame.innerHTML = "";
+    frame.appendChild(spreadEl(v, scale));
+    var name = pages[v[0]].getAttribute("data-label");
+    label.textContent = name;
+    count.textContent = pageNums(v) + " · " + (view + 1) + " / " + views.length;
+    prev.disabled = view === 0;
+    next.disabled = view === views.length - 1;
+    Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute("aria-current", String(k === view)); });
+  }
+  function buildDots() {
+    dots.innerHTML = "";
+    views.forEach(function (v, k) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Go to " + pages[v[0]].getAttribute("data-label") + " (" + pageNums(v) + ")");
+      b.addEventListener("click", function () { view = k; renderSpread(); });
+      dots.appendChild(b);
+    });
+  }
+  function renderAll() {
+    all.innerHTML = "";
+    var rows = isNarrow() ? pages.map(function (_, i) { return [i]; }) : [[0], [1, 2], [3, 4], [5, 6], [7, 8]];
+    var availW = Math.min(window.innerWidth - 48, 1500);
+    rows.forEach(function (v) {
+      var scale = Math.min(availW / (PW * (isNarrow() ? 1 : 2)), 1.25);
+      var row = document.createElement("section");
+      row.className = "row";
+      row.style.width = PW * (isNarrow() ? 1 : 2) * scale + "px";
+      var l = document.createElement("p");
+      l.className = "row-label";
+      l.textContent = pageNums(v) + " · " + pages[v[0]].getAttribute("data-label");
+      row.appendChild(l);
+      row.appendChild(spreadEl(v, scale));
+      all.appendChild(row);
+    });
+  }
+  function render() {
+    buildViews();
+    if (view >= views.length) view = views.length - 1;
+    if (mode === "all") renderAll(); else { buildDots(); renderSpread(); }
+  }
+  function go(d) { var n = view + d; if (n >= 0 && n < views.length) { view = n; renderSpread(); } }
+
+  prev.addEventListener("click", function () { go(-1); });
+  next.addEventListener("click", function () { go(1); });
+  document.addEventListener("keydown", function (e) {
+    if (mode !== "spreads") return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") go(1);
+    if (e.key === "ArrowLeft" || e.key === "PageUp") go(-1);
+    if (e.key === "Home") { view = 0; renderSpread(); }
+    if (e.key === "End") { view = views.length - 1; renderSpread(); }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+    b.addEventListener("click", function () {
+      mode = b.getAttribute("data-mode");
+      document.body.className = "mode-" + mode;
+      Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      render();
+    });
+  });
+  document.getElementById("print").addEventListener("click", function () { window.print(); });
+  var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(render, 120); });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 // Minimal static server for the mockup with caching disabled, so edits always show.
-// Usage: node scripts/serve.mjs [port]   (serves ./mockup)
+// Usage: node scripts/serve.mjs [port] [dir]   (dir defaults to ./mockup)
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../mockup");
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", process.argv[3] || "mockup");
 const PORT = Number(process.argv[2]) || 5173;
 const TYPES = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8",
