@@ -44,9 +44,19 @@ button { font: inherit; cursor: pointer; }
 .btn { border: 1px solid #CFC8B9; border-radius: 8px; background: #fff; }
 .btn:hover, .seg button:hover:not([aria-pressed="true"]) { background: var(--mint); }
 
-.stage { position: fixed; inset: 56px 0 56px 0; display: grid; place-items: center; }
-.frame { position: relative; }
-.spread { display: flex; transform-origin: top left; box-shadow: 0 30px 60px -30px rgba(40, 32, 15, .45), 0 2px 6px rgba(40, 32, 15, .12); }
+.stage { position: fixed; inset: 56px 0 56px 0; display: flex; align-items: center; justify-content: center; padding: 18px 74px; }
+.book-frame { position: relative; }
+/* The book is always two A5 pages wide and scaled as one unit, so every sheet shares one scale. */
+.book { position: absolute; top: 0; left: 0; width: calc(var(--pw) * 2); transform-origin: 0 0; }
+.sheet { position: relative; display: grid; grid-template-columns: var(--pw) var(--pw); height: var(--ph); }
+.sheet[hidden] { display: none; }
+.sheet.spread { box-shadow: 0 18px 50px rgba(30, 24, 10, .16); }
+.sheet.spread::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 40px); width: 80px; z-index: 6; pointer-events: none;
+  background: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .07) 46%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .07) 54%, transparent 100%); }
+.sheet.single .blank { background: transparent; }
+.sheet.single .page { box-shadow: 0 18px 50px rgba(30, 24, 10, .2); }
+.sheet-label { display: none; position: absolute; top: -24px; left: 0; font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
+  text-transform: uppercase; color: #7B776D; }
 .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); z-index: 15; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #D4CDBE;
   background: #fff; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(40, 32, 15, .12); color: var(--ink); }
 .nav-arrow:disabled { opacity: .35; cursor: default; }
@@ -57,19 +67,16 @@ button { font: inherit; cursor: pointer; }
 .dots button { width: 8px; height: 8px; border-radius: 99px; border: 0; background: #C9C1B0; padding: 0; transition: width .25s; }
 .dots button[aria-current="true"] { width: 22px; background: var(--gold); }
 
-/* All-pages mode */
-.all { position: fixed; inset: 56px 0 0 0; overflow-y: auto; padding: 28px 24px 60px; display: none; }
-.all .row { margin: 0 auto 34px; }
-.all .row-label { font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-body.mode-all .all { display: block; }
-body.mode-all .stage, body.mode-all .nav-arrow, body.mode-all .pager { display: none; }
+/* All-pages overview */
+body.overview { overflow: auto; }
+body.overview .stage { position: static; display: block; padding: 84px 24px 40px; }
+body.overview .nav-arrow, body.overview .pager { display: none; }
+body.overview .book-frame { margin: 0 auto; }
+body.overview .sheet { display: grid !important; margin-bottom: 40px; }
+body.overview .sheet-label { display: block; }
 
 /* ---------- Page base ---------- */
 .page { position: relative; width: var(--pw); height: var(--ph); flex: none; overflow: hidden; background: var(--paper); padding: 44px 50px 60px; }
-.spread .page + .page::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 28px; z-index: 5; pointer-events: none;
-  background: linear-gradient(90deg, rgba(60, 45, 15, .10), transparent); }
-.spread .page:first-child:not(:last-child)::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 28px; z-index: 5; pointer-events: none;
-  background: linear-gradient(270deg, rgba(60, 45, 15, .12), transparent); }
 .dark { background: var(--deep); color: #fff; }
 .cream { background: var(--cream); }
 
@@ -182,24 +189,32 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
+  .stage { padding: 12px 8px; }
   .nav-arrow { width: 38px; height: 38px; top: auto; bottom: 9px; transform: none; }
   .nav-arrow.prev { left: 10px; } .nav-arrow.next { right: 10px; }
   .pager .count { display: none; }
 }
 
 /* ---------- Print: one A5 landscape sheet per page ---------- */
-.print-flow { display: none; }
 @page { size: A5 landscape; margin: 0; }
 @media print {
-  body { background: #fff; }
-  .topbar, .stage, .nav-arrow, .pager, .all { display: none !important; }
-  .print-flow { display: block; }
-  .print-flow .page { width: 210mm; height: 148mm; break-after: page; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { height: auto; overflow: visible; background: #fff; }
+  .topbar, .nav-arrow, .pager, .sheet-label { display: none !important; }
+  .stage { position: static; display: block; padding: 0; }
+  .book-frame { width: auto !important; height: auto !important; }
+  .book { position: static; width: auto; transform: none !important; }
+  .sheet, .sheet[hidden] { display: block !important; height: auto; box-shadow: none !important; }
+  .sheet::after { display: none; }
+  .sheet .blank { display: none; }
+  .page { width: 210mm; height: 147.9mm; break-after: page; box-shadow: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Gradient text often prints blank: fall back to solid gold */
+  .gold { -webkit-text-fill-color: currentColor; background: none !important; color: #C9A24E; }
 }
 @media (prefers-reduced-motion: reduce) { .dots button { transition: none; } }
 </style>
 </head>
-<body class="mode-spreads">
+<body>
 
 <header class="topbar">
   <div class="brand">
@@ -209,294 +224,277 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
   </div>
   <div class="controls">
     <div class="seg" role="group" aria-label="View mode">
-      <button type="button" data-mode="spreads" aria-pressed="true">Spreads</button>
+      <button type="button" data-mode="spread" aria-pressed="true">Spreads</button>
       <button type="button" data-mode="all" aria-pressed="false">All pages</button>
     </div>
     <button type="button" class="btn" id="print">Print / PDF</button>
   </div>
 </header>
 
-<main>
-  <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Education Testing Council — Institutional Profile 2026 (booklet)</h1>
-  <div class="stage" aria-live="polite"><div class="frame" id="frame"></div></div>
-  <button type="button" class="nav-arrow prev" id="prev" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
-  <button type="button" class="nav-arrow next" id="next" aria-label="Next spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
-  <nav class="pager" aria-label="Booklet pages"><span class="label" id="label"></span><span class="count" id="count"></span><div class="dots" id="dots"></div></nav>
-  <div class="all" id="all"></div>
+<main class="stage" id="stage">
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Education Testing Council — Institutional Profile 2026 (booklet)</h1>
+  <div class="book-frame" id="frame">
+  <div class="book" id="book">
+    <section class="sheet single" data-label="Front cover">
+      <div class="blank" aria-hidden="true"></div>
+      <section class="page cover dark" data-label="Front cover">
+          <div class="dots-bg"></div>
+          <img class="watermark" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="">
+          <div class="crests">
+            <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt="Higher Education Commission crest"></span>
+            <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="Education Testing Council crest"></span>
+            <span class="divider"></span>
+            <p>Higher Education Commission<br>Pakistan</p>
+          </div>
+          <h1>Education<br>Testing <span class="gold">Council.</span></h1>
+          <p class="values">Institutional Profile &nbsp;·&nbsp; Merit · Transparency · Fairness · Quality</p>
+          <p class="tag">A national assessment platform supporting admissions, scholarships, recruitment, licensing and professional opportunities across Pakistan.</p>
+          <div class="stats">
+            <div class="stat"><b>1.85 M</b><span>Candidates tested</span><small>Since July 2021</small></div>
+            <div class="stat"><b>103</b><span>Test centres</span><small>In 40 cities</small></div>
+            <div class="stat"><b>230,685</b><span>Bank items</span><small>Developed to date</small></div>
+            <p class="edition">Knowledge for a<br>brighter Pakistan<em>2026 Edition</em></p>
+          </div>
+        </section>
+    </section>
+    <section class="sheet spread" data-label="Contents">
+      <section class="page" data-label="Contents">
+          <span class="eyebrow">Contents</span>
+          <h2 class="h2">Inside this <span class="gold">profile.</span></h2>
+          <p class="toc-intro">Who we are, how we work, and the evidence behind every ETC assessment.</p>
+          <ol class="toc">
+            <li><span class="n">01</span><span class="t">Chairman’s Message</span><span class="p">4</span></li>
+            <li><span class="n">02</span><span class="t">Message from the Executive Director</span><span class="p">5</span></li>
+            <li><span class="n">03</span><span class="t">Message from the Chief Executive Officer</span><span class="p">6</span></li>
+            <li><span class="n">04</span><span class="t">ETC at a Glance</span><span class="p">7</span></li>
+            <li><span class="n">05</span><span class="t">About the Education Testing Council</span><span class="p">8</span></li>
+            <li><span class="n">06</span><span class="t">Vision, Mission and Core Values</span><span class="p">9</span></li>
+            <li><span class="n">07</span><span class="t">Governance and Organization</span><span class="p">10</span></li>
+            <li><span class="n">08</span><span class="t">What We Offer</span><span class="p">11</span></li>
+            <li><span class="n">09</span><span class="t">Products of ETC</span><span class="p">13</span></li>
+            <li><span class="n">10</span><span class="t">Test Development and Evaluation</span><span class="p">16</span></li>
+          </ol>
+          <div class="foot"><span class="folio">01</span><span>Contents</span></div>
+        </section>
+      <section class="page" data-label="Contents">
+          <span class="eyebrow">Our principles</span>
+          <div class="principles top">
+            <div><b>Merit</b><span>Opportunity earned through ability and performance.</span></div>
+            <div><b>Transparency</b><span>Processes clear, explained and open to scrutiny.</span></div>
+            <div><b>Fairness</b><span>Every candidate assessed impartially, under the same rules.</span></div>
+            <div><b>Quality</b><span>Consistent standards, continuously improved.</span></div>
+          </div>
+          <ol class="toc toc-right">
+            <li><span class="n">11</span><span class="t">The ETC Item Bank</span><span class="p">18</span></li>
+            <li><span class="n">12</span><span class="t">Psychometric Properties of Test Items</span><span class="p">20</span></li>
+            <li><span class="n">13</span><span class="t">Reliability and Validity of ETC Assessments</span><span class="p">22</span></li>
+            <li><span class="n">14</span><span class="t">Quality Standards and Quality Assurance</span><span class="p">24</span></li>
+            <li><span class="n">15</span><span class="t">Test Operations and National Reach</span><span class="p">26</span></li>
+            <li><span class="n">16</span><span class="t">What Sets ETC Apart</span><span class="p">27</span></li>
+            <li><span class="n">17</span><span class="t">Track Record and Clients</span><span class="p">27</span></li>
+            <li><span class="n">18</span><span class="t">Transparency and Our Commitment to Candidates</span><span class="p">28</span></li>
+            <li><span class="n">19</span><span class="t">Strategic Roadmap</span><span class="p">29</span></li>
+            <li><span class="n">20</span><span class="t">Glossary of Assessment Terms</span><span class="p">30</span></li>
+          </ol>
+          <div class="foot"><span>Institutional Profile 2026</span><span class="folio">02</span></div>
+        </section>
+    </section>
+    <section class="sheet spread" data-label="Chairman’s message">
+      <section class="page" data-label="Chairman’s message">
+          <span class="eyebrow">Section 01 · Chairman’s message</span>
+          <h2 class="h2">Every door opens<br>for the right <span class="gold">reason.</span></h2>
+          <p class="sub">Merit · Transparency · Fairness · Quality</p>
+          <div class="body cols">
+            <p>It gives me great pleasure to present the institutional profile of the Education Testing Council (ETC). ETC was created with one simple belief: every young person in Pakistan deserves an equal chance to show what they know and what they can do. A well-made test is one of the fairest tools a nation has for opening doors to education, scholarships, jobs and professions.</p>
+            <p>For many students, a single test result can shape the next chapter of their life. That is why we treat every assessment as a serious public trust. Our tests must measure ability and effort, not background, connections or luck. To achieve this, ETC follows standardized procedures, secure examination practices and international good practice in test design, so that the same rules apply to every candidate, in every city.</p>
+            <p>Over the past few years, ETC has grown into a national assessment platform. It now serves universities, government departments, regulatory bodies and professional councils across the country. Each new partnership reflects growing confidence in our methods, and each one reminds us that confidence must be earned again with every test we deliver.</p>
+            <p>Looking ahead, our priorities are clear. We will keep strengthening the quality of our questions, the security of our operations and the clarity of our communication with candidates. We will invest in technology, research and people, so that our assessments remain reliable, valid and fair as the needs of the country change.</p>
+            <p>I am grateful to the Higher Education Commission, the members of the Board of Governors, our partner institutions and the dedicated ETC team for their support. I invite all stakeholders to join us in building a culture where opportunity follows merit, and where every candidate can trust the result they receive.</p>
+          </div>
+          <div class="foot"><span class="folio">03</span><span>Chairman’s message</span></div>
+        </section>
+      <section class="page dark" data-label="Chairman’s message">
+          <div class="msg-right">
+            <div>
+              <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
+              <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors · Education Testing Council</small></div>
+            </div>
+            <div>
+              <div class="qmark" aria-hidden="true">“</div>
+              <blockquote class="quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold" style="font-style:italic">merit.</span></blockquote>
+            </div>
+          </div>
+          <div class="foot"><span>Institutional Profile 2026</span><span class="folio">04</span></div>
+        </section>
+    </section>
+    <section class="sheet spread" data-label="Executive Director’s message">
+      <section class="page" data-label="Executive Director’s message">
+          <span class="eyebrow">Section 02 · Executive Director</span>
+          <h2 class="h2">Strengthening<br><span class="gold">assessment.</span></h2>
+          <p class="sub">Message from the Executive Director, Higher Education Commission</p>
+          <div class="body cols">
+            <p>The Higher Education Commission established the Education Testing Council to give Pakistan a credible, professionally managed and self-sustaining national testing body. Our aim is straightforward: to make sure that access to higher education and professional opportunities is decided by merit, through processes that are open, consistent and trusted.</p>
+            <p>Assessment in the modern world is changing quickly. Institutions need tests that are standardized, secure and quick to report, while candidates need clear information and fair treatment. ETC responds to these needs by combining sound measurement methods with appropriate technology. Every stage, from writing a question to publishing a result, is guided by evidence and checked for quality.</p>
+            <p>A central priority is public and institutional confidence. This depends on good governance, clear procedures, secure examination arrangements and timely results. ETC will continue to build its professional capacity so that every assessment is delivered with impartiality and accountability.</p>
+            <p>Looking forward, ETC will expand its support for admissions, scholarships, recruitment and professional licensing. It will deepen collaboration with universities, public-sector organizations, employers and professional bodies. Through careful use of digital tools, the Council will make assessment more accessible, efficient and responsive to the people it serves.</p>
+            <p>In the end, ETC’s work is about Pakistan’s human capital. By measuring knowledge, skills and potential fairly, it helps the right people reach the right opportunities, and strengthens the culture of merit across our education system.</p>
+          </div>
+          <div class="foot"><span class="folio">05</span><span>Executive Director’s message</span></div>
+        </section>
+      <section class="page cream fill" data-label="Executive Director’s message">
+          <div class="prio-head">
+            <div>
+              <span class="eyebrow">Strategic priorities</span>
+              <p class="quote prio-quote">“Strengthening assessment through integrity, innovation, standardization and excellent service.”</p>
+            </div>
+            <div class="mini">
+              <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt=""></div>
+              <div class="who"><b>[Executive Director’s name]</b><small>Executive Director, HEC</small></div>
+            </div>
+          </div>
+          <div class="prio">
+            <div class="card"><i>01</i><b>Assessment Excellence</b><span>Standardized, reliable and well-designed assessment practices.</span></div>
+            <div class="card"><i>02</i><b>Integrity &amp; Security</b><span>Strong controls so that every examination is credible and secure.</span></div>
+            <div class="card"><i>03</i><b>Digital Transformation</b><span>Technology-enabled, efficient assessment and candidate services.</span></div>
+            <div class="card"><i>04</i><b>Stakeholder Confidence</b><span>Transparent processes and responsive service delivery.</span></div>
+            <div class="card"><i>05</i><b>Institutional Capacity</b><span>Professional standards, good governance and continuous improvement.</span></div>
+          </div>
+          <div class="foot"><span>Institutional Profile 2026</span><span class="folio">06</span></div>
+        </section>
+    </section>
+    <section class="sheet spread" data-label="CEO’s message">
+      <section class="page" data-label="CEO’s message">
+          <span class="eyebrow">Section 03 · Chief Executive Officer</span>
+          <h2 class="h2">Building confidence<br>in <span class="gold">assessment.</span></h2>
+          <p class="sub">Message from the Chief Executive Officer, Education Testing Council</p>
+          <div class="body cols">
+            <p>At ETC, we hold ourselves to one simple principle: every candidate deserves a test that is fair, transparent, secure and consistent. Whether a young person is applying to a law college, a scholarship holder is entering a PhD programme, or a professional is seeking a licence, they should be able to trust that the result reflects their own ability.</p>
+            <p>To make this possible, we have built our work on professional standards and operational discipline. Each question in our item bank is written by trained subject experts, reviewed by several committees, tried out on real candidates and analysed statistically before it is used to make decisions. After every live test, we study the results again, so that weak or unclear questions are corrected or removed. This cycle of checking and improving is what gives our scores their meaning.</p>
+            <p>Technology is an important partner in this effort. We use automated paper generation from a calibrated item bank, optical scanning for fast and accurate marking, and online services for registration and results. As we move forward, we plan a gradual shift to computer-based testing, stronger identity verification and smarter monitoring, always with careful safeguards for data protection and confidentiality.</p>
+            <p>Our responsibility does not end with conducting examinations. We work closely with institutions to help them identify talent and make sound decisions. We listen to candidates, answer their concerns and treat complaints seriously. We believe a testing body must earn trust through its actions: open processes, accountable governance, responsive service and a culture of quality.</p>
+            <p>I thank our Board of Governors, the Higher Education Commission, our subject experts and the entire ETC team for their commitment. Together, we will continue to grow ETC into an institution that Pakistan can rely on for fair and meaningful assessment.</p>
+          </div>
+          <div class="foot"><span class="folio">07</span><span>CEO’s message</span></div>
+        </section>
+      <section class="page fill" style="background:var(--mint)" data-label="CEO’s message">
+          <div class="ceo-top">
+            <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
+            <div>
+              <div class="qmark" aria-hidden="true">“</div>
+              <blockquote class="quote">Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.</blockquote>
+              <div class="who" style="margin-top:12px"><b>[CEO’s name]</b><small>Chief Executive Officer · Education Testing Council</small></div>
+            </div>
+          </div>
+          <div class="bottom"><h3 style="font-size:15px;letter-spacing:-.3px">Leadership commitments</h3>
+          <div class="commit" style="margin-top:10px">
+            <div><b>Integrity</b><span>Protecting the credibility and impartiality of every assessment.</span></div>
+            <div><b>Quality</b><span>Applying consistent standards and improving continuously.</span></div>
+            <div><b>Innovation</b><span>Using appropriate technology to modernize assessment delivery.</span></div>
+            <div><b>Service</b><span>Keeping candidates and institutions at the centre of our work.</span></div>
+          </div></div>
+          <div class="foot"><span>Institutional Profile 2026</span><span class="folio">08</span></div>
+        </section>
+    </section>
+  </div>
+  </div>
 </main>
-
-<div class="print-flow" id="print-flow" aria-hidden="true"></div>
-
-<!-- ================= PAGES (source of truth; the viewer arranges them) ================= -->
-<div id="pages" hidden>
-
-  <!-- Front cover — PDF p.1 -->
-  <section class="page cover dark" data-label="Front cover">
-    <div class="dots-bg"></div>
-    <img class="watermark" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="">
-    <div class="crests">
-      <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt="Higher Education Commission crest"></span>
-      <span class="roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="Education Testing Council crest"></span>
-      <span class="divider"></span>
-      <p>Higher Education Commission<br>Pakistan</p>
-    </div>
-    <h1>Education<br>Testing <span class="gold">Council.</span></h1>
-    <p class="values">Institutional Profile &nbsp;·&nbsp; Merit · Transparency · Fairness · Quality</p>
-    <p class="tag">A national assessment platform supporting admissions, scholarships, recruitment, licensing and professional opportunities across Pakistan.</p>
-    <div class="stats">
-      <div class="stat"><b>1.85 M</b><span>Candidates tested</span><small>Since July 2021</small></div>
-      <div class="stat"><b>103</b><span>Test centres</span><small>In 40 cities</small></div>
-      <div class="stat"><b>230,685</b><span>Bank items</span><small>Developed to date</small></div>
-      <p class="edition">Knowledge for a<br>brighter Pakistan<em>2026 Edition</em></p>
-    </div>
-  </section>
-
-  <!-- Contents (1/2) — PDF p.2 -->
-  <section class="page" data-label="Contents">
-    <span class="eyebrow">Contents</span>
-    <h2 class="h2">Inside this <span class="gold">profile.</span></h2>
-    <p class="toc-intro">Who we are, how we work, and the evidence behind every ETC assessment.</p>
-    <ol class="toc">
-      <li><span class="n">01</span><span class="t">Chairman’s Message</span><span class="p">4</span></li>
-      <li><span class="n">02</span><span class="t">Message from the Executive Director</span><span class="p">5</span></li>
-      <li><span class="n">03</span><span class="t">Message from the Chief Executive Officer</span><span class="p">6</span></li>
-      <li><span class="n">04</span><span class="t">ETC at a Glance</span><span class="p">7</span></li>
-      <li><span class="n">05</span><span class="t">About the Education Testing Council</span><span class="p">8</span></li>
-      <li><span class="n">06</span><span class="t">Vision, Mission and Core Values</span><span class="p">9</span></li>
-      <li><span class="n">07</span><span class="t">Governance and Organization</span><span class="p">10</span></li>
-      <li><span class="n">08</span><span class="t">What We Offer</span><span class="p">11</span></li>
-      <li><span class="n">09</span><span class="t">Products of ETC</span><span class="p">13</span></li>
-      <li><span class="n">10</span><span class="t">Test Development and Evaluation</span><span class="p">16</span></li>
-    </ol>
-    <div class="foot"><span class="folio">01</span><span>Contents</span></div>
-  </section>
-
-  <!-- Contents (2/2) — PDF p.3 -->
-  <section class="page" data-label="Contents">
-    <span class="eyebrow">Our principles</span>
-    <div class="principles top">
-      <div><b>Merit</b><span>Opportunity earned through ability and performance.</span></div>
-      <div><b>Transparency</b><span>Processes clear, explained and open to scrutiny.</span></div>
-      <div><b>Fairness</b><span>Every candidate assessed impartially, under the same rules.</span></div>
-      <div><b>Quality</b><span>Consistent standards, continuously improved.</span></div>
-    </div>
-    <ol class="toc toc-right">
-      <li><span class="n">11</span><span class="t">The ETC Item Bank</span><span class="p">18</span></li>
-      <li><span class="n">12</span><span class="t">Psychometric Properties of Test Items</span><span class="p">20</span></li>
-      <li><span class="n">13</span><span class="t">Reliability and Validity of ETC Assessments</span><span class="p">22</span></li>
-      <li><span class="n">14</span><span class="t">Quality Standards and Quality Assurance</span><span class="p">24</span></li>
-      <li><span class="n">15</span><span class="t">Test Operations and National Reach</span><span class="p">26</span></li>
-      <li><span class="n">16</span><span class="t">What Sets ETC Apart</span><span class="p">27</span></li>
-      <li><span class="n">17</span><span class="t">Track Record and Clients</span><span class="p">27</span></li>
-      <li><span class="n">18</span><span class="t">Transparency and Our Commitment to Candidates</span><span class="p">28</span></li>
-      <li><span class="n">19</span><span class="t">Strategic Roadmap</span><span class="p">29</span></li>
-      <li><span class="n">20</span><span class="t">Glossary of Assessment Terms</span><span class="p">30</span></li>
-    </ol>
-    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">02</span></div>
-  </section>
-
-  <!-- Chairman (left) — PDF p.4 -->
-  <section class="page" data-label="Chairman’s message">
-    <span class="eyebrow">Section 01 · Chairman’s message</span>
-    <h2 class="h2">Every door opens<br>for the right <span class="gold">reason.</span></h2>
-    <p class="sub">Merit · Transparency · Fairness · Quality</p>
-    <div class="body cols">
-      <p>It gives me great pleasure to present the institutional profile of the Education Testing Council (ETC). ETC was created with one simple belief: every young person in Pakistan deserves an equal chance to show what they know and what they can do. A well-made test is one of the fairest tools a nation has for opening doors to education, scholarships, jobs and professions.</p>
-      <p>For many students, a single test result can shape the next chapter of their life. That is why we treat every assessment as a serious public trust. Our tests must measure ability and effort, not background, connections or luck. To achieve this, ETC follows standardized procedures, secure examination practices and international good practice in test design, so that the same rules apply to every candidate, in every city.</p>
-      <p>Over the past few years, ETC has grown into a national assessment platform. It now serves universities, government departments, regulatory bodies and professional councils across the country. Each new partnership reflects growing confidence in our methods, and each one reminds us that confidence must be earned again with every test we deliver.</p>
-      <p>Looking ahead, our priorities are clear. We will keep strengthening the quality of our questions, the security of our operations and the clarity of our communication with candidates. We will invest in technology, research and people, so that our assessments remain reliable, valid and fair as the needs of the country change.</p>
-      <p>I am grateful to the Higher Education Commission, the members of the Board of Governors, our partner institutions and the dedicated ETC team for their support. I invite all stakeholders to join us in building a culture where opportunity follows merit, and where every candidate can trust the result they receive.</p>
-    </div>
-    <div class="foot"><span class="folio">03</span><span>Chairman’s message</span></div>
-  </section>
-
-  <!-- Chairman (right) -->
-  <section class="page dark" data-label="Chairman’s message">
-    <div class="msg-right">
-      <div>
-        <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
-        <div class="who"><b>[Chairman’s name]</b><small>Chairman, Board of Governors · Education Testing Council</small></div>
-      </div>
-      <div>
-        <div class="qmark" aria-hidden="true">“</div>
-        <blockquote class="quote">A fair test opens a door. Our duty is to make sure that every door opens for the right reason: <span class="gold" style="font-style:italic">merit.</span></blockquote>
-      </div>
-    </div>
-    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">04</span></div>
-  </section>
-
-  <!-- Executive Director (left) — PDF p.5 -->
-  <section class="page" data-label="Executive Director’s message">
-    <span class="eyebrow">Section 02 · Executive Director</span>
-    <h2 class="h2">Strengthening<br><span class="gold">assessment.</span></h2>
-    <p class="sub">Message from the Executive Director, Higher Education Commission</p>
-    <div class="body cols">
-      <p>The Higher Education Commission established the Education Testing Council to give Pakistan a credible, professionally managed and self-sustaining national testing body. Our aim is straightforward: to make sure that access to higher education and professional opportunities is decided by merit, through processes that are open, consistent and trusted.</p>
-      <p>Assessment in the modern world is changing quickly. Institutions need tests that are standardized, secure and quick to report, while candidates need clear information and fair treatment. ETC responds to these needs by combining sound measurement methods with appropriate technology. Every stage, from writing a question to publishing a result, is guided by evidence and checked for quality.</p>
-      <p>A central priority is public and institutional confidence. This depends on good governance, clear procedures, secure examination arrangements and timely results. ETC will continue to build its professional capacity so that every assessment is delivered with impartiality and accountability.</p>
-      <p>Looking forward, ETC will expand its support for admissions, scholarships, recruitment and professional licensing. It will deepen collaboration with universities, public-sector organizations, employers and professional bodies. Through careful use of digital tools, the Council will make assessment more accessible, efficient and responsive to the people it serves.</p>
-      <p>In the end, ETC’s work is about Pakistan’s human capital. By measuring knowledge, skills and potential fairly, it helps the right people reach the right opportunities, and strengthens the culture of merit across our education system.</p>
-    </div>
-    <div class="foot"><span class="folio">05</span><span>Executive Director’s message</span></div>
-  </section>
-
-  <!-- Executive Director (right) -->
-  <section class="page cream fill" data-label="Executive Director’s message">
-    <div class="prio-head">
-      <div>
-        <span class="eyebrow">Strategic priorities</span>
-        <p class="quote prio-quote">“Strengthening assessment through integrity, innovation, standardization and excellent service.”</p>
-      </div>
-      <div class="mini">
-        <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt=""></div>
-        <div class="who"><b>[Executive Director’s name]</b><small>Executive Director, HEC</small></div>
-      </div>
-    </div>
-    <div class="prio">
-      <div class="card"><i>01</i><b>Assessment Excellence</b><span>Standardized, reliable and well-designed assessment practices.</span></div>
-      <div class="card"><i>02</i><b>Integrity &amp; Security</b><span>Strong controls so that every examination is credible and secure.</span></div>
-      <div class="card"><i>03</i><b>Digital Transformation</b><span>Technology-enabled, efficient assessment and candidate services.</span></div>
-      <div class="card"><i>04</i><b>Stakeholder Confidence</b><span>Transparent processes and responsive service delivery.</span></div>
-      <div class="card"><i>05</i><b>Institutional Capacity</b><span>Professional standards, good governance and continuous improvement.</span></div>
-    </div>
-    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">06</span></div>
-  </section>
-
-  <!-- CEO (left) — PDF p.6 -->
-  <section class="page" data-label="CEO’s message">
-    <span class="eyebrow">Section 03 · Chief Executive Officer</span>
-    <h2 class="h2">Building confidence<br>in <span class="gold">assessment.</span></h2>
-    <p class="sub">Message from the Chief Executive Officer, Education Testing Council</p>
-    <div class="body cols">
-      <p>At ETC, we hold ourselves to one simple principle: every candidate deserves a test that is fair, transparent, secure and consistent. Whether a young person is applying to a law college, a scholarship holder is entering a PhD programme, or a professional is seeking a licence, they should be able to trust that the result reflects their own ability.</p>
-      <p>To make this possible, we have built our work on professional standards and operational discipline. Each question in our item bank is written by trained subject experts, reviewed by several committees, tried out on real candidates and analysed statistically before it is used to make decisions. After every live test, we study the results again, so that weak or unclear questions are corrected or removed. This cycle of checking and improving is what gives our scores their meaning.</p>
-      <p>Technology is an important partner in this effort. We use automated paper generation from a calibrated item bank, optical scanning for fast and accurate marking, and online services for registration and results. As we move forward, we plan a gradual shift to computer-based testing, stronger identity verification and smarter monitoring, always with careful safeguards for data protection and confidentiality.</p>
-      <p>Our responsibility does not end with conducting examinations. We work closely with institutions to help them identify talent and make sound decisions. We listen to candidates, answer their concerns and treat complaints seriously. We believe a testing body must earn trust through its actions: open processes, accountable governance, responsive service and a culture of quality.</p>
-      <p>I thank our Board of Governors, the Higher Education Commission, our subject experts and the entire ETC team for their commitment. Together, we will continue to grow ETC into an institution that Pakistan can rely on for fair and meaningful assessment.</p>
-    </div>
-    <div class="foot"><span class="folio">07</span><span>CEO’s message</span></div>
-  </section>
-
-  <!-- CEO (right) -->
-  <section class="page fill" style="background:var(--mint)" data-label="CEO’s message">
-    <div class="ceo-top">
-      <div class="portrait"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt=""><span>Photograph to be provided</span></div>
-      <div>
-        <div class="qmark" aria-hidden="true">“</div>
-        <blockquote class="quote">Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.</blockquote>
-        <div class="who" style="margin-top:12px"><b>[CEO’s name]</b><small>Chief Executive Officer · Education Testing Council</small></div>
-      </div>
-    </div>
-    <div class="bottom"><h3 style="font-size:15px;letter-spacing:-.3px">Leadership commitments</h3>
-    <div class="commit" style="margin-top:10px">
-      <div><b>Integrity</b><span>Protecting the credibility and impartiality of every assessment.</span></div>
-      <div><b>Quality</b><span>Applying consistent standards and improving continuously.</span></div>
-      <div><b>Innovation</b><span>Using appropriate technology to modernize assessment delivery.</span></div>
-      <div><b>Service</b><span>Keeping candidates and institutions at the centre of our work.</span></div>
-    </div></div>
-    <div class="foot"><span>Institutional Profile 2026</span><span class="folio">08</span></div>
-  </section>
-</div>
+<button type="button" class="nav-arrow prev" id="prev" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
+<button type="button" class="nav-arrow next" id="next" aria-label="Next spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+<nav class="pager" aria-label="Booklet spreads"><span class="label" id="label" aria-live="polite"></span><span class="count" id="count"></span><div class="dots" id="dots"></div></nav>
 
 <script>
 (function () {
-  var pages = Array.prototype.slice.call(document.querySelectorAll("#pages > .page"));
-  var PW = 794, PH = 560;
-  var frame = document.getElementById("frame"), all = document.getElementById("all");
+  var sheets = Array.prototype.slice.call(document.querySelectorAll(".sheet"));
+  var stage = document.getElementById("stage"), frame = document.getElementById("frame"), book = document.getElementById("book");
   var prev = document.getElementById("prev"), next = document.getElementById("next");
   var label = document.getElementById("label"), count = document.getElementById("count"), dots = document.getElementById("dots");
-  var mode = "spreads", view = 0, views = [];
+  var W = 794 * 2, H = 560, KEY = "etc-profile-sheet";
+  var current = 0, mode = "spread";
 
-  // Print flow: an independent copy of every page, one A5 sheet each.
-  var pf = document.getElementById("print-flow");
-  pages.forEach(function (p) { pf.appendChild(p.cloneNode(true)); });
-
-  function isNarrow() { return window.innerWidth < 900; }
-  function buildViews() {
-    views = isNarrow() ? pages.map(function (_, i) { return [i]; }) : [[0], [1, 2], [3, 4], [5, 6], [7, 8]];
-  }
-  function pageNums(v) {
-    var nums = v.filter(function (i) { return i > 0; }).map(function (i) { return String(i).padStart(2, "0"); });
-    return nums.length ? "Pages " + nums.join("–") : "Cover";
-  }
-  function spreadEl(v, scale) {
-    var wrap = document.createElement("div");
-    wrap.style.width = PW * v.length * scale + "px";
-    wrap.style.height = PH * scale + "px";
-    var sp = document.createElement("div");
-    sp.className = "spread";
-    sp.style.transform = "scale(" + scale + ")";
-    v.forEach(function (i) { sp.appendChild(pages[i]); });
-    wrap.appendChild(sp);
-    return wrap;
-  }
-  function renderSpread() {
-    var v = views[view];
-    var availW = window.innerWidth - (isNarrow() ? 24 : 150), availH = window.innerHeight - 56 - 56 - 40;
-    var scale = Math.min(availW / (PW * (isNarrow() ? 1 : 2)), availH / PH, 1.6);
-    frame.innerHTML = "";
-    frame.appendChild(spreadEl(v, scale));
-    var name = pages[v[0]].getAttribute("data-label");
-    label.textContent = name;
-    count.textContent = pageNums(v) + " · " + (view + 1) + " / " + views.length;
-    prev.disabled = view === 0;
-    next.disabled = view === views.length - 1;
-    Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute("aria-current", String(k === view)); });
-  }
-  function buildDots() {
-    dots.innerHTML = "";
-    views.forEach(function (v, k) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.setAttribute("aria-label", "Go to " + pages[v[0]].getAttribute("data-label") + " (" + pageNums(v) + ")");
-      b.addEventListener("click", function () { view = k; renderSpread(); });
-      dots.appendChild(b);
-    });
-  }
-  function renderAll() {
-    all.innerHTML = "";
-    var rows = isNarrow() ? pages.map(function (_, i) { return [i]; }) : [[0], [1, 2], [3, 4], [5, 6], [7, 8]];
-    var availW = Math.min(window.innerWidth - 48, 1500);
-    rows.forEach(function (v) {
-      var scale = Math.min(availW / (PW * (isNarrow() ? 1 : 2)), 1.25);
-      var row = document.createElement("section");
-      row.className = "row";
-      row.style.width = PW * (isNarrow() ? 1 : 2) * scale + "px";
-      var l = document.createElement("p");
-      l.className = "row-label";
-      l.textContent = pageNums(v) + " · " + pages[v[0]].getAttribute("data-label");
-      row.appendChild(l);
-      row.appendChild(spreadEl(v, scale));
-      all.appendChild(row);
-    });
-  }
-  function render() {
-    buildViews();
-    if (view >= views.length) view = views.length - 1;
-    if (mode === "all") renderAll(); else { buildDots(); renderSpread(); }
-  }
-  function go(d) { var n = view + d; if (n >= 0 && n < views.length) { view = n; renderSpread(); } }
-
-  prev.addEventListener("click", function () { go(-1); });
-  next.addEventListener("click", function () { go(1); });
-  document.addEventListener("keydown", function (e) {
-    if (mode !== "spreads") return;
-    if (e.key === "ArrowRight" || e.key === "PageDown") go(1);
-    if (e.key === "ArrowLeft" || e.key === "PageUp") go(-1);
-    if (e.key === "Home") { view = 0; renderSpread(); }
-    if (e.key === "End") { view = views.length - 1; renderSpread(); }
+  sheets.forEach(function (s, i) {
+    var l = document.createElement("div");
+    l.className = "sheet-label";
+    l.textContent = s.getAttribute("data-label");
+    s.prepend(l);
+    var d = document.createElement("button");
+    d.type = "button";
+    d.setAttribute("aria-label", "Go to " + s.getAttribute("data-label"));
+    d.addEventListener("click", function () { show(i); });
+    dots.appendChild(d);
   });
-  Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
-    b.addEventListener("click", function () {
-      mode = b.getAttribute("data-mode");
-      document.body.className = "mode-" + mode;
-      Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      render();
+
+  function show(i) {
+    current = Math.max(0, Math.min(sheets.length - 1, i));
+    if (mode === "spread") sheets.forEach(function (s, j) { s.hidden = j !== current; });
+    prev.disabled = current === 0;
+    next.disabled = current === sheets.length - 1;
+    label.textContent = sheets[current].getAttribute("data-label");
+    count.textContent = (current + 1) + " / " + sheets.length;
+    Array.prototype.forEach.call(dots.children, function (d, j) { d.setAttribute("aria-current", String(j === current)); });
+    try { sessionStorage.setItem(KEY, current); } catch (e) {}
+    if (history.replaceState) history.replaceState(null, "", "#s" + current);
+  }
+
+  // One scale for the whole book (always two pages wide), like the reference viewer.
+  function fit() {
+    var s;
+    if (mode === "spread") {
+      var cs = getComputedStyle(stage);
+      var aw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var ah = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      s = Math.min(aw / W, ah / H);
+      frame.style.width = W * s + "px";
+      frame.style.height = H * s + "px";
+    } else {
+      s = Math.min(1, (stage.clientWidth - 48) / W);
+      frame.style.width = W * s + "px";
+      frame.style.height = book.offsetHeight * s + "px";
+    }
+    book.style.transform = "scale(" + s + ")";
+  }
+
+  function setMode(m) {
+    mode = m;
+    document.body.classList.toggle("overview", m === "all");
+    Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === m));
     });
+    if (m === "all") sheets.forEach(function (s) { s.hidden = false; });
+    else show(current);
+    fit();
+  }
+
+  prev.addEventListener("click", function () { show(current - 1); });
+  next.addEventListener("click", function () { show(current + 1); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+    b.addEventListener("click", function () { setMode(b.getAttribute("data-mode") === "all" ? "all" : "spread"); });
   });
   document.getElementById("print").addEventListener("click", function () { window.print(); });
-  var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(render, 120); });
-  render();
+  document.addEventListener("keydown", function (e) {
+    if (mode !== "spread") return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); show(current + 1); }
+    if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(current - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(sheets.length - 1);
+  });
+  var tx = null;
+  stage.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (tx === null || mode !== "spread") return;
+    var dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    tx = null;
+  }, { passive: true });
+  window.addEventListener("beforeprint", function () { sheets.forEach(function (s) { s.hidden = false; }); });
+  window.addEventListener("afterprint", function () { setMode(mode); });
+  window.addEventListener("resize", fit);
+
+  var saved = 0;
+  try { saved = parseInt(sessionStorage.getItem(KEY), 10) || 0; } catch (e) {}
+  var hash = parseInt((location.hash.match(/^#s(\d+)/) || [])[1], 10);
+  show(Number.isInteger(hash) ? hash : saved);
+  fit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 </script>
 </body>
