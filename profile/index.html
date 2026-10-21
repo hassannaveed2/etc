@@ -251,6 +251,26 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .chair-sign .who small { color: rgba(255, 255, 255, .65); line-height: 1.5; }
 .chair-right .foot { z-index: 3; }
 
+/* Executive Director — right page: band blends into the cream page; compact icon cards */
+.ed-band.soft { background: var(--cream); height: 250px; }
+.ed-band.soft .photo { opacity: .62; filter: saturate(.75) sepia(.12) brightness(1.06);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 40%, transparent 100%); }
+.shade-cream { position: absolute; inset: 0; background:
+  linear-gradient(90deg, var(--cream) 0%, rgba(245, 239, 225, .9) 38%, rgba(245, 239, 225, .35) 72%, rgba(245, 239, 225, .1) 100%),
+  linear-gradient(180deg, transparent 55%, var(--cream) 100%); }
+.ed-band.soft .inner { bottom: 34px; }
+.ed-band.soft .prio-quote { color: var(--deep); max-width: 430px; }
+.ed-band.soft .who b { color: var(--ink); } .ed-band.soft .who small { color: var(--muted); }
+.pgrid { position: absolute; left: 50px; right: 50px; top: 252px; display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap: 12px; }
+.pcard { grid-column: span 2; display: flex; gap: 11px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px 15px 17px; box-shadow: 0 8px 18px -14px rgba(40, 32, 15, .45); }
+.pcard:nth-child(n+4) { grid-column: span 3; }
+.pi { flex: none; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--mint); color: var(--green); box-shadow: inset 0 0 0 1px rgba(46, 125, 91, .18); }
+.pi svg { width: 21px; height: 21px; }
+.pcard i { display: block; font-style: normal; font-family: var(--display); font-weight: 800; font-size: 10px; letter-spacing: 1.4px; color: var(--gold-ink); }
+.pcard b { display: block; margin-top: 2px; font-family: var(--display); font-weight: 700; font-size: 12.5px; line-height: 1.2; }
+.pcard span { display: block; margin-top: 4px; font-size: 9.2px; line-height: 1.5; color: var(--muted); }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
@@ -411,11 +431,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">05</span><span>Executive Director’s message</span></div>
         </section>
-      <section class="page cream fill" data-label="Executive Director’s message">
-          <div class="band ed-band"><img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/ed-convocation.jpg" alt="Graduates throwing their caps at a university convocation"><div class="shade-l"></div>
+      <section class="page cream" data-label="Executive Director’s message">
+          <div class="band ed-band soft"><img class="photo" src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/ed-convocation.jpg" alt="Graduates throwing their caps at a university convocation"><div class="shade-cream"></div>
             <div class="inner">
               <div>
-                <span class="eyebrow light">Strategic priorities</span>
+                <span class="eyebrow">Strategic priorities</span>
                 <p class="quote prio-quote">“Strengthening assessment through integrity, innovation, standardization and excellent service.”</p>
               </div>
               <div class="mini">
@@ -424,13 +444,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
               </div>
             </div>
           </div>
-          <div class="ed-spacer"></div>
-          <div class="prio row5">
-            <div class="card"><i>01</i><b>Assessment Excellence</b><span>Standardized, reliable and well-designed assessment practices.</span></div>
-            <div class="card"><i>02</i><b>Integrity &amp; Security</b><span>Strong controls so that every examination is credible and secure.</span></div>
-            <div class="card"><i>03</i><b>Digital Transformation</b><span>Technology-enabled, efficient assessment and candidate services.</span></div>
-            <div class="card"><i>04</i><b>Stakeholder Confidence</b><span>Transparent processes and responsive service delivery.</span></div>
-            <div class="card"><i>05</i><b>Institutional Capacity</b><span>Professional standards, good governance and continuous improvement.</span></div>
+          <div class="pgrid">
+            <div class="pcard"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="m9.2 13.8-1.7 7.2L12 18.6l4.5 2.4-1.7-7.2"/><path d="m10 9 1.4 1.4L14.2 7.6"/></svg></span><div><i>01</i><b>Assessment Excellence</b><span>Standardized, reliable and well-designed assessment practices.</span></div></div>
+            <div class="pcard"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.6c0 4.6 3.2 8.4 7.5 9.4 4.3-1 7.5-4.8 7.5-9.4V6Z"/><rect x="9" y="10.5" width="6" height="5" rx="1"/><path d="M10.2 10.5V9a1.8 1.8 0 0 1 3.6 0v1.5"/></svg></span><div><i>02</i><b>Integrity &amp; Security</b><span>Strong controls so that every examination is credible and secure.</span></div></div>
+            <div class="pcard"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7.5 12.5 10 10l2 2 4.5-4.5"/></svg></span><div><i>03</i><b>Digital Transformation</b><span>Technology-enabled, efficient assessment and candidate services.</span></div></div>
+            <div class="pcard"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M15.8 14.2A4.8 4.8 0 0 1 21 19"/></svg></span><div><i>04</i><b>Stakeholder Confidence</b><span>Transparent processes and responsive service delivery.</span></div></div>
+            <div class="pcard"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20.5h18"/></svg></span><div><i>05</i><b>Institutional Capacity</b><span>Professional standards, good governance and continuous improvement.</span></div></div>
           </div>
           <div class="foot"><span>Institutional Profile 2026</span><span class="folio">06</span></div>
         </section>
