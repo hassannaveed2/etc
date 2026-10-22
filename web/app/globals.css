@@ -63,3 +63,14 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .js-motion [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* Sanitised rich text (notice bodies, leadership messages): only h2–h4, p, lists, links, blockquote survive */
+.rich > * + * { margin-top: 1.25rem; }
+.rich h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: #1F5E45; }
+.rich h3 { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: #12261E; }
+.rich h4 { font-weight: 600; color: #12261E; }
+.rich ul { list-style: disc; padding-left: 1.5rem; }
+.rich ol { list-style: decimal; padding-left: 1.5rem; }
+.rich li + li { margin-top: .35rem; }
+.rich a { color: #1F5E45; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.rich blockquote { border-left: 4px solid #B8913A; padding-left: 1rem; font-family: var(--font-serif); font-style: italic; color: #174634; }

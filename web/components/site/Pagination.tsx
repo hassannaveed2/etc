@@ -7,9 +7,11 @@ const CLS =
   "grid h-10 min-w-10 place-items-center rounded-md px-3 text-sm font-semibold ring-1 ring-line hover:ring-green-700 aria-[current=page]:bg-green-700 aria-[current=page]:text-white aria-[current=page]:ring-green-700";
 const DISABLED = "grid h-10 min-w-10 place-items-center rounded-md px-3 text-sm font-semibold opacity-40 ring-1 ring-line";
 
-/** Page links. After navigating, focus moves to the result count (see ResultCount). */
-export function Pagination({ page, pages, makeHref }: { page: number; pages: number; makeHref: (n: number) => string }) {
+/** Page links (hrefs[0] is page 1). After navigating, focus moves to the result count (see ResultCount). */
+export function Pagination({ page, hrefs }: { page: number; hrefs: string[] }) {
+  const pages = hrefs.length;
   if (pages <= 1) return null;
+  const makeHref = (n: number) => hrefs[n - 1];
   const mark = () => {
     try {
       sessionStorage.setItem(FOCUS_RESULTS_KEY, "1");

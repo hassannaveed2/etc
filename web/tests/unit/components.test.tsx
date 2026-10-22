@@ -151,13 +151,13 @@ describe("carousel", () => {
 
 describe("pagination", () => {
   test("renders page links with the current page marked", () => {
-    render(<Pagination page={2} pages={3} makeHref={(n) => `/news?page=${n}`} />);
+    render(<Pagination page={2} hrefs={["/news?page=1", "/news?page=2", "/news?page=3"]} />);
     expect(screen.getByRole("link", { name: "Page 2" }).getAttribute("aria-current")).toBe("page");
     expect(screen.getByRole("link", { name: "Next page" }).getAttribute("href")).toBe("/news?page=3");
     expect(screen.getByRole("link", { name: "Previous page" }).getAttribute("href")).toBe("/news?page=1");
   });
   test("renders nothing for a single page", () => {
-    const { container } = render(<Pagination page={1} pages={1} makeHref={(n) => `?page=${n}`} />);
+    const { container } = render(<Pagination page={1} hrefs={["/news"]} />);
     expect(container.innerHTML).toBe("");
   });
 });

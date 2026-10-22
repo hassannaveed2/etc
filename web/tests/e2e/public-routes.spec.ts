@@ -101,3 +101,57 @@ test.describe("tests", () => {
     await expect(page.getByRole("heading", { level: 1, name: "Test not found" })).toBeVisible();
   });
 });
+
+test.describe("news", () => {
+  test("filter by type=result shows only results and keeps URL state", async ({ page }) => {
+    await page.goto("/news?type=result");
+    const chips = page.locator("#notice-list").getByTestId("status-chip");
+    await expect(chips.first()).toBeVisible();
+    for (const chip of await chips.all()) await expect(chip).toHaveText("Result announced");
+    await expect(page.getByLabel("Notice type")).toHaveValue("result");
+  });
+
+  test("changing a filter updates the list and the URL", async ({ page }) => {
+    await page.goto("/news");
+    await page.getByLabel("Related test").selectOption("usat");
+    await expect(page).toHaveURL(/test=usat/);
+    await expect(page.locator("#notice-list li").first()).toContainText("USAT");
+  });
+
+  test("no matches shows the empty state with a reset link", async ({ page }) => {
+    await page.goto("/news?q=zzzzzz");
+    await expect(page.getByText("No notices match your filters.")).toBeVisible();
+    await page.getByRole("link", { name: "Reset filters" }).click();
+    await expect(page).toHaveURL(/\/news$/);
+  });
+
+  // Review Focus 4
+  test("garbage params render normally", async ({ page }) => {
+    for (const q of ["?page=999", "?page=abc", "?type=foo", "?test=nope&period=7"]) {
+      const res = await page.goto("/news" + q);
+      expect(res!.status(), q).toBe(200);
+      await expect(page.locator("#notice-list li").first()).toBeVisible();
+    }
+  });
+
+  test("pagination moves to page 2 and focuses the result count", async ({ page }) => {
+    await page.goto("/news");
+    await page.getByRole("link", { name: "Page 2" }).click();
+    await expect(page).toHaveURL(/page=2/);
+    await expect(page.getByRole("status").filter({ hasText: /Showing 9–/ })).toBeFocused();
+  });
+
+  test("/news/usat-reg-dec-2026 renders body, attachments and related notices", async ({ page }) => {
+    await page.goto("/news/usat-reg-dec-2026");
+    await expect(page.getByRole("heading", { level: 1, name: "USAT December 2026 session: registration open" })).toBeVisible();
+    await expect(page.getByText(/Registration for the Undergraduate Studies Admission Test/)).toBeVisible();
+    await expect(page.getByRole("link", { name: /USAT December 2026 — official notice/ })).toHaveAttribute("href", /sample\.pdf$/);
+    await expect(page.getByRole("heading", { name: "Related notices" })).toBeVisible();
+  });
+
+  test("/news/unknown is 404 with the notice-not-found page", async ({ page }) => {
+    const res = await page.goto("/news/unknown");
+    expect(res!.status()).toBe(404);
+    await expect(page.getByRole("heading", { level: 1, name: "Notice not found" })).toBeVisible();
+  });
+});
