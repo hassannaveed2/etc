@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // e2e builds use their own output folder so they never clobber a running dev server's .next
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
   images: {
     // ETC media lives on DigitalOcean Spaces under ETC/ only (the bucket is shared)

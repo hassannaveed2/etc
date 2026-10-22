@@ -25,6 +25,6 @@ export default defineConfig({
     port: PORT,
     timeout: 300_000,
     reuseExistingServer: !process.env.CI,
-    env: { E2E: "1" },
+    env: { E2E: "1", NEXT_DIST_DIR: ".next-e2e" },
   },
 });
