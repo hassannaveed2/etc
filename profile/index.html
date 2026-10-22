@@ -362,8 +362,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ic .ico { width: 17px; height: 17px; }
 
 /* Section openers: a large outlined numeral sits in the top-right corner */
+/* Outlined numerals set in the display face. Variable-font glyphs have overlapping contours, so a plain text-stroke
+   draws lines inside the letters; instead a doubled stroke sits under a paper-coloured copy, leaving a clean outer outline. */
 .sec-num { position: absolute; right: 44px; top: 18px; font-family: var(--display); font-weight: 800; font-size: 132px; line-height: 1;
-  letter-spacing: -6px; color: transparent; -webkit-text-stroke: 1.2px rgba(184, 145, 58, .5); pointer-events: none; }
+  letter-spacing: -4px; color: transparent; -webkit-text-stroke: 2.6px #DCC690; pointer-events: none; }
+.sec-num::after { content: attr(data-n); position: absolute; inset: 0; color: var(--paper); -webkit-text-stroke: 0; }
 .h2.sm { font-size: 31px; }
 .h2.xs { font-size: 26px; letter-spacing: -.8px; }
 .lede { margin-top: 14px; max-width: 560px; font-family: var(--quote); font-style: italic; font-size: 13px; line-height: 1.5; color: var(--deep);
@@ -653,7 +656,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .chain .ic.sm .ico { width: 14px; height: 14px; }
 .chain b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.25; color: var(--ink); }
 .chain > div:last-child .dot { background: var(--gold); }
-@media print { .acr .gold, .figs b em { -webkit-text-fill-color: currentColor; } .sec-num { -webkit-text-stroke: 1px #D9BE7C; } }
+@media print { .acr .gold, .figs b em { -webkit-text-fill-color: currentColor; } .sec-num { -webkit-text-stroke: 2.6px #D9BE7C; } }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
@@ -922,7 +925,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <!-- ===================== Section 04 · ETC at a glance ===================== -->
     <section class="sheet spread" data-label="ETC at a glance">
       <section class="page" data-label="ETC at a glance">
-          <span class="sec-num" aria-hidden="true">04</span>
+          <span class="sec-num" aria-hidden="true" data-n="04">04</span>
           <span class="eyebrow">Section 04 · ETC at a glance</span>
           <h2 class="h2 sm">A national platform, in <span class="gold">numbers.</span></h2>
           <p class="sub">Key facts and figures about the Council</p>
@@ -972,7 +975,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <section class="sheet spread" data-label="About the Council">
       <section class="page" data-label="About the Council">
           <figure class="pb bot soft" style="--h:170px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/about-building.jpg" alt="A modern institutional building in Islamabad with the Margalla Hills behind" decoding="async" style="object-position:50% 60%"></figure>
-          <span class="sec-num" aria-hidden="true">05</span>
+          <span class="sec-num" aria-hidden="true" data-n="05">05</span>
           <span class="eyebrow">Section 05 · About the Council</span>
           <h2 class="h2 sm">About the Education<br>Testing <span class="gold">Council.</span></h2>
           <p class="sub">Our background, institutional journey and legal mandate</p>
@@ -1017,7 +1020,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
         </section>
       <section class="page" data-label="Vision, mission and core values">
           <figure class="pb bot soft" style="--h:190px"><img src="img/ed-convocation.jpg" alt="Graduates throwing their caps into the air in front of a university building" decoding="async" style="object-position:50% 40%"></figure>
-          <span class="sec-num" aria-hidden="true">06</span>
+          <span class="sec-num" aria-hidden="true" data-n="06">06</span>
           <span class="eyebrow">Section 06 · Vision, mission and core values</span>
           <h2 class="h2 sm">A clear <span class="gold">direction.</span></h2>
           <p class="sub">For trusted, merit-based assessment</p>
@@ -1073,7 +1076,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <section class="sheet spread" data-label="Governance and organization">
       <section class="page" data-label="Governance and organization">
           <figure class="pb bot soft" style="--h:230px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/institutions.jpg" alt="Senior officials reviewing reports around a conference table" decoding="async" style="object-position:50% 40%"></figure>
-          <span class="sec-num" aria-hidden="true">07</span>
+          <span class="sec-num" aria-hidden="true" data-n="07">07</span>
           <span class="eyebrow">Section 07 · Governance and organization</span>
           <h2 class="h2 sm">Governance and<br><span class="gold">organization.</span></h2>
           <p class="sub">Oversight, representation and a clear functional structure</p>
@@ -1152,7 +1155,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <!-- ===================== Section 08 · What we offer ===================== -->
     <section class="sheet spread" data-label="What we offer">
       <section class="page" data-label="What we offer">
-          <span class="sec-num" aria-hidden="true">08</span>
+          <span class="sec-num" aria-hidden="true" data-n="08">08</span>
           <span class="eyebrow">Section 08 · What we offer</span>
           <h2 class="h2 sm">What we <span class="gold">offer.</span></h2>
           <p class="sub">Standardized assessment solutions for education and professional opportunities</p>
@@ -1224,7 +1227,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <section class="sheet spread" data-label="Products of ETC">
       <section class="page" data-label="Products of ETC">
           <figure class="pb bot" style="--h:230px"><img src="img/chairman-hall.jpg" alt="An empty examination hall with rows of desks before a test" decoding="async" style="object-position:50% 62%"></figure>
-          <span class="sec-num" aria-hidden="true">09</span>
+          <span class="sec-num" aria-hidden="true" data-n="09">09</span>
           <span class="eyebrow">Section 09 · Products of ETC</span>
           <h2 class="h2 sm">Products of <span class="gold">ETC.</span></h2>
           <p class="sub">A standardized national assessment portfolio</p>
@@ -1451,7 +1454,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">35</span><span>Products of ETC</span></div>
         </section>
       <section class="page" data-label="Test development and evaluation">
-          <span class="sec-num" aria-hidden="true">10</span>
+          <span class="sec-num" aria-hidden="true" data-n="10">10</span>
           <span class="eyebrow">Section 10 · Test development and evaluation</span>
           <h2 class="h2 sm">Test development<br>and <span class="gold">evaluation.</span></h2>
           <p class="sub">From test purpose to a secure, validated paper</p>
@@ -1614,7 +1617,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <!-- ===================== Section 12 · Psychometrics ===================== -->
     <section class="sheet spread" data-label="Psychometric properties">
       <section class="page" data-label="Psychometric properties of test items">
-          <span class="sec-num" aria-hidden="true">12</span>
+          <span class="sec-num" aria-hidden="true" data-n="12">12</span>
           <span class="eyebrow">Section 12 · Psychometric properties of test items</span>
           <h2 class="h2 sm">Psychometric<br><span class="gold">properties.</span></h2>
           <p class="sub">Pre-test (pilot) and post-hoc analysis</p>
@@ -2019,7 +2022,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     <section class="sheet spread" data-label="Test operations">
       <section class="page" data-label="Test operations and national reach">
           <figure class="pb bot" style="--h:140px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/aerial.jpg" alt="Hundreds of candidates seated in aligned rows in a large examination hall" decoding="async" style="object-position:50% 50%"></figure>
-          <span class="sec-num" aria-hidden="true">15</span>
+          <span class="sec-num" aria-hidden="true" data-n="15">15</span>
           <span class="eyebrow">Section 15 · Test operations and national reach</span>
           <h2 class="h2 sm">Test operations and<br>national <span class="gold">reach.</span></h2>
           <p class="sub">Nationwide testing infrastructure and processing capacity</p>
@@ -2065,7 +2068,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">67</span><span>Test operations</span></div>
         </section>
       <section class="page" data-label="What sets ETC apart">
-          <span class="sec-num" aria-hidden="true">16</span>
+          <span class="sec-num" aria-hidden="true" data-n="16">16</span>
           <span class="eyebrow">Section 16 · What sets ETC apart</span>
           <h2 class="h2 sm">What sets ETC <span class="gold">apart.</span></h2>
           <p class="sub">Points of difference from other testing agencies</p>
@@ -2106,7 +2109,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">69</span><span>What sets ETC apart</span></div>
         </section>
       <section class="page" data-label="Track record and clients">
-          <span class="sec-num" aria-hidden="true">17</span>
+          <span class="sec-num" aria-hidden="true" data-n="17">17</span>
           <span class="eyebrow">Section 17 · Track record and clients</span>
           <h2 class="h2 sm">Track record and <span class="gold">clients.</span></h2>
           <p class="sub">Experience across education, government and the professions</p>
@@ -2150,7 +2153,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">71</span><span>Track record and clients</span></div>
         </section>
       <section class="page" data-label="Transparency and our commitment to candidates">
-          <span class="sec-num" aria-hidden="true">18</span>
+          <span class="sec-num" aria-hidden="true" data-n="18">18</span>
           <span class="eyebrow">Section 18 · Transparency</span>
           <h2 class="h2 sm">Our commitment<br>to <span class="gold">candidates.</span></h2>
           <p class="sub">Clear information, fair treatment and a voice for every candidate</p>
@@ -2228,7 +2231,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
         </section>
       <section class="page" data-label="Glossary of assessment terms">
           <figure class="pb bot soft" style="--h:150px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/reference.jpg" alt="An open reference book with a pencil and reading glasses on a desk" decoding="async" style="object-position:50% 60%"></figure>
-          <span class="sec-num" aria-hidden="true">20</span>
+          <span class="sec-num" aria-hidden="true" data-n="20">20</span>
           <span class="eyebrow">Section 20 · Glossary</span>
           <h2 class="h2 sm">Glossary of assessment <span class="gold">terms.</span></h2>
           <p class="sub">Plain-English explanations of the technical words used in this profile</p>
