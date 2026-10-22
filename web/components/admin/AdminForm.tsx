@@ -76,7 +76,7 @@ export function AdminForm({
         )}
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="min-w-0 space-y-6">{children}</div>
-          {aside && <aside className="space-y-6 lg:sticky lg:top-20 lg:self-start">{aside}</aside>}
+          {aside && <aside className="space-y-6">{aside}</aside>}
         </div>
       </FormErrorsProvider>
 

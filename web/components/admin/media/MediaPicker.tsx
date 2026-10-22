@@ -74,11 +74,11 @@ export function MediaPicker({
         )}
       </p>
       <input ref={hidden} type="hidden" name={name} value={selected?.id ?? ""} />
-      <div id={id} tabIndex={-1} className={`mt-1.5 flex items-center gap-3 rounded-md border bg-white p-3 ${error ? "border-red-600" : "border-line"}`}>
+      <div id={id} tabIndex={-1} className={`mt-1.5 flex flex-wrap items-center gap-3 rounded-md border bg-white p-3 ${error ? "border-red-600" : "border-line"}`}>
         {selected ? (
           <>
             <Thumb m={selected} />
-            <div className="min-w-0 flex-1 text-sm">
+            <div className="min-w-[8rem] flex-1 text-sm">
               <p className="truncate font-semibold text-ink">{selected.name}</p>
               <p className="text-xs text-muted">
                 {formatBytes(selected.size)}
