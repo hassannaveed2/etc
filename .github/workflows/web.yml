@@ -1,0 +1,81 @@
+# CI for the Next.js app (web/) and the mockup's own tests.
+# The web job never touches the shared DigitalOcean cluster: it migrates and seeds a throwaway MySQL 8 container.
+name: Web CI
+
+on:
+  push:
+    branches: [staging, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mockup:
+    name: Mockup tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  web:
+    name: Web — typecheck, lint, unit, integration, e2e
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: etc_ci
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    defaults:
+      run:
+        working-directory: web
+    env:
+      CI: "true"
+      DATABASE_URL: mysql://root:root@127.0.0.1:3306/etc_ci
+      SHADOW_DATABASE_URL: mysql://root:root@127.0.0.1:3306/etc_ci_shadow
+      AUTH_SECRET: ci-only-secret-not-used-anywhere-else-0123456789
+      AUTH_TRUST_HOST: "true"
+      ADMIN_EMAIL: e2e+admin@etc.test
+      ADMIN_PASSWORD: ${{ secrets.CI_ADMIN_PASSWORD || 'ci-admin-password-123' }}
+      ADMIN_NAME: CI Admin
+      IP_HASH_SALT: ci
+      NEXT_PUBLIC_SITE_URL: http://localhost:3100
+      NEXT_PUBLIC_SITE_ENV: staging
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npx prisma migrate deploy
+      - run: npx prisma db seed
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:int
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            web/test-results
+            web/playwright-report
+          retention-days: 7
