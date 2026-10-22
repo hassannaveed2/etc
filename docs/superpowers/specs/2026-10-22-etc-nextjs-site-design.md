@@ -213,7 +213,7 @@ The admin is a calm, dense, keyboard-friendly workspace in the ETC palette, so i
 1. **Foundation:**
    - scaffold `web/`;
    - tokens, fonts and the base layout;
-   - Prisma schema, migrations and seed on `ETC_dev`;
+   - Prisma schema, migrations and seed on `ETCStaging`;
    - Auth.js login and the admin shell;
    - CI skeleton.
 2. **Public site:** all 13 templates reading from the database, with the interactions and SEO from §4 and end-to-end tests for the public routes.
