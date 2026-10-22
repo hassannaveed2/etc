@@ -1,5 +1,5 @@
 import { test, expect, describe } from "vitest";
-import { formatDate, formatFee, todayInKarachi, FEE_NOTE } from "@/lib/format";
+import { formatBytes, formatDate, formatFee, todayInKarachi, FEE_NOTE } from "@/lib/format";
 import { slugify } from "@/lib/slug";
 import {
   NEWS_PER_PAGE,
@@ -32,6 +32,12 @@ describe("format", () => {
   test("todayInKarachi is UTC midnight of the Pakistan calendar date", () => {
     expect(todayInKarachi(new Date("2026-10-21T20:30:00Z")).toISOString()).toBe("2026-10-22T00:00:00.000Z");
     expect(todayInKarachi(new Date("2026-10-21T18:30:00Z")).toISOString()).toBe("2026-10-21T00:00:00.000Z");
+  });
+  test("formatBytes gives the mockup's size labels", () => {
+    expect(formatBytes(1566)).toBe("2 KB");
+    expect(formatBytes(430_080)).toBe("420 KB");
+    expect(formatBytes(1_258_291)).toBe("1.2 MB");
+    expect(formatBytes(200)).toBe("1 KB");
   });
   test("fee note copy", () => {
     expect(FEE_NOTE).toBe("As per ETC Institutional Profile 2026; always confirm in the official announcement.");

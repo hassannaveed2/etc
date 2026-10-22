@@ -22,3 +22,9 @@ export function todayInKarachi(now: Date = new Date()): Date {
 export function toIsoDate(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
+
+/** "420 KB" / "1.2 MB", as shown on resource cards and attachments. */
+export function formatBytes(bytes: number): string {
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}

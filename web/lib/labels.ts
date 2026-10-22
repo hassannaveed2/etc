@@ -44,7 +44,7 @@ export const FAQ_CATEGORY: LabelMap<FaqCategory> = {
 export const STATUS: LabelMap<Status> = {
   OPEN: { label: "Open", param: "open" },
   CLOSING: { label: "Closing soon", param: "closing" },
-  RESULT: { label: "Result", param: "result" },
+  RESULT: { label: "Result announced", param: "result" },
   CLOSED: { label: "Closed", param: "closed" },
 };
 
