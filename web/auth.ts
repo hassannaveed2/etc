@@ -10,7 +10,8 @@ import { writeAudit } from "@/lib/admin/audit";
 const deps: CredentialDeps = {
   findUser: (email) => prisma.user.findUnique({ where: { email } }),
   async onSuccess(user) {
-    await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
+    // Raw update so signing in doesn't bump updatedAt — the user's lock version for admins editing the account.
+    await prisma.$executeRaw`UPDATE \`User\` SET \`lastLoginAt\` = NOW(3) WHERE \`id\` = ${user.id}`;
     await writeAudit({ userId: user.id, action: "LOGIN", entity: "User", entityId: String(user.id), summary: `Signed in: ${user.email}` });
   },
   limiter: loginLimiter,

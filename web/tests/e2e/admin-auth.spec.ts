@@ -15,7 +15,7 @@ test("admin signs in and sees the dashboard", async ({ page }) => {
 
 test("editor signs in without the admin-only nav", async ({ page }) => {
   await login(page, EDITOR);
-  await expect(page.getByRole("link", { name: "Notices" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Admin" }).getByRole("link", { name: "Notices" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Users" })).toHaveCount(0);
 });
 

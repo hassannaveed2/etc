@@ -1,6 +1,7 @@
 // Form-side schemas: the shared content schemas plus ids, the lock version and coercion from form strings.
 import { z } from "zod";
 import { normalizeTos } from "@/lib/admin/tos";
+import { PASSWORD_MIN } from "@/lib/auth/password";
 import {
   clientInput,
   faqInput,
@@ -143,3 +144,18 @@ export const settingsForm = settingsInput.extend({ updatedAt: version }).superRe
     if (!v[k].startsWith("https://")) ctx.addIssue({ code: "custom", path: [k], message: "Enter the portal’s https:// address." });
   }
 });
+
+/** Users: a new user needs a password; an existing user keeps theirs when the field is left empty. */
+export const userForm = z
+  .object({
+    id: idOrNull.optional().default(null),
+    updatedAt: version,
+    name: z.string().trim().min(1, "Name is required.").max(191),
+    email: z.preprocess((v) => String(v ?? "").trim().toLowerCase(), z.email("Enter an email address like name@example.com.")),
+    role: z.enum(["ADMIN", "EDITOR"], { error: "Choose a role." }),
+    active: checkbox.optional().default(true),
+    password: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.string().min(PASSWORD_MIN, "Use at least 12 characters.").max(200).optional()),
+  })
+  .superRefine((u, ctx) => {
+    if (!u.id && !u.password) ctx.addIssue({ code: "custom", path: ["password"], message: "Set a password of at least 12 characters." });
+  });
