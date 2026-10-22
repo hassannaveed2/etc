@@ -20,7 +20,8 @@ export type ActionDef<S extends z.ZodType, T> = {
   permission: Permission;
   schema: S;
   entity: string;
-  action: AuditAction;
+  /** Audit action; may depend on the input (e.g. CREATE when there is no id, UPDATE otherwise). */
+  action: AuditAction | ((input: z.infer<S>) => AuditAction);
   tags: Tag[];
   run(input: z.infer<S>, ctx: { user: SessionUser }): Promise<T>;
   entityId?(data: T, input: z.infer<S>): string;
@@ -76,16 +77,16 @@ export function createActionFactory(deps: ActionDeps) {
         }
         if (e instanceof UserFacingError) return { ok: false, formError: e.message };
         // Log the entity and error only — never the submitted values (spec §6: no personal data in logs).
-        console.error(`[admin] ${def.entity} ${def.action} failed:`, e instanceof Error ? e.name + ": " + e.message : "unknown error");
+        console.error(`[admin] ${def.entity} failed:`, e instanceof Error ? e.name + ": " + e.message : "unknown error");
         return { ok: false, formError: MESSAGES.generic };
       }
 
       await deps.audit({
         userId: user.id,
-        action: def.action,
+        action: typeof def.action === "function" ? def.action(parsed.data) : def.action,
         entity: def.entity,
         entityId: def.entityId?.(data, parsed.data),
-        summary: def.summary?.(data, parsed.data) ?? `${def.action} ${def.entity}`,
+        summary: def.summary?.(data, parsed.data) ?? `${def.entity} changed`,
       });
       for (const t of def.tags) deps.revalidateTag(t);
       for (const p of def.paths?.(data, parsed.data) ?? []) deps.revalidatePath(p);

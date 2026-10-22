@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 import type { ActionResult, SaveData } from "@/lib/admin/result";
@@ -39,6 +39,17 @@ export function AdminForm({
   const [saved, setSaved] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   useUnsavedGuard(dirty && !pending);
+  const search = useSearchParams();
+  const pathname = usePathname();
+
+  // A create redirects to the new item's edit page with ?saved=1: confirm the save there and tidy the URL.
+  useEffect(() => {
+    if (search.get("saved") !== "1") return;
+    setSaved("Saved");
+    router.replace(pathname, { scroll: false });
+    const t = setTimeout(() => setSaved(""), 4000);
+    return () => clearTimeout(t);
+  }, [search, pathname, router]);
 
   useEffect(() => {
     if (!state?.ok) return;

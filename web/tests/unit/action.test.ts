@@ -101,3 +101,18 @@ describe("defineAction", () => {
     });
   });
 });
+
+test("the audit action can depend on the input (create vs update)", async () => {
+  const { defineAction, deps } = setup();
+  const act = defineAction({
+    permission: "content:write",
+    schema: z.object({ id: z.number().nullable() }),
+    entity: "Notice",
+    action: (input) => (input.id ? "UPDATE" : "CREATE"),
+    tags: ["notices"],
+    run: async (input) => ({ id: input.id ?? 9 }),
+  });
+  await act({ id: null });
+  await act({ id: 4 });
+  expect(deps.audit.mock.calls.map((c) => (c as unknown as [{ action: string }])[0].action)).toEqual(["CREATE", "UPDATE"]);
+});
