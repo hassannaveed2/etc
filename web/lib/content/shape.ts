@@ -13,6 +13,7 @@ export const testCard = (t: Test & { image: Media | null }): TestCard => ({
   short: t.short,
   category: t.category,
   level: t.level,
+  audience: t.audience,
   fee: t.fee,
   frequency: t.frequency,
   image: mediaRef(t.image),

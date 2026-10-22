@@ -64,3 +64,40 @@ test("quality workflow tabs switch by keyboard", async ({ page }) => {
   await expect(page.getByRole("tab", { name: /Item development/ })).toHaveAttribute("aria-selected", "true");
   await expect(page.getByRole("heading", { level: 3, name: "Item development" })).toBeVisible();
 });
+
+test.describe("tests", () => {
+  test("directory filters by purpose and level with URL state", async ({ page }) => {
+    await page.goto("/tests");
+    await expect(page.locator("#test-grid article")).toHaveCount(6);
+    await page.getByRole("link", { name: "Postgraduate & scholarships" }).click();
+    await expect(page).toHaveURL(/category=postgraduate/);
+    await expect(page.locator("#test-grid article")).toHaveCount(2);
+    await page.getByRole("link", { name: "PhD", exact: true }).click();
+    await expect(page.locator("#test-grid article")).toHaveCount(1);
+    await expect(page.getByText("Showing 1 of 6 tests")).toBeVisible();
+    await page.goto("/tests?category=licensing&level=PhD");
+    await expect(page.getByText("No tests match these filters.").first()).toBeVisible();
+    await expect(page.locator("#compare-body tr")).toHaveCount(6);
+  });
+
+  test("/tests/usat shows the TOS table with Common Core total 45", async ({ page }) => {
+    await page.goto("/tests/usat");
+    await expect(page.getByRole("heading", { level: 1, name: "Undergraduate Studies Admission Test" })).toBeVisible();
+    const row = page.getByRole("row", { name: /Common Core total/ });
+    await expect(row).toContainText("45");
+    await page.getByRole("tab", { name: "USAT-M" }).click();
+    await expect(page.getByText("Physics 8 • Chemistry 8 • Biology 14")).toBeVisible();
+  });
+
+  test("/tests/customized shows By agreement and the enquiry route", async ({ page }) => {
+    await page.goto("/tests/customized");
+    await expect(page.locator("#fees").getByText("By agreement")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Submit an enquiry" })).toHaveAttribute("href", "/institutions#enquiry");
+  });
+
+  test("/tests/unknown is 404 with the test-not-found page", async ({ page }) => {
+    const res = await page.goto("/tests/unknown");
+    expect(res!.status()).toBe(404);
+    await expect(page.getByRole("heading", { level: 1, name: "Test not found" })).toBeVisible();
+  });
+});

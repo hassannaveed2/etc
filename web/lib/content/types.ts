@@ -17,6 +17,7 @@ export type TestCard = {
   short: string;
   category: TestCategory;
   level: string;
+  audience: string;
   fee: number | null;
   frequency: string;
   image: MediaRef | null;
@@ -59,7 +60,6 @@ export type ScheduleItem = {
 };
 
 export type TestDetail = TestCard & {
-  audience: string;
   purpose: string;
   eligibility: string;
   measures: string;

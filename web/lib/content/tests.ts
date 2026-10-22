@@ -27,7 +27,6 @@ export async function _getTestBySlug(slug: string): Promise<TestDetail | null> {
   return {
     ...testCard(t),
     image: mediaRef(t.image),
-    audience: t.audience,
     purpose: t.purpose,
     eligibility: t.eligibility,
     measures: t.measures,

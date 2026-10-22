@@ -69,7 +69,7 @@ describe("cards", () => {
   test("test card shows fee and links to /tests/<slug>", () => {
     render(
       <TestCard
-        test={{ slug: "customized", code: "Customized", name: "Customized Tests", short: "Built to order.", category: "RECRUITMENT", level: "As defined", fee: null, frequency: "By agreement", image: null }}
+        test={{ slug: "customized", code: "Customized", name: "Customized Tests", short: "Built to order.", category: "RECRUITMENT", level: "As defined", audience: "Clients", fee: null, frequency: "By agreement", image: null }}
       />,
     );
     expect(screen.getByRole("link", { name: "Customized Tests" }).getAttribute("href")).toBe("/tests/customized");
