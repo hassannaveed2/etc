@@ -1,0 +1,342 @@
+// ETC website data model — spec §3 (docs/superpowers/specs/2026-10-22-etc-nextjs-site-design.md).
+// Content models carry updatedAt @db.DateTime(3), which doubles as the optimistic-lock version.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum TestCategory {
+  ADMISSIONS
+  POSTGRADUATE
+  LICENSING
+  RECRUITMENT
+}
+
+enum NoticeType {
+  ADMISSION
+  SCHEDULE
+  RESULT
+  RECRUITMENT
+  GENERAL
+}
+
+enum Status {
+  OPEN
+  CLOSING
+  RESULT
+  CLOSED
+}
+
+enum ResourceType {
+  SYLLABUS
+  SAMPLE_PAPER
+  GUIDE
+  POLICY
+}
+
+enum FaqCategory {
+  REGISTRATION
+  TEST_DAY
+  RESULTS
+  FEES
+  ACCESSIBILITY
+  INSTITUTIONS
+}
+
+enum ClientSector {
+  FEDERAL
+  PROVINCIAL
+  UNIVERSITY
+  OTHER
+}
+
+enum LeaderRole {
+  CHAIRMAN
+  EXECUTIVE_DIRECTOR
+  CEO
+}
+
+enum InboxStatus {
+  NEW
+  IN_PROGRESS
+  CLOSED
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  PUBLISH
+  UNPUBLISH
+  LOGIN
+  UPLOAD
+  STATUS
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         Role       @default(EDITOR)
+  active       Boolean    @default(true)
+  lastLoginAt  DateTime?  @db.DateTime(3)
+  createdAt    DateTime   @default(now()) @db.DateTime(3)
+  updatedAt    DateTime   @updatedAt @db.DateTime(3)
+  media        Media[]
+  auditLogs    AuditLog[]
+}
+
+model Media {
+  id           Int                @id @default(autoincrement())
+  key          String             @unique @db.VarChar(512)
+  url          String             @db.VarChar(1024)
+  mime         String
+  size         Int
+  width        Int?
+  height       Int?
+  alt          String             @default("") @db.VarChar(500)
+  uploadedById Int?
+  uploadedBy   User?              @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt    DateTime           @default(now()) @db.DateTime(3)
+  updatedAt    DateTime           @updatedAt @db.DateTime(3)
+  tests        Test[]
+  resources    Resource[]
+  attachments  NoticeAttachment[]
+  heroSlides   HeroSlide[]
+  leaders      Leader[]
+}
+
+model Test {
+  id             Int             @id @default(autoincrement())
+  slug           String          @unique
+  code           String
+  name           String
+  short          String          @db.VarChar(500)
+  category       TestCategory
+  level          String
+  audience       String          @db.VarChar(500)
+  purpose        String          @db.Text
+  eligibility    String          @db.Text
+  measures       String          @db.Text
+  frequency      String
+  frequencyNote  String          @db.VarChar(500)
+  fee            Int?
+  resultsUse     String          @db.Text
+  patternNote    String          @db.Text
+  reliability    String          @db.Text
+  syllabus       Json
+  categories     Json?
+  tos            Json?
+  imageId        Int?
+  image          Media?          @relation(fields: [imageId], references: [id], onDelete: Restrict)
+  sortOrder      Int             @default(0)
+  published      Boolean         @default(false)
+  seoTitle       String?
+  seoDescription String?         @db.VarChar(500)
+  createdAt      DateTime        @default(now()) @db.DateTime(3)
+  updatedAt      DateTime        @updatedAt @db.DateTime(3)
+  sections       TestSection[]
+  notices        Notice[]
+  resources      Resource[]
+  schedule       ScheduleEntry[]
+}
+
+model TestSection {
+  id     Int     @id @default(autoincrement())
+  testId Int
+  test   Test    @relation(fields: [testId], references: [id], onDelete: Cascade)
+  name   String
+  items  String?
+  detail String  @db.VarChar(1000)
+  order  Int     @default(0)
+
+  @@index([testId, order])
+}
+
+model Notice {
+  id             Int                @id @default(autoincrement())
+  slug           String             @unique
+  title          String
+  type           NoticeType
+  testId         Int?
+  test           Test?              @relation(fields: [testId], references: [id], onDelete: Restrict)
+  publishedAt    DateTime           @db.Date
+  deadline       DateTime?          @db.Date
+  status         Status             @default(OPEN)
+  summary        String             @db.VarChar(1000)
+  bodyHtml       String             @db.Text
+  published      Boolean            @default(false)
+  isSample       Boolean            @default(false)
+  seoTitle       String?
+  seoDescription String?            @db.VarChar(500)
+  createdAt      DateTime           @default(now()) @db.DateTime(3)
+  updatedAt      DateTime           @updatedAt @db.DateTime(3)
+  attachments    NoticeAttachment[]
+
+  @@index([published, publishedAt])
+}
+
+model NoticeAttachment {
+  id       Int    @id @default(autoincrement())
+  noticeId Int
+  notice   Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+  mediaId  Int
+  media    Media  @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+  label    String
+  order    Int    @default(0)
+}
+
+model Resource {
+  id        Int          @id @default(autoincrement())
+  title     String
+  type      ResourceType
+  testId    Int?
+  test      Test?        @relation(fields: [testId], references: [id], onDelete: Restrict)
+  mediaId   Int
+  media     Media        @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+  date      DateTime     @db.Date
+  published Boolean      @default(false)
+  isSample  Boolean      @default(false)
+  createdAt DateTime     @default(now()) @db.DateTime(3)
+  updatedAt DateTime     @updatedAt @db.DateTime(3)
+
+  @@index([published, date])
+}
+
+model Faq {
+  id        Int         @id @default(autoincrement())
+  category  FaqCategory
+  question  String      @db.VarChar(500)
+  answer    String      @db.Text
+  order     Int         @default(0)
+  published Boolean     @default(false)
+  createdAt DateTime    @default(now()) @db.DateTime(3)
+  updatedAt DateTime    @updatedAt @db.DateTime(3)
+}
+
+model HeroSlide {
+  id        Int      @id @default(autoincrement())
+  eyebrow   String
+  title     String
+  body      String   @db.VarChar(1000)
+  imageId   Int
+  image     Media    @relation(fields: [imageId], references: [id], onDelete: Restrict)
+  cta1Label String?
+  cta1Href  String?
+  cta2Label String?
+  cta2Href  String?
+  order     Int      @default(0)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+}
+
+model ScheduleEntry {
+  id        Int      @id @default(autoincrement())
+  testId    Int
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Restrict)
+  session   String
+  regCloses DateTime @db.Date
+  testDate  DateTime @db.Date
+  status    Status   @default(OPEN)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+}
+
+model Stat {
+  id        Int      @id @default(autoincrement())
+  value     Int
+  label     String
+  note      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+}
+
+model Client {
+  id        Int          @id @default(autoincrement())
+  name      String
+  sector    ClientSector
+  order     Int          @default(0)
+  createdAt DateTime     @default(now()) @db.DateTime(3)
+  updatedAt DateTime     @updatedAt @db.DateTime(3)
+}
+
+model Leader {
+  id          Int        @id @default(autoincrement())
+  role        LeaderRole @unique
+  name        String
+  title       String
+  photoId     Int?
+  photo       Media?     @relation(fields: [photoId], references: [id], onDelete: Restrict)
+  quote       String     @db.VarChar(1000)
+  messageHtml String     @db.Text
+  createdAt   DateTime   @default(now()) @db.DateTime(3)
+  updatedAt   DateTime   @updatedAt @db.DateTime(3)
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.VarChar(1000)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+}
+
+model Enquiry {
+  id            Int         @id @default(autoincrement())
+  organization  String
+  contactPerson String
+  email         String
+  phone         String?
+  service       String
+  candidates    Int
+  timeline      String
+  message       String      @db.Text
+  status        InboxStatus @default(NEW)
+  ipHash        String      @db.Char(64)
+  createdAt     DateTime    @default(now()) @db.DateTime(3)
+  updatedAt     DateTime    @updatedAt @db.DateTime(3)
+
+  @@index([status, createdAt])
+}
+
+model ContactMessage {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String      @db.Text
+  status    InboxStatus @default(NEW)
+  ipHash    String      @db.Char(64)
+  createdAt DateTime    @default(now()) @db.DateTime(3)
+  updatedAt DateTime    @updatedAt @db.DateTime(3)
+
+  @@index([status, createdAt])
+}
+
+model AuditLog {
+  id        Int         @id @default(autoincrement())
+  userId    Int?
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    AuditAction
+  entity    String
+  entityId  String?
+  summary   String      @db.VarChar(1000)
+  createdAt DateTime    @default(now()) @db.DateTime(3)
+
+  @@index([createdAt])
+  @@index([entity, entityId])
+}
