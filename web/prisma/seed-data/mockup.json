@@ -1,0 +1,1487 @@
+{
+  "media": [
+    {
+      "ref": "heroExam",
+      "key": "mockup/images/hero-exam-hall.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/hero-exam-hall.jpg",
+      "mime": "image/jpeg",
+      "size": 256029,
+      "width": 2000,
+      "height": 1131,
+      "alt": "Candidates writing a test in a quiet examination hall"
+    },
+    {
+      "ref": "heroCampus",
+      "key": "mockup/images/hero-campus.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/hero-campus.jpg",
+      "mime": "image/jpeg",
+      "size": 411808,
+      "width": 2000,
+      "height": 1131,
+      "alt": "Students walking across a university campus in the morning"
+    },
+    {
+      "ref": "heroLaw",
+      "key": "mockup/images/hero-law.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/hero-law.jpg",
+      "mime": "image/jpeg",
+      "size": 183113,
+      "width": 2000,
+      "height": 1131,
+      "alt": "A young law graduate in a black coat on the steps of a high court"
+    },
+    {
+      "ref": "testLat",
+      "key": "mockup/images/test-lat.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-lat.jpg",
+      "mime": "image/jpeg",
+      "size": 237213,
+      "width": 2000,
+      "height": 1493,
+      "alt": "A student preparing for the Law Admission Test at a desk at home"
+    },
+    {
+      "ref": "testLawgat",
+      "key": "mockup/images/test-lawgat.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-lawgat.jpg",
+      "mime": "image/jpeg",
+      "size": 296816,
+      "width": 2000,
+      "height": 1493,
+      "alt": "Law reports, a gavel and scales of justice on a desk"
+    },
+    {
+      "ref": "testHat",
+      "key": "mockup/images/test-hat.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-hat.jpg",
+      "mime": "image/jpeg",
+      "size": 329988,
+      "width": 2000,
+      "height": 1493,
+      "alt": "A postgraduate student studying in a university library"
+    },
+    {
+      "ref": "testHaat",
+      "key": "mockup/images/test-haat.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-haat.jpg",
+      "mime": "image/jpeg",
+      "size": 306990,
+      "width": 2000,
+      "height": 1493,
+      "alt": "A doctoral researcher working in a laboratory"
+    },
+    {
+      "ref": "testUsat",
+      "key": "mockup/images/test-usat.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-usat.jpg",
+      "mime": "image/jpeg",
+      "size": 340225,
+      "width": 2000,
+      "height": 1493,
+      "alt": "Intermediate students preparing together in a classroom"
+    },
+    {
+      "ref": "institutions",
+      "key": "mockup/images/institutions.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/institutions.jpg",
+      "mime": "image/jpeg",
+      "size": 268741,
+      "width": 2000,
+      "height": 1131,
+      "alt": "University officials reviewing reports in a meeting room"
+    },
+    {
+      "ref": "qualityOmr",
+      "key": "mockup/images/quality-omr.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-omr.jpg",
+      "mime": "image/jpeg",
+      "size": 332209,
+      "width": 2000,
+      "height": 1493,
+      "alt": "OMR answer sheets feeding through a scanner"
+    },
+    {
+      "ref": "qualitySealed",
+      "key": "mockup/images/quality-sealed.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-sealed.jpg",
+      "mime": "image/jpeg",
+      "size": 312827,
+      "width": 2000,
+      "height": 1493,
+      "alt": "Sealed examination paper boxes in a secure store room"
+    },
+    {
+      "ref": "candidateCentre",
+      "key": "mockup/images/candidate-centre.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/candidate-centre.jpg",
+      "mime": "image/jpeg",
+      "size": 354584,
+      "width": 2000,
+      "height": 1493,
+      "alt": "A candidate showing an admit card at a test centre entrance"
+    },
+    {
+      "ref": "aboutBuilding",
+      "key": "mockup/images/about-building.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/about-building.jpg",
+      "mime": "image/jpeg",
+      "size": 551895,
+      "width": 2000,
+      "height": 1131,
+      "alt": "An institutional building in Islamabad with the Margalla Hills behind"
+    },
+    {
+      "ref": "noticeDefault",
+      "key": "mockup/images/notice-default.jpg",
+      "url": "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/notice-default.jpg",
+      "mime": "image/jpeg",
+      "size": 158235,
+      "width": 2000,
+      "height": 1131,
+      "alt": "Printed notices pinned to a notice board"
+    }
+  ],
+  "tests": [
+    {
+      "slug": "lat",
+      "code": "LAT",
+      "name": "Law Admission Test",
+      "short": "The national entry test for the five-year LLB programme.",
+      "category": "ADMISSIONS",
+      "level": "Undergraduate",
+      "audience": "Intermediate (HSSC) students who want to study law",
+      "purpose": "To make sure that only students with the basic reasoning, language and general knowledge needed for legal study enter law programmes. Following the Supreme Court’s decision on legal education reforms, LAT is mandatory for admission to LLB programmes in all public and private universities and law colleges in Pakistan.",
+      "eligibility": "Students who have completed, or are completing, intermediate (HSSC) or equivalent and wish to study law.",
+      "measures": "Reading and comprehension in English, logical and analytical reasoning, general knowledge and written expression, as announced in the official test pattern.",
+      "frequency": "Twice a year",
+      "frequencyNote": "Bi-annual, as directed by the Supreme Court of Pakistan (Para 15(2)).",
+      "fee": 2000,
+      "resultsUse": "Universities use the LAT result as a required eligibility condition in their LLB admission process.",
+      "patternNote": "Section weightings, number of questions and timing are published in the official LAT test pattern for each session.",
+      "reliability": "KR-20 / alpha for each section and total; parallel forms for the two annual sessions; rubric-based marking for any written component.",
+      "syllabus": [
+        "English comprehension and vocabulary",
+        "Logical reasoning",
+        "Analytical reasoning",
+        "General knowledge and current affairs",
+        "Written expression"
+      ],
+      "categories": null,
+      "tos": null,
+      "sortOrder": 0,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "English reading & comprehension",
+          "items": null,
+          "detail": "Understanding and interpreting written passages."
+        },
+        {
+          "name": "Logical & analytical reasoning",
+          "items": null,
+          "detail": "Drawing valid conclusions and spotting patterns in arguments."
+        },
+        {
+          "name": "General knowledge",
+          "items": null,
+          "detail": "Awareness of national and international affairs."
+        },
+        {
+          "name": "Written expression",
+          "items": null,
+          "detail": "Communicating ideas clearly and correctly in writing."
+        }
+      ],
+      "imageRef": "testLat"
+    },
+    {
+      "slug": "law-gat",
+      "code": "LAW-GAT",
+      "name": "Law Graduate Assessment Test",
+      "short": "The licensing-type test for law graduates seeking enrolment as Advocates.",
+      "category": "LICENSING",
+      "level": "Professional",
+      "audience": "LLB graduates seeking enrolment with a provincial Bar Council",
+      "purpose": "To confirm that law graduates meet a minimum standard of legal knowledge before entering practice. LAW-GAT is mandatory for law graduates who wish to enrol as Advocates in any Bar Council.",
+      "eligibility": "Holders of an LLB degree seeking enrolment with a provincial Bar Council.",
+      "measures": "Knowledge and application of core areas of law, drawn from a question bank prepared specially for the test.",
+      "frequency": "Quarterly",
+      "frequencyNote": "Held across Pakistan every quarter, as directed by the Supreme Court of Pakistan (Para 15(1)).",
+      "fee": 3000,
+      "resultsUse": "A pass result is required for enrolment as an Advocate. Because it is a pass/fail decision, ETC pays special attention to accuracy around the passing score.",
+      "patternNote": "The pass mark is set through a documented standard-setting process, and scores are equated across quarterly sessions so the standard stays the same.",
+      "reliability": "Total-score reliability; decision consistency and SEM at the passing score; equating across quarterly sessions.",
+      "syllabus": [
+        "Constitutional law",
+        "Civil law and procedure",
+        "Criminal law and procedure",
+        "Law of evidence",
+        "Contract and property law",
+        "Professional ethics"
+      ],
+      "categories": null,
+      "tos": null,
+      "sortOrder": 1,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "Core areas of law",
+          "items": null,
+          "detail": "Knowledge and application of the core legal subjects expected of a new advocate."
+        },
+        {
+          "name": "Legal reasoning & application",
+          "items": null,
+          "detail": "Applying legal principles to practical situations."
+        }
+      ],
+      "imageRef": "testLawgat"
+    },
+    {
+      "slug": "hat",
+      "code": "HAT-General",
+      "name": "Higher Education Aptitude Test",
+      "short": "The gateway test for MS/MPhil study and HEC scholarships.",
+      "category": "POSTGRADUATE",
+      "level": "MS / MPhil",
+      "audience": "Graduates holding a 16-year degree (or equivalent)",
+      "purpose": "Eligibility for HEC scholarship awards and for MS/MPhil admissions in public and private universities. HAT-General is offered in five categories, grouped by broad field of study, so that candidates are assessed in a context close to their own discipline.",
+      "eligibility": "Graduates holding a 16-year degree (or equivalent) who wish to pursue MS/MPhil study.",
+      "measures": "General academic aptitude: verbal reasoning, quantitative reasoning and analytical reasoning.",
+      "frequency": "As announced",
+      "frequencyNote": "Session dates are published in official ETC notices.",
+      "fee": 2000,
+      "resultsUse": "Universities and HEC use HAT scores to confirm eligibility and to rank candidates for admission or scholarships.",
+      "patternNote": "Offered in 5 categories grouped by broad field of study. Category list and section weightings are published with each session’s announcement.",
+      "reliability": "KR-20 / alpha by section (verbal, quantitative, analytical) and total; comparability across the five categories and sessions.",
+      "syllabus": [
+        "Verbal reasoning",
+        "Quantitative reasoning",
+        "Analytical reasoning"
+      ],
+      "categories": null,
+      "tos": null,
+      "sortOrder": 2,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "Verbal reasoning",
+          "items": null,
+          "detail": "Vocabulary, sentence completion, analogies and comprehension."
+        },
+        {
+          "name": "Quantitative reasoning",
+          "items": null,
+          "detail": "Arithmetic, algebra, geometry and data interpretation."
+        },
+        {
+          "name": "Analytical reasoning",
+          "items": null,
+          "detail": "Logical deduction and problem-solving scenarios."
+        }
+      ],
+      "imageRef": "testHat"
+    },
+    {
+      "slug": "haat",
+      "code": "HAAT-Subject",
+      "name": "Higher Education Aptitude & Achievement Test",
+      "short": "Aptitude plus subject achievement for PhD admissions and scholarships.",
+      "category": "POSTGRADUATE",
+      "level": "PhD",
+      "audience": "MS/MPhil (18-year) degree holders applying for PhD programmes",
+      "purpose": "Eligibility for HEC scholarship awards and for PhD admissions in public and private universities. HAAT-Subject combines general aptitude with subject-specific achievement, so it shows both how well a candidate reasons and how deeply they know their own field.",
+      "eligibility": "Holders of an MS/MPhil (or equivalent 18-year) degree applying for PhD programmes.",
+      "measures": "Advanced reasoning skills plus in-depth knowledge of the candidate’s subject, reviewed by subject committees.",
+      "frequency": "As announced",
+      "frequencyNote": "Session dates and subject lists are published in official ETC notices.",
+      "fee": 3000,
+      "resultsUse": "Universities and HEC use the result as an eligibility condition and for merit ranking of PhD candidates.",
+      "patternNote": "Subject papers are developed and reviewed by subject committees.",
+      "reliability": "Reliability by subject paper; item-bank calibration for each subject; equivalence of subject forms.",
+      "syllabus": [
+        "Advanced reasoning",
+        "Subject-specific content (by discipline)"
+      ],
+      "categories": null,
+      "tos": null,
+      "sortOrder": 3,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "Aptitude",
+          "items": null,
+          "detail": "Advanced verbal, quantitative and analytical reasoning."
+        },
+        {
+          "name": "Subject achievement",
+          "items": null,
+          "detail": "In-depth knowledge of the candidate’s own discipline."
+        }
+      ],
+      "imageRef": "testHaat"
+    },
+    {
+      "slug": "usat",
+      "code": "USAT",
+      "name": "Undergraduate Studies Admission Test",
+      "short": "Undergraduate admissions and HEC undergraduate scholarships, in six streams.",
+      "category": "ADMISSIONS",
+      "level": "Undergraduate",
+      "audience": "Intermediate / A-level students",
+      "purpose": "A standardized test for admission to undergraduate programmes and for HEC undergraduate scholarships. USAT is offered in six categories matched to the candidate’s intermediate stream, and every version has the same two-part structure.",
+      "eligibility": "Students who have completed, or are completing, intermediate (HSSC), A-level or equivalent.",
+      "measures": "Foundational concepts in the chosen discipline, general cognitive aptitude (verbal and quantitative reasoning), applied problem-solving, and written construction and justification.",
+      "frequency": "As announced",
+      "frequencyNote": "Session dates are published in official ETC notices.",
+      "fee": 2000,
+      "resultsUse": "Universities and HEC use USAT results for undergraduate admission and scholarship decisions.",
+      "patternNote": "Part I is machine-scored; Part II essays are marked against predefined rubrics by trained examiners, with a sample double-marked.",
+      "reliability": "KR-20 / alpha for Part I (75 MCQs) and each section; inter-rater agreement for Part II essays (double-marking of a sample).",
+      "syllabus": [
+        "Verbal reasoning (analogy, synonym/antonym, sentence completion, comprehension)",
+        "Quantitative reasoning (arithmetic, algebra, geometry, equations, statistics, mental maths)",
+        "Discipline subjects by stream",
+        "Essay writing"
+      ],
+      "categories": [
+        {
+          "code": "USAT-E",
+          "stream": "Pre-Engineering",
+          "subjects": "Physics 10 • Chemistry 10 • Mathematics 10",
+          "levels": [
+            10,
+            22,
+            22,
+            18,
+            3,
+            0
+          ]
+        },
+        {
+          "code": "USAT-M",
+          "stream": "Pre-Medical",
+          "subjects": "Physics 8 • Chemistry 8 • Biology 14",
+          "levels": [
+            8,
+            20,
+            21,
+            19,
+            6,
+            1
+          ]
+        },
+        {
+          "code": "USAT-CS",
+          "stream": "Computer Science",
+          "subjects": "Physics 8 • Computer Science 14 • Mathematics 8",
+          "levels": [
+            8,
+            20,
+            21,
+            19,
+            6,
+            1
+          ]
+        },
+        {
+          "code": "USAT-GS",
+          "stream": "General Science",
+          "subjects": "Mathematics 10 • Statistics 10 • Economics 10",
+          "levels": [
+            12,
+            22,
+            22,
+            16,
+            3,
+            0
+          ]
+        },
+        {
+          "code": "USAT-COM",
+          "stream": "Commerce",
+          "subjects": "Accounting 10 • Commerce 10 • Economics 10",
+          "levels": [
+            13,
+            22,
+            22,
+            15,
+            3,
+            0
+          ]
+        },
+        {
+          "code": "USAT-A",
+          "stream": "Arts & Humanities",
+          "subjects": "Islamiat/Ethics 10 • Pakistan Studies 10 • General Knowledge 10",
+          "levels": [
+            13,
+            22,
+            22,
+            15,
+            3,
+            0
+          ]
+        }
+      ],
+      "tos": {
+        "levels": [
+          "K",
+          "U",
+          "Ap",
+          "An",
+          "E",
+          "C"
+        ],
+        "rows": [
+          {
+            "area": "A1 Analogy",
+            "v": [
+              1,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 5
+          },
+          {
+            "area": "A2 Synonym / Antonym",
+            "v": [
+              1,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 4
+          },
+          {
+            "area": "A3 Sentence Completion",
+            "v": [
+              1,
+              2,
+              2,
+              1,
+              0,
+              0
+            ],
+            "total": 6
+          },
+          {
+            "area": "A4 Comprehension",
+            "v": [
+              1,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 5
+          },
+          {
+            "area": "Verbal Reasoning subtotal",
+            "v": [
+              4,
+              7,
+              5,
+              4,
+              0,
+              0
+            ],
+            "total": 20,
+            "subtotal": true
+          },
+          {
+            "area": "B1 Arithmetic",
+            "v": [
+              0,
+              1,
+              2,
+              2,
+              1,
+              0
+            ],
+            "total": 6
+          },
+          {
+            "area": "B2 Algebra & Functions",
+            "v": [
+              0,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "total": 4
+          },
+          {
+            "area": "B3 Geometry",
+            "v": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 3
+          },
+          {
+            "area": "B4 Equations",
+            "v": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 3
+          },
+          {
+            "area": "B5 Statistics",
+            "v": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "total": 3
+          },
+          {
+            "area": "B6 Scenario-based / Mental Maths",
+            "v": [
+              0,
+              1,
+              2,
+              2,
+              1,
+              0
+            ],
+            "total": 6
+          },
+          {
+            "area": "Quantitative Reasoning subtotal",
+            "v": [
+              0,
+              6,
+              8,
+              8,
+              3,
+              0
+            ],
+            "total": 25,
+            "subtotal": true
+          },
+          {
+            "area": "Common Core total",
+            "v": [
+              4,
+              13,
+              13,
+              12,
+              3,
+              0
+            ],
+            "total": 45,
+            "subtotal": true
+          }
+        ]
+      },
+      "sortOrder": 4,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "Part I — Common Core",
+          "items": "45",
+          "detail": "20 Verbal Reasoning + 25 Quantitative Reasoning MCQs, taken by everyone."
+        },
+        {
+          "name": "Part I — Discipline-specific",
+          "items": "30",
+          "detail": "30 MCQs in the subjects of the candidate’s stream."
+        },
+        {
+          "name": "Part II — Argument-based essay",
+          "items": "15 marks",
+          "detail": "One essay chosen from three options."
+        },
+        {
+          "name": "Part II — Narrative essay",
+          "items": "10 marks",
+          "detail": "One essay chosen from three options."
+        }
+      ],
+      "imageRef": "testUsat"
+    },
+    {
+      "slug": "customized",
+      "code": "Customized",
+      "name": "Customized Tests",
+      "short": "Tests built to order for recruitment, admission, screening and assessment.",
+      "category": "RECRUITMENT",
+      "level": "As defined by the client",
+      "audience": "Government departments, regulators, universities and projects",
+      "purpose": "ETC builds tests to order: recruitment tests for specific cadres, admission tests for individual universities (for example the Quaid-i-Azam University undergraduate admission test and MDCAT for SZABMU), scholarship tests, psychometric and personality evaluations, skill assessments and screening tests.",
+      "eligibility": "As defined by the client institution for each assessment.",
+      "measures": "Whatever the client’s decision requires: job-related knowledge, aptitude, skills, physical standards or personality traits.",
+      "frequency": "By agreement",
+      "frequencyNote": "Scheduled with each client.",
+      "fee": null,
+      "resultsUse": "Results are processed, checked and delivered to the client with a result report and, where useful, analysis by learning outcome.",
+      "patternNote": "Every customized test follows the same blueprint, review, piloting and analysis process as the national products. ETC has developed 850 blueprints for distinct cadres to date.",
+      "reliability": "Reliability calculated for every administration; inter-rater checks for skill, descriptive and interview components.",
+      "syllabus": [
+        "Defined with the client in the requirement study and blueprint"
+      ],
+      "categories": null,
+      "tos": null,
+      "sortOrder": 5,
+      "published": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "sections": [
+        {
+          "name": "MCQ-based tests",
+          "items": null,
+          "detail": "Objective questions, machine-scored quickly and without bias."
+        },
+        {
+          "name": "Descriptive tests",
+          "items": null,
+          "detail": "Written answers scored against a fixed rubric by trained examiners."
+        },
+        {
+          "name": "Skill & physical tests",
+          "items": null,
+          "detail": "Practical or measured tasks against defined standards."
+        },
+        {
+          "name": "Psychological assessment",
+          "items": null,
+          "detail": "Standardized tools for personality, aptitude or behaviour."
+        }
+      ],
+      "imageRef": "institutions"
+    }
+  ],
+  "notices": [
+    {
+      "slug": "usat-reg-dec-2026",
+      "title": "USAT December 2026 session: registration open",
+      "type": "ADMISSION",
+      "publishedAt": "2026-10-15",
+      "deadline": "2026-11-20",
+      "status": "OPEN",
+      "summary": "Online registration is open for all six USAT categories for the December 2026 session.",
+      "bodyHtml": "<p>Registration for the Undergraduate Studies Admission Test (USAT) December 2026 session is now open for USAT-E, USAT-M, USAT-CS, USAT-GS, USAT-COM and USAT-A.</p><p>Candidates must register and pay through the official ETC portal only. Admit cards will be available on the portal ten days before the test.</p><p>Please read the USAT syllabus and candidate instructions before registering.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "USAT December 2026 — official notice"
+        },
+        {
+          "label": "USAT candidate instructions"
+        }
+      ],
+      "testSlug": "usat"
+    },
+    {
+      "slug": "lawgat-q4-schedule",
+      "title": "LAW-GAT Q4 2026: test schedule and centres announced",
+      "type": "SCHEDULE",
+      "publishedAt": "2026-10-12",
+      "deadline": "2026-11-05",
+      "status": "CLOSING",
+      "summary": "The fourth-quarter LAW-GAT will be held at ETC test centres across Pakistan. Registration closes soon.",
+      "bodyHtml": "<p>The Law Graduate Assessment Test (LAW-GAT) for the fourth quarter of 2026 will be held across Pakistan.</p><p>Test cities and centres will appear on admit cards. Candidates should arrive 60 minutes before the reporting time with their original CNIC and admit card.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "LAW-GAT Q4 2026 schedule"
+        }
+      ],
+      "testSlug": "law-gat"
+    },
+    {
+      "slug": "hat-reg-nov-2026",
+      "title": "HAT-General November 2026: registration open",
+      "type": "ADMISSION",
+      "publishedAt": "2026-10-08",
+      "deadline": "2026-11-10",
+      "status": "OPEN",
+      "summary": "Registration is open for HAT-General in all five categories for MS/MPhil admission and HEC scholarships.",
+      "bodyHtml": "<p>Registration is open for the Higher Education Aptitude Test (HAT-General) November 2026 session.</p><p>Candidates should choose the category closest to their field of study. Category details are given in the attached notice.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "HAT-General November 2026 — official notice"
+        }
+      ],
+      "testSlug": "hat"
+    },
+    {
+      "slug": "usat-result-sep-2026",
+      "title": "USAT September 2026 results announced",
+      "type": "RESULT",
+      "publishedAt": "2026-10-02",
+      "deadline": null,
+      "status": "RESULT",
+      "summary": "Results for the USAT September 2026 session are now available on the official results portal.",
+      "bodyHtml": "<p>Results for the USAT September 2026 session have been announced after post-hoc analysis of every item.</p><p>Candidates can view and download their result cards from the official ETC results portal using their roll number and CNIC.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "USAT September 2026 result notification"
+        }
+      ],
+      "testSlug": "usat"
+    },
+    {
+      "slug": "lawgat-q3-result",
+      "title": "LAW-GAT Q3 2026 results announced",
+      "type": "RESULT",
+      "publishedAt": "2026-09-24",
+      "deadline": null,
+      "status": "RESULT",
+      "summary": "Pass/fail results for the third-quarter LAW-GAT are available on the official results portal.",
+      "bodyHtml": "<p>Results for LAW-GAT Q3 2026 have been announced. Successful candidates may proceed with enrolment at their provincial Bar Council.</p><p>Requests for result verification must be submitted within the period stated in the attached notice.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "LAW-GAT Q3 2026 result notification"
+        }
+      ],
+      "testSlug": "law-gat"
+    },
+    {
+      "slug": "lat-reg-2026-2",
+      "title": "LAT second session 2026: registration schedule",
+      "type": "ADMISSION",
+      "publishedAt": "2026-09-18",
+      "deadline": "2026-12-15",
+      "status": "OPEN",
+      "summary": "The Law Admission Test second session for 2026 is open for registration for LLB admissions.",
+      "bodyHtml": "<p>Registration for the second Law Admission Test (LAT) session of 2026 is open.</p><p>LAT is mandatory for admission to the five-year LLB programme at all public and private universities and law colleges in Pakistan.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "LAT 2026 second session — official notice"
+        }
+      ],
+      "testSlug": "lat"
+    },
+    {
+      "slug": "haat-subjects-2026",
+      "title": "HAAT-Subject 2026: list of subject papers",
+      "type": "GENERAL",
+      "publishedAt": "2026-09-10",
+      "deadline": null,
+      "status": "OPEN",
+      "summary": "The list of subject papers offered in the next HAAT-Subject session has been published.",
+      "bodyHtml": "<p>ETC has published the subject papers available in the next HAAT-Subject session for PhD admissions and HEC scholarships.</p><p>Candidates should confirm that their subject is listed before registering.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "HAAT-Subject paper list 2026"
+        }
+      ],
+      "testSlug": "haat"
+    },
+    {
+      "slug": "recruit-fde-2026",
+      "title": "Recruitment test for Federal Directorate of Education posts",
+      "type": "RECRUITMENT",
+      "publishedAt": "2026-09-03",
+      "deadline": "2026-10-01",
+      "status": "CLOSED",
+      "summary": "ETC is conducting a recruitment test on behalf of the Federal Directorate of Education.",
+      "bodyHtml": "<p>ETC is conducting a recruitment test for advertised posts on behalf of the Federal Directorate of Education.</p><p>Shortlisted candidates will be informed through the official portal and SMS.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "Recruitment test notice"
+        }
+      ],
+      "testSlug": "customized"
+    },
+    {
+      "slug": "usat-centres-dec-2026",
+      "title": "USAT December 2026: test cities and centres",
+      "type": "SCHEDULE",
+      "publishedAt": "2026-08-28",
+      "deadline": null,
+      "status": "OPEN",
+      "summary": "ETC will conduct the USAT December 2026 session in 40 cities across Pakistan.",
+      "bodyHtml": "<p>The USAT December 2026 session will be held at ETC test centres in 40 cities.</p><p>Candidates select their preferred test city during registration. Allocation is subject to seat availability.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "List of test cities"
+        }
+      ],
+      "testSlug": "usat"
+    },
+    {
+      "slug": "lat-result-2026-1",
+      "title": "LAT first session 2026 results announced",
+      "type": "RESULT",
+      "publishedAt": "2026-07-14",
+      "deadline": null,
+      "status": "RESULT",
+      "summary": "Results for the first LAT session of 2026 are available on the official results portal.",
+      "bodyHtml": "<p>Results for the first Law Admission Test session of 2026 have been announced.</p><p>Universities and law colleges will use the LAT result as an eligibility condition in their LLB admission process.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "LAT 2026 first session result notification"
+        }
+      ],
+      "testSlug": "lat"
+    },
+    {
+      "slug": "accommodations-2026",
+      "title": "Special arrangements for candidates with disabilities",
+      "type": "GENERAL",
+      "publishedAt": "2026-06-30",
+      "deadline": null,
+      "status": "OPEN",
+      "summary": "How to request reasonable arrangements for disabilities or special needs on test day.",
+      "bodyHtml": "<p>ETC provides reasonable arrangements for candidates with disabilities or special needs, on request.</p><p>Requests should be made during registration with supporting documents, so arrangements can be confirmed before the test.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "Special arrangements request form"
+        }
+      ],
+      "testSlug": null
+    },
+    {
+      "slug": "unfair-means-2026",
+      "title": "Reminder: unfair means and impersonation policy",
+      "type": "GENERAL",
+      "publishedAt": "2026-06-12",
+      "deadline": null,
+      "status": "OPEN",
+      "summary": "Any form of cheating or impersonation leads to disciplinary action after a fair hearing.",
+      "bodyHtml": "<p>Candidates must do their own work honestly and keep test content confidential.</p><p>Cases of alleged unfair means are heard by the Quality Assurance Department through a documented procedure, and the candidate is always heard before a decision.</p>",
+      "published": true,
+      "isSample": true,
+      "seoTitle": null,
+      "seoDescription": null,
+      "attachments": [
+        {
+          "label": "Unfair means policy"
+        }
+      ],
+      "testSlug": null
+    }
+  ],
+  "resources": [
+    {
+      "title": "USAT-E (Pre-Engineering) syllabus",
+      "type": "SYLLABUS",
+      "date": "2026-08-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": "usat"
+    },
+    {
+      "title": "USAT-M (Pre-Medical) syllabus",
+      "type": "SYLLABUS",
+      "date": "2026-08-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": "usat"
+    },
+    {
+      "title": "USAT sample paper — Common Core",
+      "type": "SAMPLE_PAPER",
+      "date": "2026-08-10",
+      "published": true,
+      "isSample": true,
+      "testSlug": "usat"
+    },
+    {
+      "title": "USAT Part II essay writing guide and rubric",
+      "type": "GUIDE",
+      "date": "2026-08-10",
+      "published": true,
+      "isSample": true,
+      "testSlug": "usat"
+    },
+    {
+      "title": "LAT test pattern and syllabus",
+      "type": "SYLLABUS",
+      "date": "2026-07-20",
+      "published": true,
+      "isSample": true,
+      "testSlug": "lat"
+    },
+    {
+      "title": "LAT sample questions",
+      "type": "SAMPLE_PAPER",
+      "date": "2026-07-20",
+      "published": true,
+      "isSample": true,
+      "testSlug": "lat"
+    },
+    {
+      "title": "LAT candidate guide",
+      "type": "GUIDE",
+      "date": "2026-07-20",
+      "published": true,
+      "isSample": true,
+      "testSlug": "lat"
+    },
+    {
+      "title": "LAW-GAT content outline",
+      "type": "SYLLABUS",
+      "date": "2026-06-15",
+      "published": true,
+      "isSample": true,
+      "testSlug": "law-gat"
+    },
+    {
+      "title": "LAW-GAT candidate guide",
+      "type": "GUIDE",
+      "date": "2026-06-15",
+      "published": true,
+      "isSample": true,
+      "testSlug": "law-gat"
+    },
+    {
+      "title": "HAT-General candidate guide and categories",
+      "type": "GUIDE",
+      "date": "2026-09-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": "hat"
+    },
+    {
+      "title": "HAT-General sample paper",
+      "type": "SAMPLE_PAPER",
+      "date": "2026-09-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": "hat"
+    },
+    {
+      "title": "HAAT-Subject subject list and outlines",
+      "type": "SYLLABUS",
+      "date": "2026-09-10",
+      "published": true,
+      "isSample": true,
+      "testSlug": "haat"
+    },
+    {
+      "title": "HAAT-Subject candidate guide",
+      "type": "GUIDE",
+      "date": "2026-09-10",
+      "published": true,
+      "isSample": true,
+      "testSlug": "haat"
+    },
+    {
+      "title": "Candidate rights and responsibilities",
+      "type": "POLICY",
+      "date": "2026-05-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": null
+    },
+    {
+      "title": "Unfair means and hearing procedure",
+      "type": "POLICY",
+      "date": "2026-05-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": null
+    },
+    {
+      "title": "Special arrangements policy",
+      "type": "POLICY",
+      "date": "2026-05-01",
+      "published": true,
+      "isSample": true,
+      "testSlug": null
+    },
+    {
+      "title": "Assessment services for institutions",
+      "type": "GUIDE",
+      "date": "2026-04-15",
+      "published": true,
+      "isSample": true,
+      "testSlug": "customized"
+    }
+  ],
+  "faqs": [
+    {
+      "category": "REGISTRATION",
+      "question": "How do I register for an ETC test?",
+      "answer": "Registration and fee payment are done only through the official ETC online portal. Read the official notice for your test, create an account on the portal, complete the form and pay the fee before the deadline.",
+      "order": 0,
+      "published": true
+    },
+    {
+      "category": "REGISTRATION",
+      "question": "Can I register for more than one test or category?",
+      "answer": "Yes, if the test schedules do not clash. Each registration is separate and needs its own fee. For USAT and HAT-General, choose the category that matches your stream or field of study.",
+      "order": 1,
+      "published": true
+    },
+    {
+      "category": "REGISTRATION",
+      "question": "I made a mistake in my registration form. Can I correct it?",
+      "answer": "Corrections are allowed through the portal until the registration deadline. After the deadline, contact the ETC helpline with your registration details.",
+      "order": 2,
+      "published": true
+    },
+    {
+      "category": "REGISTRATION",
+      "question": "Which identity document do I need?",
+      "answer": "Use your CNIC or B-Form (for under-18 candidates) when registering, and bring the original to the test centre.",
+      "order": 3,
+      "published": true
+    },
+    {
+      "category": "TEST_DAY",
+      "question": "When can I download my admit card (roll number slip)?",
+      "answer": "Admit cards are usually available on the official portal about ten days before the test. The admit card shows your test centre, date and reporting time.",
+      "order": 4,
+      "published": true
+    },
+    {
+      "category": "TEST_DAY",
+      "question": "What should I bring to the test centre?",
+      "answer": "Bring your admit card, original CNIC or B-Form, and only the items permitted in the candidate instructions. Mobile phones, smart watches and other electronic devices are not allowed.",
+      "order": 5,
+      "published": true
+    },
+    {
+      "category": "TEST_DAY",
+      "question": "What happens if I arrive late?",
+      "answer": "Arrive by the reporting time printed on your admit card. Candidates who arrive after the gates close may not be allowed to sit the test, so the same rules apply to every candidate.",
+      "order": 6,
+      "published": true
+    },
+    {
+      "category": "TEST_DAY",
+      "question": "How is my identity checked at the centre?",
+      "answer": "Staff verify you against your admit card and identity document at entry. This protects every candidate from impersonation.",
+      "order": 7,
+      "published": true
+    },
+    {
+      "category": "RESULTS",
+      "question": "When will results be announced?",
+      "answer": "Results are announced after post-hoc analysis of every item and the whole test. The date is stated in the official notice, and results are published on the official results portal.",
+      "order": 8,
+      "published": true
+    },
+    {
+      "category": "RESULTS",
+      "question": "How is my test scored?",
+      "answer": "MCQ answer sheets are scanned by OMR and scored automatically against a verified key. Any faulty item found in post-hoc analysis is removed from scoring or credited to all candidates. Essays are marked against a fixed rubric by trained examiners.",
+      "order": 9,
+      "published": true
+    },
+    {
+      "category": "RESULTS",
+      "question": "Can I request a re-check of my result?",
+      "answer": "Yes. Requests for result verification can be made within the period stated in the result notification, through the official portal.",
+      "order": 10,
+      "published": true
+    },
+    {
+      "category": "RESULTS",
+      "question": "How long is my result valid?",
+      "answer": "Validity depends on the test and on the institution using the result. Check the official notice for your test and the admission criteria of the university or programme.",
+      "order": 11,
+      "published": true
+    },
+    {
+      "category": "FEES",
+      "question": "How much does each test cost?",
+      "answer": "As per the ETC Institutional Profile 2026: LAT Rs. 2,000; LAW-GAT Rs. 3,000; HAT-General Rs. 2,000; HAAT-Subject Rs. 3,000; USAT Rs. 2,000. Always confirm the current fee in the official announcement for each test.",
+      "order": 12,
+      "published": true
+    },
+    {
+      "category": "FEES",
+      "question": "Is the test fee refundable?",
+      "answer": "Fee refund rules are stated in the official notice for each test. In general, fees are not refundable once registration closes.",
+      "order": 13,
+      "published": true
+    },
+    {
+      "category": "ACCESSIBILITY",
+      "question": "Can I get special arrangements on test day?",
+      "answer": "Yes. ETC provides reasonable arrangements for candidates with disabilities or special needs, on request. Apply during registration with supporting documents so arrangements can be confirmed before the test.",
+      "order": 14,
+      "published": true
+    },
+    {
+      "category": "ACCESSIBILITY",
+      "question": "Is the test centre accessible for wheelchair users?",
+      "answer": "Tell ETC about your needs when you register. ETC will allocate a suitable centre and seating wherever possible.",
+      "order": 15,
+      "published": true
+    },
+    {
+      "category": "INSTITUTIONS",
+      "question": "Can ETC design a test for our organization?",
+      "answer": "Yes. ETC develops customized tests for recruitment, admission, psychometric evaluation, skill assessment and screening. Start with an institutional enquiry and ETC will arrange a requirement study.",
+      "order": 16,
+      "published": true
+    },
+    {
+      "category": "INSTITUTIONS",
+      "question": "How long does a customized test take to set up?",
+      "answer": "It depends on the posts or programme, the number of candidates and whether new items must be written. The timeline is agreed with the client during the requirement study.",
+      "order": 17,
+      "published": true
+    },
+    {
+      "category": "INSTITUTIONS",
+      "question": "What does our institution receive after the test?",
+      "answer": "Results are processed, checked and delivered with a result report and, where useful, analysis by learning outcome.",
+      "order": 18,
+      "published": true
+    }
+  ],
+  "clients": [
+    {
+      "name": "Higher Education Commission (HRM & HRD Divisions)",
+      "sector": "FEDERAL",
+      "order": 0
+    },
+    {
+      "name": "Federal Directorate of Education",
+      "sector": "FEDERAL",
+      "order": 1
+    },
+    {
+      "name": "Federal Ombudsman",
+      "sector": "FEDERAL",
+      "order": 2
+    },
+    {
+      "name": "NAVTTC",
+      "sector": "FEDERAL",
+      "order": 3
+    },
+    {
+      "name": "National Curriculum Council",
+      "sector": "FEDERAL",
+      "order": 4
+    },
+    {
+      "name": "Drug Regulatory Authority of Pakistan (DRAP)",
+      "sector": "FEDERAL",
+      "order": 5
+    },
+    {
+      "name": "Ministry of Defence Production (MODP)",
+      "sector": "FEDERAL",
+      "order": 6
+    },
+    {
+      "name": "Benazir Income Support Programme (BISP)",
+      "sector": "FEDERAL",
+      "order": 7
+    },
+    {
+      "name": "Pakistan Infrastructure Development Co. Ltd. (PIDCL)",
+      "sector": "FEDERAL",
+      "order": 8
+    },
+    {
+      "name": "AML-CFT assessment project",
+      "sector": "FEDERAL",
+      "order": 9
+    },
+    {
+      "name": "GB Chief Court",
+      "sector": "PROVINCIAL",
+      "order": 0
+    },
+    {
+      "name": "GB Board of Revenue",
+      "sector": "PROVINCIAL",
+      "order": 1
+    },
+    {
+      "name": "GB Police",
+      "sector": "PROVINCIAL",
+      "order": 2
+    },
+    {
+      "name": "GB Election Commission",
+      "sector": "PROVINCIAL",
+      "order": 3
+    },
+    {
+      "name": "GB Health Department",
+      "sector": "PROVINCIAL",
+      "order": 4
+    },
+    {
+      "name": "BPPRA",
+      "sector": "PROVINCIAL",
+      "order": 5
+    },
+    {
+      "name": "BRC Balochistan",
+      "sector": "PROVINCIAL",
+      "order": 6
+    },
+    {
+      "name": "Punjab Social Protection Authority (PSPA)",
+      "sector": "PROVINCIAL",
+      "order": 7
+    },
+    {
+      "name": "BEEF (LAW-GAT related assessment)",
+      "sector": "PROVINCIAL",
+      "order": 8
+    },
+    {
+      "name": "University of Karachi",
+      "sector": "UNIVERSITY",
+      "order": 0
+    },
+    {
+      "name": "Quaid-i-Azam University",
+      "sector": "UNIVERSITY",
+      "order": 1
+    },
+    {
+      "name": "Allama Iqbal Open University",
+      "sector": "UNIVERSITY",
+      "order": 2
+    },
+    {
+      "name": "Fatima Jinnah University",
+      "sector": "UNIVERSITY",
+      "order": 3
+    },
+    {
+      "name": "Rawalpindi Women University",
+      "sector": "UNIVERSITY",
+      "order": 4
+    },
+    {
+      "name": "University of Education Lahore",
+      "sector": "UNIVERSITY",
+      "order": 5
+    },
+    {
+      "name": "Shah Abdul Latif University Khairpur",
+      "sector": "UNIVERSITY",
+      "order": 6
+    },
+    {
+      "name": "Emerson University Multan",
+      "sector": "UNIVERSITY",
+      "order": 7
+    },
+    {
+      "name": "University of Mianwali",
+      "sector": "UNIVERSITY",
+      "order": 8
+    },
+    {
+      "name": "University of Layyah",
+      "sector": "UNIVERSITY",
+      "order": 9
+    },
+    {
+      "name": "University of Loralai",
+      "sector": "UNIVERSITY",
+      "order": 10
+    },
+    {
+      "name": "University of Turbat",
+      "sector": "UNIVERSITY",
+      "order": 11
+    },
+    {
+      "name": "University of Skardu",
+      "sector": "UNIVERSITY",
+      "order": 12
+    },
+    {
+      "name": "University of Haripur",
+      "sector": "UNIVERSITY",
+      "order": 13
+    },
+    {
+      "name": "University of Haveli Kahuta (AJK)",
+      "sector": "UNIVERSITY",
+      "order": 14
+    },
+    {
+      "name": "SZABMU (MDCAT)",
+      "sector": "UNIVERSITY",
+      "order": 15
+    },
+    {
+      "name": "BALFATA Scholarship",
+      "sector": "OTHER",
+      "order": 0
+    },
+    {
+      "name": "Danish School",
+      "sector": "OTHER",
+      "order": 1
+    },
+    {
+      "name": "PMU-BESP",
+      "sector": "OTHER",
+      "order": 2
+    }
+  ],
+  "stats": [
+    {
+      "value": 1852391,
+      "label": "Candidates tested",
+      "note": "Since 1 July 2021",
+      "order": 0
+    },
+    {
+      "value": 261,
+      "label": "Test projects",
+      "note": "Delivered for clients",
+      "order": 1
+    },
+    {
+      "value": 230685,
+      "label": "Question bank items",
+      "note": "Developed so far",
+      "order": 2
+    },
+    {
+      "value": 1750,
+      "label": "Distinct papers",
+      "note": "Developed with no repetition",
+      "order": 3
+    },
+    {
+      "value": 850,
+      "label": "Blueprints",
+      "note": "For distinct cadres and tests",
+      "order": 4
+    },
+    {
+      "value": 530,
+      "label": "Subject experts",
+      "note": "In ETC’s expert pool",
+      "order": 5
+    },
+    {
+      "value": 103,
+      "label": "Test centres",
+      "note": "Capacity of about 100,000",
+      "order": 6
+    },
+    {
+      "value": 40,
+      "label": "Cities",
+      "note": "Nationwide network",
+      "order": 7
+    }
+  ],
+  "schedule": [
+    {
+      "session": "LAT 2026 — second session",
+      "regCloses": "2026-12-15",
+      "testDate": "2027-01-10",
+      "status": "OPEN",
+      "published": true,
+      "testSlug": "lat"
+    },
+    {
+      "session": "LAW-GAT Q4 2026",
+      "regCloses": "2026-11-05",
+      "testDate": "2026-11-22",
+      "status": "CLOSING",
+      "published": true,
+      "testSlug": "law-gat"
+    },
+    {
+      "session": "HAT-General November 2026",
+      "regCloses": "2026-11-10",
+      "testDate": "2026-11-29",
+      "status": "OPEN",
+      "published": true,
+      "testSlug": "hat"
+    },
+    {
+      "session": "USAT December 2026",
+      "regCloses": "2026-11-20",
+      "testDate": "2026-12-13",
+      "status": "OPEN",
+      "published": true,
+      "testSlug": "usat"
+    },
+    {
+      "session": "HAAT-Subject January 2027",
+      "regCloses": "2026-12-20",
+      "testDate": "2027-01-17",
+      "status": "OPEN",
+      "published": true,
+      "testSlug": "haat"
+    }
+  ]
+}
