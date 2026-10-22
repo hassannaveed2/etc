@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { BankBars, Workflow } from "@/components/site/quality/Workflow";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Quality & Methods",
   description: "How ETC designs, reviews, pilots and analyses every question, and keeps every test fair and secure.",
-};
+  path: "/quality",
+});
 
 export default async function Page() {
   const media = await getMediaByKeys([SECTION_IMAGES.qualityOmr, SECTION_IMAGES.qualitySealed]);

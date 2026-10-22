@@ -9,13 +9,14 @@ import { formatDate } from "@/lib/format";
 import { NOTICE_TYPE } from "@/lib/labels";
 import { getNoticeBySlug } from "@/lib/content/notices";
 import { getSettings } from "@/lib/content/settings";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const n = await getNoticeBySlug((await params).slug);
   if (!n) return { title: "Notice not found" };
-  return { title: n.seoTitle ?? n.title, description: n.seoDescription ?? n.summary };
+  return pageMetadata({ title: n.seoTitle ?? n.title, description: n.seoDescription ?? n.summary, path: `/news/${n.slug}` });
 }
 
 export default async function NoticePage({ params }: Props) {

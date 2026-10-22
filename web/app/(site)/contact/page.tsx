@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/icon";
@@ -7,10 +8,11 @@ import { PortalLink } from "@/components/site/PortalLink";
 import { getSettings } from "@/lib/content/settings";
 import { submitContact } from "../actions";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description: "Contact the Education Testing Council: helpline, email support, office information and contact form.",
-};
+  path: "/contact",
+});
 
 function RouteIcon({ name, dark }: { name: IconName; dark?: boolean }) {
   return (

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Brand({ onDark = false }: { onDark?: boolean }) {
   return (
-    <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label="Education Testing Council — home">
+    <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
       <Image
         src="/brand/etc-crest.png"
         alt=""
@@ -28,6 +28,7 @@ export function Brand({ onDark = false }: { onDark?: boolean }) {
             <span className="hidden sm:inline">Higher Education Commission · Pakistan</span>
           </span>
         )}
+        <span className="sr-only"> — home</span>
       </span>
     </Link>
   );

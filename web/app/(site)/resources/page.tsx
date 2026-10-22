@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { EmptyState } from "@/components/site/EmptyState";
 import { FilterForm } from "@/components/site/FilterForm";
@@ -10,10 +11,11 @@ import { RESOURCE_TYPE } from "@/lib/labels";
 import { searchResources } from "@/lib/content/resources";
 import { getTestOptions } from "@/lib/content/tests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Resources",
   description: "Syllabi, sample papers, candidate guides and policies for ETC tests, in one searchable library.",
-};
+  path: "/resources",
+});
 
 const FIELD = "mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:outline-none";
 

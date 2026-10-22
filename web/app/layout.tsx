@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
+import { DEFAULT_OG_IMAGE, isProduction, siteUrl, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
 
 const serif = Source_Serif_4({ subsets: ["latin"], variable: "--font-source-serif", display: "swap" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Education Testing Council", template: "%s | Education Testing Council" },
+  metadataBase: new URL(siteUrl()),
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: "Pakistan's national testing body under the Higher Education Commission.",
+  openGraph: { siteName: SITE_NAME, type: "website", locale: "en_PK", images: [{ url: DEFAULT_OG_IMAGE }] },
+  // staging and development are never indexed (spec §4)
+  robots: isProduction() ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = { themeColor: "#1F5E45" };

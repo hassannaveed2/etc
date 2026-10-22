@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { LeadershipCards } from "@/components/site/LeadershipCards";
 import { getLeaders } from "@/lib/content/leaders";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About ETC",
   description: "The Education Testing Council: HEC's own national testing arm — history, legal mandate, governance and leadership.",
-};
+  path: "/about",
+});
 
 export default async function Page() {
   const [leaders, media] = await Promise.all([getLeaders(), getMediaByKeys([SECTION_IMAGES.aboutBuilding])]);

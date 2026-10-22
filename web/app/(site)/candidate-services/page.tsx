@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { PortalLink } from "@/components/site/PortalLink";
@@ -9,10 +10,11 @@ import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 import { getSettings } from "@/lib/content/settings";
 import { getPublishedTests } from "@/lib/content/tests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Candidate Services",
   description: "Registration guidance, admit cards, results, test schedules and the test-day guide for ETC candidates.",
-};
+  path: "/candidate-services",
+});
 
 export default async function Page() {
   const [schedule, settings, tests, media] = await Promise.all([
@@ -177,7 +179,9 @@ export default async function Page() {
                     <td className="whitespace-nowrap">{formatDate(s.regCloses)}</td>
                     <td className="whitespace-nowrap">{formatDate(s.testDate)}</td>
                     <td>
+                      <span className="inline-flex rounded-full bg-white">
                       <StatusChip status={s.status} />
+                    </span>
                     </td>
                     <td>
                       <Link

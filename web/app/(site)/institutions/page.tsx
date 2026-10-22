@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import type { ClientSector } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,11 +15,12 @@ const CLIENT_GROUPS: [string, ClientSector][] = [
   ["Scholarships, schools & projects", "OTHER"],
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Institutional Solutions",
   description:
     "Admissions, recruitment, scholarship, promotion, skill and personality assessments from ETC for universities and public bodies.",
-};
+  path: "/institutions",
+});
 
 export default async function Page() {
   const [clients, media] = await Promise.all([getClients(), getMediaByKeys([SECTION_IMAGES.institutions])]);
@@ -172,29 +174,29 @@ export default async function Page() {
           </h2>
           <ol className="mt-12 grid gap-5 md:grid-cols-5">
             <li className="rounded-2xl bg-white p-6 ring-1 ring-line">
-              <p className="font-serif text-4xl text-gold-500">01</p>
+              <p className="font-serif text-4xl text-gold-600">01</p>
               <h3 className="mt-3 font-semibold">Requirement study</h3>
               <p className="mt-2 text-sm text-muted">
                 We meet you to understand the posts, programme or decision, the number of candidates and the timeline.
               </p>
             </li>
             <li className="rounded-2xl bg-white p-6 ring-1 ring-line">
-              <p className="font-serif text-4xl text-gold-500">02</p>
+              <p className="font-serif text-4xl text-gold-600">02</p>
               <h3 className="mt-3 font-semibold">Test design</h3>
               <p className="mt-2 text-sm text-muted">A blueprint and paper pattern are prepared and agreed with you.</p>
             </li>
             <li className="rounded-2xl bg-white p-6 ring-1 ring-line">
-              <p className="font-serif text-4xl text-gold-500">03</p>
+              <p className="font-serif text-4xl text-gold-600">03</p>
               <h3 className="mt-3 font-semibold">Item selection</h3>
               <p className="mt-2 text-sm text-muted">Calibrated items are drawn from the bank, or new items are written and reviewed.</p>
             </li>
             <li className="rounded-2xl bg-white p-6 ring-1 ring-line">
-              <p className="font-serif text-4xl text-gold-500">04</p>
+              <p className="font-serif text-4xl text-gold-600">04</p>
               <h3 className="mt-3 font-semibold">Administration</h3>
               <p className="mt-2 text-sm text-muted">The test is conducted at ETC centres under standard security protocols.</p>
             </li>
             <li className="rounded-2xl bg-white p-6 ring-1 ring-line">
-              <p className="font-serif text-4xl text-gold-500">05</p>
+              <p className="font-serif text-4xl text-gold-600">05</p>
               <h3 className="mt-3 font-semibold">Scoring & reporting</h3>
               <p className="mt-2 text-sm text-muted">
                 Results are processed, checked and delivered with a result report and, where useful, analysis by learning outcome.

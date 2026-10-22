@@ -1,5 +1,6 @@
 import type { TestCategory } from "@prisma/client";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { TestCard } from "@/components/site/TestCard";
 import { first, type SP } from "@/lib/filters";
@@ -7,10 +8,11 @@ import { formatFee } from "@/lib/format";
 import { fromParam, TEST_CATEGORY } from "@/lib/labels";
 import { getPublishedTests } from "@/lib/content/tests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Tests & Assessments",
   description: "LAT, LAW-GAT, HAT-General, HAAT-Subject, USAT and customized tests from the Education Testing Council.",
-};
+  path: "/tests",
+});
 
 const PURPOSES: [TestCategory | "", string][] = [
   ["", "All tests"],

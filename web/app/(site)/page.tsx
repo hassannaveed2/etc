@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Carousel } from "@/components/site/Carousel";
 import {
   Announcements,
@@ -17,11 +18,12 @@ import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 import { getLatestNotices } from "@/lib/content/notices";
 import { getPublishedTests } from "@/lib/content/tests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: { absolute: "Education Testing Council | Higher Education Commission, Pakistan" },
   description:
     "Standardized, secure and merit-based assessment for admissions, scholarships, licensing and careers across Pakistan.",
-};
+  path: "/",
+});
 
 export default async function HomePage() {
   const [slides, notices, schedule, tests, stats, chairman, clients, media] = await Promise.all([

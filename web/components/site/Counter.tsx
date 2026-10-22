@@ -36,7 +36,11 @@ export function Counter({ value, suffix = "" }: { value: number; suffix?: string
   }, [value]);
 
   return (
-    <span ref={ref} aria-label={fmt(value) + suffix}>
+    <span ref={ref}>
+      <span className="sr-only">
+        {fmt(value)}
+        {suffix}
+      </span>
       <span aria-hidden="true">
         {fmt(shown)}
         {suffix}

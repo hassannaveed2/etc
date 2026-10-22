@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { EmptyState } from "@/components/site/EmptyState";
@@ -13,10 +14,11 @@ import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 import { searchNotices } from "@/lib/content/notices";
 import { getTestOptions } from "@/lib/content/tests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "News & Notices",
   description: "Registration, schedules, results and recruitment notices from the Education Testing Council.",
-};
+  path: "/news",
+});
 
 const FIELD = "mt-1.5 w-full rounded-md border border-line bg-white px-4 py-2.5 focus:border-green-700 focus:outline-none";
 

@@ -42,7 +42,6 @@ export function Workflow() {
             id={`wf-tab-${i + 1}`}
             aria-controls={`wf-panel-${i + 1}`}
             aria-selected={i === sel}
-            aria-label={`${i + 1}. ${title}`}
             tabIndex={i === sel ? 0 : -1}
             onClick={() => setSel(i)}
             onKeyDown={(e) => {
@@ -58,7 +57,7 @@ export function Workflow() {
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-mint-50 font-serif text-green-700 group-aria-selected:bg-gold-500 group-aria-selected:text-green-950">
               {i + 1}
             </span>
-            <span className="hidden font-medium lg:inline">{title}</span>
+            <span className="sr-only lg:not-sr-only lg:font-medium">{title}</span>
           </button>
         ))}
       </div>
