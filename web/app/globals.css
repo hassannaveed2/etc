@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* The few rules Tailwind utilities can't express cleanly (ported from mockup/assets/css/site.css). */
+/* Anchor targets set their own scroll-mt-* to clear the sticky header. */
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* Tailwind 4 preflight drops the pointer cursor on buttons; keep the mockup's behaviour */
+button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+
+/* Visible, consistent focus ring (gold on light, pale gold on dark) */
+:focus-visible { outline: 3px solid #8A6A24; outline-offset: 2px; border-radius: 4px; }
+.on-dark :focus-visible { outline-color: #D9BE7C; }
+
+/* Eyebrow line, echoing the profile's "S E C T I O N" styling */
+.eyebrow { display: inline-flex; align-items: center; gap: .75rem; font-size: .75rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase; color: #7E6224; }
+.eyebrow::before { content: ""; width: 2rem; height: 2px; background: currentColor; }
+.on-dark .eyebrow, .eyebrow.on-dark { color: #D9BE7C; }
+
+/* Subtle wreath-like dotted pattern for dark bands */
+.pattern-dots { background-image: radial-gradient(rgba(217,190,124,.14) 1px, transparent 1.2px); background-size: 22px 22px; }
+
+/* Data tables in the profile's style */
+.data-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.data-table thead th { background: #2E7D5B; color: #fff; text-align: left; font-weight: 600; padding: .7rem .9rem; white-space: nowrap; }
+.data-table td { padding: .7rem .9rem; border-bottom: 1px solid #D7E2DB; vertical-align: top; }
+.data-table tbody tr:nth-child(even) td { background: #F4F9F6; }
+.data-table td.num, .data-table th.num { text-align: center; font-variant-numeric: tabular-nums; }
+/* position: relative keeps absolutely positioned sr-only text inside the scroll container */
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid #D7E2DB; border-radius: .75rem; background: #fff; }
+.table-wrap:focus-visible { outline-offset: 4px; }
+
+/* Reveal-on-scroll (only when JS has marked the page and motion is allowed) */
+.js-motion [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.js-motion [data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* Hero carousel crossfade */
+[data-carousel] [data-slide] { transition: opacity .9s ease; }
+[data-carousel] [data-slide][aria-hidden="true"] { opacity: 0; pointer-events: none; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Mega-menu panel */
+[data-mega-panel][hidden] { display: none; }
+
+/* Marquee pauses on hover/focus */
+.marquee:hover .animate-marquee, .marquee:focus-within .animate-marquee { animation-play-state: paused; }
+
+/* Crest on dark: white roundel */
+.crest-roundel { background: #fff; border-radius: 9999px; padding: .5rem; box-shadow: 0 0 0 3px rgba(217,190,124,.5); }
+
+/* Print: notices and test pages print cleanly */
+@media print {
+  #site-header, #site-footer, [data-noprint] { display: none !important; }
+  body { color: #000; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .js-motion [data-reveal] { opacity: 1; transform: none; }
+}
