@@ -1,7 +1,7 @@
 // Form-side schemas: the shared content schemas plus ids, the lock version and coercion from form strings.
 import { z } from "zod";
 import { normalizeTos } from "@/lib/admin/tos";
-import { noticeAttachmentInput, noticeInput, testInput, tosInput, usatCategoryInput } from "./content";
+import { faqInput, noticeAttachmentInput, noticeInput, resourceInput, testInput, tosInput, usatCategoryInput } from "./content";
 
 /** Checkbox/switch: present ("on") means true. */
 export const checkbox = z.preprocess((v) => v === "on" || v === "true" || v === true, z.boolean());
@@ -63,3 +63,21 @@ export const testForm = testInput
   })
   .transform((t) => ({ ...t, fee: t.feeByAgreement ? null : t.fee }));
 export type TestFormInput = z.infer<typeof testForm>;
+
+export const resourceForm = resourceInput.extend({
+  id: idOrNull.optional().default(null),
+  updatedAt: version,
+  testId: idOrNull.optional().default(null),
+  mediaId: requiredId("Choose the PDF for this resource."),
+  published: checkbox,
+  isSample: checkbox,
+});
+
+export const faqForm = faqInput.extend({
+  id: idOrNull.optional().default(null),
+  updatedAt: version,
+  published: checkbox,
+  order: z.preprocess((v) => (v === "" || v == null ? 0 : Number(v)), z.number().int()),
+});
+
+export const moveInput = z.object({ id: z.number().int().positive(), dir: z.enum(["up", "down"]) });
