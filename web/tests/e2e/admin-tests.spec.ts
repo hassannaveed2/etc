@@ -23,7 +23,7 @@ test("editing a USAT TOS cell updates the computed total on the public page", as
   await cell.fill("2");
   await expect(page.getByTestId("tos-total-0")).toHaveText("6");
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await page.goto("/tests/usat");
   await expect(page.getByRole("row", { name: /^A1 Analogy/ })).toContainText("6");
 });

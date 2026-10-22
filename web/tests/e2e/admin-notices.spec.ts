@@ -24,7 +24,7 @@ test("admin creates and publishes a notice and it appears on /news", async ({ pa
   await expect(page.getByLabel("URL slug")).toHaveValue("e2e-test-notice");
   await page.getByRole("switch", { name: "Published" }).check();
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await expect(page).toHaveURL(/\/admin\/notices\/\d+$/);
   await expect(page.getByRole("link", { name: /View on site/ })).toHaveAttribute("href", "/news/e2e-test-notice");
   await page.goto("/news?q=E2E");
@@ -42,6 +42,8 @@ test("missing fields show inline errors and a focused summary", async ({ page })
   await expect(summary).toBeFocused();
   await expect(summary).toContainText("Summary is required.");
   await expect(page.getByLabel("Summary")).toHaveAttribute("aria-invalid", "true");
+  // what the editor typed survives a failed save
+  await expect(page.getByLabel(/^Title/)).toHaveValue("E2E Incomplete");
   expect(await prisma.notice.count({ where: { title: "E2E Incomplete" } })).toBe(0);
 });
 
@@ -77,7 +79,7 @@ test("the second of two concurrent saves is refused with the reload message", as
   await b.goto(`/admin/notices/${n.id}`);
   await a.getByLabel(/^Summary/).fill("Saved by the first editor");
   await a.getByRole("button", { name: "Save" }).click();
-  await expect(a.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await expect(a.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await b.getByLabel(/^Summary/).fill("Saved by the second editor");
   await b.getByRole("button", { name: "Save" }).click();
   await expect(b.locator("main").getByRole("alert")).toContainText("Someone else saved this item while you were editing.");

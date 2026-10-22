@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 import type { ActionResult, SaveData } from "@/lib/admin/result";
 import { ErrorSummary } from "./fields/ErrorSummary";
@@ -66,7 +66,19 @@ export function AdminForm({
   const currentVersion = state?.ok && state.data.updatedAt ? state.data.updatedAt : version;
 
   return (
-    <form ref={formRef} action={formAction} noValidate onInput={() => setDirty(true)} onChange={() => setDirty(true)}>
+    <form
+      ref={formRef}
+      noValidate
+      onInput={() => setDirty(true)}
+      onChange={() => setDirty(true)}
+      // Dispatch the action ourselves: React 19 resets <form action={…}> after every submit, which would wipe what the
+      // editor typed whenever a save fails validation.
+      onSubmit={(e) => {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        startTransition(() => formAction(fd));
+      }}
+    >
       {currentVersion && <input type="hidden" name="updatedAt" value={currentVersion} />}
       <FormErrorsProvider errors={errors}>
         {state && !state.ok && (

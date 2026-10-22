@@ -18,7 +18,7 @@ test("an editor adds a FAQ, it shows under Fees, and unpublishing hides it", asy
   await page.getByLabel(/^Answer/).fill("No. The full fee is paid once on the official portal.");
   await page.getByRole("switch", { name: "Published" }).check();
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
 
   await page.goto("/faqs");
   await page.getByRole("group", { name: "Topics" }).getByRole("button", { name: /Fees/ }).click();
@@ -43,7 +43,7 @@ test("a resource with an existing PDF from the library appears on /resources", a
   await dialog.getByRole("button", { name: /sample\.pdf/ }).first().click();
   await page.getByRole("switch", { name: "Published" }).check();
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await page.goto("/resources?q=E2E");
   await expect(page.getByText("E2E Candidate checklist")).toBeVisible();
 });

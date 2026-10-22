@@ -1,7 +1,21 @@
 // Form-side schemas: the shared content schemas plus ids, the lock version and coercion from form strings.
 import { z } from "zod";
 import { normalizeTos } from "@/lib/admin/tos";
-import { faqInput, noticeAttachmentInput, noticeInput, resourceInput, testInput, tosInput, usatCategoryInput } from "./content";
+import {
+  clientInput,
+  faqInput,
+  heroSlideInput,
+  noticeAttachmentInput,
+  noticeInput,
+  resourceInput,
+  SCHEDULE_ORDER_MESSAGE,
+  scheduleDatesInOrder,
+  scheduleEntryBase,
+  statInput,
+  testInput,
+  tosInput,
+  usatCategoryInput,
+} from "./content";
 
 /** Checkbox/switch: present ("on") means true. */
 export const checkbox = z.preprocess((v) => v === "on" || v === "true" || v === true, z.boolean());
@@ -81,3 +95,34 @@ export const faqForm = faqInput.extend({
 });
 
 export const moveInput = z.object({ id: z.number().int().positive(), dir: z.enum(["up", "down"]) });
+
+export const heroForm = heroSlideInput.extend({
+  id: idOrNull.optional().default(null),
+  updatedAt: version,
+  imageId: requiredId("Choose the background image."),
+  published: checkbox,
+  order: z.preprocess((v) => (v === "" || v == null ? 0 : Number(v)), z.number().int()),
+});
+
+export const scheduleForm = scheduleEntryBase
+  .extend({
+    id: idOrNull.optional().default(null),
+    updatedAt: version,
+    testId: requiredId("Choose the test."),
+    published: checkbox,
+  })
+  .refine(scheduleDatesInOrder, { message: SCHEDULE_ORDER_MESSAGE, path: ["testDate"] });
+
+/** Bulk list editors (stats, clients) lock on the newest updatedAt of the whole list. */
+export const statsForm = z.object({
+  updatedAt: z.string().optional(),
+  items: z.preprocess(
+    (v) => (Array.isArray(v) ? v : []),
+    z.array(statInput.extend({ value: intField("Enter a whole number."), order: z.number().int().optional() })),
+  ),
+});
+
+export const clientsForm = z.object({
+  updatedAt: z.string().optional(),
+  items: z.preprocess((v) => (Array.isArray(v) ? v : []), z.array(clientInput.extend({ order: z.number().int().optional() }))),
+});

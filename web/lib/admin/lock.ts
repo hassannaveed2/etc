@@ -18,3 +18,14 @@ export async function updateLocked(delegate: unknown, id: number, expectedUpdate
   const { count } = await (delegate as UpdateManyDelegate).updateMany({ where: { id, updatedAt: expected }, data });
   if (count === 0) throw new StaleError();
 }
+
+/** Version of a whole list (stats, clients): the newest updatedAt, or "empty". */
+export function listVersion(rows: { updatedAt: Date }[]): string {
+  if (!rows.length) return "empty";
+  return new Date(Math.max(...rows.map((r) => r.updatedAt.getTime()))).toISOString();
+}
+
+/** Bulk list saves are refused if anyone changed the list since the editor opened it. */
+export function assertListUnchanged(rows: { updatedAt: Date }[], expected: string | undefined): void {
+  if (!expected || listVersion(rows) !== expected) throw new StaleError();
+}

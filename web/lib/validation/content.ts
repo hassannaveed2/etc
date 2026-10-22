@@ -127,18 +127,18 @@ export const heroSlideInput = z.object({
   published: z.boolean(),
 });
 
-export const scheduleEntryInput = z
-  .object({
-    session: text("Session"),
-    regCloses: isoDate("the registration closing date"),
-    testDate: isoDate("the test date"),
-    status: z.enum(Status),
-    published: z.boolean(),
-  })
-  .refine((s) => s.testDate >= s.regCloses, {
-    message: "Test date must be on or after the registration closing date.",
-    path: ["testDate"],
-  });
+export const scheduleEntryBase = z.object({
+  session: text("Session"),
+  regCloses: isoDate("the registration closing date"),
+  testDate: isoDate("the test date"),
+  status: z.enum(Status),
+  published: z.boolean(),
+});
+
+export const SCHEDULE_ORDER_MESSAGE = "Test date must be on or after the registration closing date.";
+export const scheduleDatesInOrder = (s: { regCloses: string; testDate: string }) => s.testDate >= s.regCloses;
+
+export const scheduleEntryInput = scheduleEntryBase.refine(scheduleDatesInOrder, { message: SCHEDULE_ORDER_MESSAGE, path: ["testDate"] });
 
 export const statInput = z.object({
   value: z.number().int().min(0, "Enter a number of zero or more."),
