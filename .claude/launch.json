@@ -4,14 +4,35 @@
     {
       "name": "etc-mockup",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["scripts/serve.mjs", "5173"],
+      "runtimeArgs": [
+        "scripts/serve.mjs",
+        "5173"
+      ],
       "port": 5173
     },
     {
       "name": "etc-profile",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["scripts/serve.mjs", "5174", "profile"],
+      "runtimeArgs": [
+        "scripts/serve.mjs",
+        "5174",
+        "profile"
+      ],
       "port": 5174
+    },
+    {
+      "name": "etc-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "web",
+        "run",
+        "dev",
+        "--",
+        "-p",
+        "3200"
+      ],
+      "port": 3200
     }
   ]
 }
