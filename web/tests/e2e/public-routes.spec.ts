@@ -155,3 +155,44 @@ test.describe("news", () => {
     await expect(page.getByRole("heading", { level: 1, name: "Notice not found" })).toBeVisible();
   });
 });
+
+test.describe("resources, faqs, contact", () => {
+  test("/resources?type=policy shows 3 cards with PDF links", async ({ page }) => {
+    await page.goto("/resources?type=policy");
+    await expect(page.locator("#resource-list > li")).toHaveCount(3);
+    await expect(page.locator("#resource-list a").first()).toHaveAttribute("href", /\.pdf$/);
+    await expect(page.getByLabel("Resource type")).toHaveValue("policy");
+  });
+
+  test("resources search with no match shows the empty state", async ({ page }) => {
+    await page.goto("/resources?q=zzzz");
+    await expect(page.getByText("No resources match your filters.")).toBeVisible();
+  });
+
+  test("FAQ search filters live and counts results", async ({ page }) => {
+    await page.goto("/faqs");
+    await expect(page.getByRole("status")).toHaveText("19 questions");
+    await page.getByLabel("Search questions").fill("admit card");
+    await expect(page.getByRole("status")).toHaveText("4 questions matching “admit card”");
+    await page.getByLabel("Search questions").fill("zzzz");
+    await expect(page.getByText("No questions match your search.")).toBeVisible();
+  });
+
+  test("FAQ topics filter and the accordion opens an answer", async ({ page }) => {
+    await page.goto("/faqs");
+    await page.getByRole("group", { name: "Topics" }).getByRole("button", { name: /Fees/ }).click();
+    await expect(page.getByRole("status")).toHaveText("2 questions");
+    const q = page.getByRole("button", { name: /How much does each test cost\?/ });
+    await q.click();
+    await expect(q).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByText(/LAT Rs\. 2,000/)).toBeVisible();
+  });
+
+  test("/contact shows settings-driven support details and the form", async ({ page }) => {
+    await page.goto("/contact");
+    await expect(page.locator("#support")).toContainText("[to be provided]");
+    await expect(page.locator("#office")).toContainText("Sector H-9, Islamabad");
+    await expect(page.getByLabel(/Full name/)).toBeVisible();
+    await expect(page.getByLabel(/Subject/)).toBeVisible();
+  });
+});
