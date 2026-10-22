@@ -5,6 +5,8 @@ import {
   clientInput,
   faqInput,
   heroSlideInput,
+  leaderInput,
+  settingsInput,
   noticeAttachmentInput,
   noticeInput,
   resourceInput,
@@ -125,4 +127,19 @@ export const statsForm = z.object({
 export const clientsForm = z.object({
   updatedAt: z.string().optional(),
   items: z.preprocess((v) => (Array.isArray(v) ? v : []), z.array(clientInput.extend({ order: z.number().int().optional() }))),
+});
+
+export const leaderForm = leaderInput.extend({
+  updatedAt: version,
+  photoId: idOrNull.optional().default(null),
+});
+
+const PLACEHOLDER_PORTALS = ["portalRegistrationUrl", "portalAdmitCardUrl", "portalResultsUrl"] as const;
+
+/** Settings; on production the portal links must be real https:// addresses, not the "#portal-…" placeholders. */
+export const settingsForm = settingsInput.extend({ updatedAt: version }).superRefine((v, ctx) => {
+  if (process.env.NEXT_PUBLIC_SITE_ENV !== "production") return;
+  for (const k of PLACEHOLDER_PORTALS) {
+    if (!v[k].startsWith("https://")) ctx.addIssue({ code: "custom", path: [k], message: "Enter the portal’s https:// address." });
+  }
 });
