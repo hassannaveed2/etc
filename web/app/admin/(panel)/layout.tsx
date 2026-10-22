@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getInboxCounts } from "@/lib/admin/inbox";
 import { requireUser } from "@/lib/auth/session";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { TopBar } from "@/components/admin/TopBar";
@@ -10,8 +11,7 @@ export const metadata: Metadata = {
 
 export default async function AdminPanelLayout({ children }: { children: React.ReactNode }) {
   const user = await requireUser();
-  // Inbox badges are wired to real counts in Task 24.
-  const counts = { enquiries: 0, messages: 0 };
+  const counts = await getInboxCounts();
   return (
     <div className="flex min-h-dvh bg-mint-50/60">
       <Sidebar role={user.role} counts={counts} />
