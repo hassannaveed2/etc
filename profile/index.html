@@ -360,6 +360,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ic { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; flex: none; color: var(--green);
   border: 1px solid rgba(46, 125, 91, .4); }
 .ic .ico { width: 17px; height: 17px; }
+/* Wins over list rules such as ".rcols span" / ".contact-list span" that would turn the circle into a block */
+.page .ic { display: grid; place-items: center; margin-top: 0; line-height: 0; }
 
 /* Section openers: a large outlined numeral sits in the top-right corner */
 /* Outlined numerals set in the display face. Variable-font glyphs have overlapping contours, so a plain text-stroke
