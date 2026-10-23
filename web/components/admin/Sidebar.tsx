@@ -16,13 +16,15 @@ export function Sidebar({ role, counts }: { role: Role; counts: { enquiries: num
       aria-label="Admin"
       className="on-dark sticky top-0 flex h-dvh w-16 shrink-0 flex-col overflow-y-auto bg-green-950 text-white/80 lg:w-64"
     >
-      <Link href="/admin" className="flex items-center gap-3 px-3 py-4 lg:px-5" aria-label="ETC admin — dashboard">
+      {/* The visible text is the link's name (WCAG 2.5.3); on the icon rail it stays for screen readers only. */}
+      <Link href="/admin" className="flex items-center gap-3 px-3 py-4 lg:px-5">
         <span className="crest-roundel grid h-10 w-10 shrink-0 place-items-center !p-1">
           <Image src="/brand/etc-crest.png" alt="" width={428} height={480} className="h-8 w-auto" />
         </span>
-        <span className="hidden min-w-0 lg:block">
+        <span className="sr-only min-w-0 lg:not-sr-only lg:block">
           <span className="block font-serif text-lg font-semibold leading-tight text-white">ETC Admin</span>
           <span className="block text-xs text-white/60">Education Testing Council</span>
+          <span className="sr-only"> (dashboard)</span>
         </span>
       </Link>
       <div className="flex-1 space-y-5 px-2 pb-6 lg:px-3">

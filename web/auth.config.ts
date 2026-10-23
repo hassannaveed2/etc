@@ -11,6 +11,11 @@ declare module "next-auth" {
   }
 }
 
+/** Every /admin/** page except the sign-in page needs a session. */
+export function needsSignIn(path: string): boolean {
+  return (path === "/admin" || path.startsWith("/admin/")) && path !== "/admin/login";
+}
+
 export const authConfig = {
   pages: { signIn: "/admin/login" },
   session: { strategy: "jwt", maxAge: 8 * 60 * 60 },
@@ -18,9 +23,7 @@ export const authConfig = {
   providers: [],
   callbacks: {
     authorized({ auth, request }) {
-      const path = request.nextUrl.pathname;
-      if (path.startsWith("/admin") && path !== "/admin/login") return !!auth?.user;
-      return true;
+      return !needsSignIn(request.nextUrl.pathname) || !!auth?.user;
     },
     jwt({ token, user }) {
       if (user) {

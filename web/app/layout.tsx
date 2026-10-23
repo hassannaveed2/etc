@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
+import { connection } from "next/server";
 import { DEFAULT_OG_IMAGE, isProduction, siteUrl, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
 
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#1F5E45" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Render per request so Next can stamp the middleware's CSP nonce on its scripts (static HTML can't carry one).
+  // Page data stays cached by unstable_cache tags, so this costs rendering, not database queries.
+  await connection();
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
       <body className="bg-white font-sans text-ink">
