@@ -388,6 +388,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .small { font-size: 8.6px; line-height: 1.5; color: var(--muted); }
 .small b { color: var(--ink); }
 .fill-v { display: flex; flex-direction: column; }
+.fill-v > .eyebrow { align-self: flex-start; }
 .push { margin-top: auto; }
 
 /* Ruled tables */
@@ -415,6 +416,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .figs.c3 > div:nth-child(3n+1), .figs.c2 > div:nth-child(2n+1) { border-left: 0; padding-left: 0; }
 .figs b { display: block; font-family: var(--display); font-weight: 800; font-size: 23px; letter-spacing: -.9px; line-height: 1; color: var(--deep); }
 .figs b em { font-style: normal; color: var(--gold); }
+.figs.big b { font-size: 38px; letter-spacing: -1.4px; }
+.figs.big > div { padding-top: 14px; padding-bottom: 14px; }
 .figs span { display: block; margin-top: 5px; font-size: 9.6px; font-weight: 800; color: var(--ink); }
 .figs small { display: block; margin-top: 1px; font-size: 8.6px; color: var(--muted); }
 
@@ -502,11 +505,18 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .page > .foot { z-index: 3; }
 
 /* Timeline (vertical) */
-.tl { list-style: none; margin-top: 14px; position: relative; }
-.tl::before { content: ""; position: absolute; left: 117px; top: 6px; bottom: 6px; width: 2px; background: var(--g-gold); }
-.tl li { display: grid; grid-template-columns: 104px 1fr; gap: 30px; padding: 0 0 13px; position: relative; }
-.tl li::before { content: ""; position: absolute; left: 112px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); }
-.tl li.now::before { background: var(--gold); }
+/* Each row carries its own marker column, so the line always runs through the centre of the circle.
+   Rows share the free height (flex: 1), letting a timeline fill its page. */
+.tl { list-style: none; margin-top: 26px; display: flex; flex-direction: column; }
+.tl li { display: grid; grid-template-columns: 110px 16px 1fr; column-gap: 16px; flex: 1 1 auto; min-height: 0; }
+.tl .mk { position: relative; display: flex; justify-content: center; }
+.tl .mk::before { content: ""; position: absolute; top: 0; bottom: 0; left: 7px; width: 2px; background: var(--gold); }
+.tl li:first-child .mk::before { top: 9px; }
+.tl li:last-child .mk::before { bottom: auto; height: 9px; }
+.tl .mk i { position: relative; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); }
+.tl li.now .mk i { background: var(--gold); }
+.tl li > p, .tl li > .when { padding-bottom: 12px; }
+.tl.fill { flex: 1; margin-bottom: 4px; }
 .tl .when { text-align: right; font-family: var(--display); font-weight: 800; font-size: 13px; line-height: 1.2; color: var(--deep); }
 .tl .when small { display: block; font-size: 8.6px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold-ink); }
 .tl p { font-size: 9.8px; line-height: 1.55; color: #2A3A33; }
@@ -640,7 +650,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .contact-list > div { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule); }
 .contact-list b { display: block; font-size: 7.8px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: var(--muted); }
 .contact-list span { display: block; margin-top: 2px; font-family: var(--display); font-weight: 600; font-size: 12px; color: var(--deep); }
-.ledger td { padding: 7px 0; vertical-align: baseline; }
+.ledger td { padding: 7px 0; vertical-align: middle; }
 .ledger td small { color: var(--muted); font-size: 8.4px; }
 .ledger td.big { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: -.4px; color: var(--deep); padding-left: 10px; }
 .ticks.c2 li { break-inside: avoid; }
@@ -648,9 +658,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .back-sheet .page { box-shadow: 0 18px 50px rgba(30, 24, 10, .2); }
 .back h2 { font-family: var(--display); }
 /* Integrated workflow chain (two rows on a gold line) */
-.chain { display: grid; grid-template-columns: repeat(5, 1fr); row-gap: 26px; margin-top: 30px; position: relative; }
-.chain::before, .chain::after { content: ""; position: absolute; left: 0; height: 2px; background: var(--g-gold); }
-.chain::before { top: 17px; right: 10%; } .chain::after { top: calc(50% + 30px); right: 30%; }
+.chain { display: grid; grid-template-columns: repeat(5, 1fr); row-gap: 40px; margin-top: 30px; position: relative; }
+/* connector from each circle to the next one in its row */
+.chain > div:not(:nth-child(5n)):not(:last-child)::after { content: ""; position: absolute; top: 17px; left: 36px; right: 0; height: 2px; background: var(--gold); }
 .chain > div { position: relative; padding-right: 12px; }
 .chain .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); display: grid; place-items: center;
   font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--deep); position: relative; }
@@ -659,6 +669,31 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .chain b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.25; color: var(--ink); }
 .chain > div:last-child .dot { background: var(--gold); }
 @media print { .acr .gold, .figs b em { -webkit-text-fill-color: currentColor; } .sec-num { -webkit-text-stroke: 2.6px #D9BE7C; } }
+
+/* ---------- Fill the page: the main block of a page grows into the free height ---------- */
+.fill-v > .grow { flex: 1 1 auto; margin-bottom: 4px; }
+.fill-v > .z.fill-v.grow { display: flex; flex-direction: column; margin-bottom: 0; }
+.fill-v > .eyebrow, .z.fill-v > .eyebrow { align-self: flex-start; }
+.fill-v > .h3, .fill-v > p, .fill-v > .note { flex: none; }
+/* tables: rows share the extra height, content centred in each row */
+table.grow { height: 1px; }
+table.grow td { vertical-align: middle; }
+/* grids: rows share the extra height */
+.rgrid.grow, .figs.grow { grid-auto-rows: 1fr; align-content: stretch; }
+.rgrid.grow > div, .figs.grow > div { display: flex; flex-direction: column; justify-content: center; }
+.rgrid.row.grow > div { flex-direction: row; align-items: center; }
+.rcols.grow { align-items: stretch; }
+.rcols.grow > div { display: flex; flex-direction: column; justify-content: center; }
+.rcols.grow > div > .ic { margin-bottom: 2px; }
+/* lists: items share the extra height */
+.dl.grow, .steps.grow, .ticks.grow, .hbars.grow, .sbars.grow { display: flex; flex-direction: column; }
+.dl.grow > div, .hbars.grow > .r, .sbars.grow > .row { flex: 1 1 auto; align-items: center; }
+.steps.grow > li { flex: 1 1 auto; align-content: center; }
+.ticks.ruled.grow > li { flex: 1 1 auto; display: flex; align-items: center; }
+.ticks.ruled.grow > li::before { top: 50%; margin-top: -2.5px; }
+.gloss.grow { columns: auto; display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; grid-auto-rows: 1fr; }
+.gloss.grow > div { display: flex; flex-direction: column; justify-content: center; }
+.gloss.grow > div:nth-child(odd) { border-right: 0; }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
@@ -926,7 +961,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== Section 04 · ETC at a glance ===================== -->
     <section class="sheet spread" data-label="ETC at a glance">
-      <section class="page" data-label="ETC at a glance">
+      <section class="page fill-v" data-label="ETC at a glance">
           <span class="sec-num" aria-hidden="true" data-n="04">04</span>
           <span class="eyebrow">Section 04 · ETC at a glance</span>
           <h2 class="h2 sm">A national platform, in <span class="gold">numbers.</span></h2>
@@ -934,7 +969,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <p class="lede">The Education Testing Council is Pakistan’s public-sector national testing body, working under the Higher Education Commission to provide standardized, centralized and secure assessment for education and professional opportunities.</p>
           <h3 class="h3 mt-l"><i>4.1</i>Our record in numbers</h3>
           <p class="cap">The figures below summarize ETC’s work since 1 July 2021, as recorded in its institutional data.</p>
-          <div class="figs c3">
+          <div class="figs c3 grow">
             <div><b>1,852,391</b><span>Candidates tested</span><small>Since 1 July 2021</small></div>
             <div><b>261</b><span>Test projects</span><small>Delivered for clients</small></div>
             <div><b>230,685</b><span>Question bank items</span><small>Developed so far</small></div>
@@ -947,9 +982,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">09</span><span>ETC at a glance</span></div>
         </section>
-      <section class="page" data-label="ETC at a glance">
+      <section class="page fill-v" data-label="ETC at a glance">
           <figure class="pb top" style="--h:190px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/hero-exam-hall.jpg" alt="Candidates writing a test in a quiet examination hall" decoding="async"></figure>
-          <div class="z" style="margin-top:112px">
+          <div class="z fill-v grow" style="margin-top:112px">
             <h3 class="h3"><i>4.2</i>Our assessment approach</h3>
             <div class="rcols" style="--n:4">
               <div><span class="ic"><svg class="ico"><use href="#i-std"/></svg></span><b>Standardized</b><span>Same rules, same conditions, same scoring for every candidate.</span></div>
@@ -958,7 +993,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
               <div><span class="ic"><svg class="ico"><use href="#i-badge"/></svg></span><b>Quality-driven</b><span>Every question reviewed, piloted and analysed before and after use.</span></div>
             </div>
             <h3 class="h3 mt-l"><i>4.3</i>Who we serve</h3>
-            <table class="rt tight">
+            <table class="rt tight grow">
               <thead><tr><th style="width:36%">Stakeholder</th><th>How ETC supports them</th></tr></thead>
               <tbody>
                 <tr><td class="k">Students and candidates</td><td>Fair, clearly explained tests for admissions, scholarships, licences and jobs.</td></tr>
@@ -988,17 +1023,17 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">11</span><span>About the Council</span></div>
         </section>
-      <section class="page" data-label="About the Council">
+      <section class="page fill-v" data-label="About the Council">
           <div class="pattern tr" aria-hidden="true"></div>
           <span class="eyebrow">Section 05 · Our journey</span>
           <h3 class="h3 big"><i>5.2</i>Our institutional journey</h3>
-          <ol class="tl">
-            <li><span class="when"><small>2017</small>Conceived</span><p>ETC conceived as a public-sector testing body under the HEC Ordinance.</p></li>
-            <li><span class="when"><small>31 Aug 2018</small>Revamped</span><p>The Commission, in its 34th meeting (30–31 August 2018), approved a revamped ETC as an autonomous, self-sustaining entity.</p></li>
-            <li><span class="when"><small>31 Aug 2018</small>Legal mandate</span><p>The Supreme Court of Pakistan’s decision on legal education reforms assigned national law tests to HEC as the executing institution.</p></li>
-            <li><span class="when"><small>Method</small>Standardization</span><p>ETC developed as a testing service offering standardized, centralized testing based on international best practice.</p></li>
-            <li><span class="when"><small>15 Jun 2022</small>Gazette</span><p>ETC notified in The Gazette of Pakistan.</p></li>
-            <li class="now"><span class="when"><small>Now</small>Today</span><p>A national, self-sustaining assessment platform with 103 test centres, a 230,000+ item bank and more than 1.85 million candidates tested since July 2021.</p></li>
+          <ol class="tl fill">
+            <li><span class="when"><small>2017</small>Conceived</span><span class="mk" aria-hidden="true"><i></i></span><p>ETC conceived as a public-sector testing body under the HEC Ordinance.</p></li>
+            <li><span class="when"><small>31 Aug 2018</small>Revamped</span><span class="mk" aria-hidden="true"><i></i></span><p>The Commission, in its 34th meeting (30–31 August 2018), approved a revamped ETC as an autonomous, self-sustaining entity.</p></li>
+            <li><span class="when"><small>31 Aug 2018</small>Legal mandate</span><span class="mk" aria-hidden="true"><i></i></span><p>The Supreme Court of Pakistan’s decision on legal education reforms assigned national law tests to HEC as the executing institution.</p></li>
+            <li><span class="when"><small>Method</small>Standardization</span><span class="mk" aria-hidden="true"><i></i></span><p>ETC developed as a testing service offering standardized, centralized testing based on international best practice.</p></li>
+            <li><span class="when"><small>15 Jun 2022</small>Gazette</span><span class="mk" aria-hidden="true"><i></i></span><p>ETC notified in The Gazette of Pakistan.</p></li>
+            <li class="now"><span class="when"><small>Now</small>Today</span><span class="mk" aria-hidden="true"><i></i></span><p>A national, self-sustaining assessment platform with 103 test centres, a 230,000+ item bank and more than 1.85 million candidates tested since July 2021.</p></li>
           </ol>
           <div class="foot"><span>Institutional Profile 2026</span><span class="folio">12</span></div>
         </section>
@@ -1006,12 +1041,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== Section 05.3 · Legal mandate / Section 06 · Vision ===================== -->
     <section class="sheet spread" data-label="Legal mandate · Vision and mission">
-      <section class="page" data-label="Legal mandate">
+      <section class="page fill-v" data-label="Legal mandate">
           <figure class="pb corner" style="--w:48%;--h:260px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-lawgat.jpg" alt="Law reports, a gavel and scales of justice on a desk" decoding="async"></figure>
           <span class="eyebrow z">Section 05 · Legal mandate</span>
           <h3 class="h3 big z"><i>5.3</i>Legal education reforms</h3>
           <p class="txt mt-s w55 z">An important part of ETC’s work comes from the reform of legal education in Pakistan. On 31 August 2018, while considering the reports of the Legal Education Reform Committees in Constitution Petition No. 134/2012 and related applications, the Supreme Court of Pakistan decided that:</p>
-          <div class="rcols z" style="--n:3;margin-top:22px">
+          <div class="rcols z grow" style="--n:3;margin-top:22px">
             <div><i>Para 8</i><b>Key regulators</b><span>The Pakistan Bar Council (PBC) and the Higher Education Commission (HEC) are the key regulators responsible for supervising and enforcing professional standards in legal education.</span></div>
             <div><i>Para 15(1)</i><b>LAW-GAT, quarterly</b><span>A Law Graduate Assessment Test (LAW-GAT) for law graduates seeking enrolment to the Bar shall be held on a quarterly basis by HEC, as the executing institution, throughout Pakistan, using a question bank prepared for the test.</span></div>
             <div><i>Para 15(2)</i><b>LAT, twice a year</b><span>A Law Admission Test (LAT) for all law colleges in Pakistan shall be held twice a year by HEC.</span></div>
@@ -1037,11 +1072,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== Section 06 · Core values ===================== -->
     <section class="sheet spread" data-label="Core values">
-      <section class="page" data-label="Core values">
+      <section class="page fill-v" data-label="Core values">
           <span class="eyebrow">Section 06 · Core values</span>
           <h3 class="h3 big"><i>6.1</i>Our core values</h3>
           <p class="cap" style="max-width:420px">Eight values shape how every ETC test is designed, delivered and reported.</p>
-          <div class="rgrid n4 row" style="--n:4;margin-top:16px">
+          <div class="rgrid n4 row grow" style="--n:4;margin-top:16px">
             <div><span class="ic"><svg class="ico"><use href="#i-badge"/></svg></span><div><b>Merit</b><span class="d">Opportunity is earned through ability and performance.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-eye"/></svg></span><div><b>Transparency</b><span class="d">Processes are clear, explained and open to scrutiny.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-scale"/></svg></span><div><b>Fairness</b><span class="d">Every candidate is assessed impartially, under the same rules.</span></div></div>
@@ -1052,14 +1087,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             <div><span class="ic"><svg class="ico"><use href="#i-heart"/></svg></span><div><b>Service</b><span class="d">Candidates and institutions are at the centre of our work.</span></div></div>
           </div>
           <div class="pattern br" aria-hidden="true"></div>
-          <p class="pull z" style="position:absolute;left:50px;bottom:72px;max-width:440px">Opportunity follows merit, and every candidate can trust the result they receive.</p>
+          <p class="pull z" style="flex:none;margin-top:16px;margin-bottom:4px;max-width:440px">Opportunity follows merit, and every candidate can trust the result they receive.</p>
           <div class="foot"><span class="folio">15</span><span>Vision, mission and core values</span></div>
         </section>
-      <section class="page" data-label="Core values">
+      <section class="page fill-v" data-label="Core values">
           <figure class="pb top soft" style="--h:200px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/hero-campus.jpg" alt="Students walking across a university campus in the morning" decoding="async" style="object-position:50% 45%"></figure>
-          <div class="z" style="margin-top:150px">
+          <div class="z fill-v grow" style="margin-top:150px">
             <h3 class="h3"><i>6.2</i>What our values mean in practice</h3>
-            <table class="rt roomy">
+            <table class="rt roomy grow">
               <thead><tr><th style="width:24%">Value</th><th>How it shows in our daily work</th></tr></thead>
               <tbody>
                 <tr><td class="k">Merit</td><td>Scores are based only on answers given; seat allocation and selection follow published rules.</td></tr>
@@ -1086,10 +1121,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <p class="txt mt-s w60 z">The Board of Governors (BOG) is ETC’s highest decision-making body. It provides policy direction and oversight, and makes sure that the Council stays true to its mandate. The Board brings together the federal government, all four provinces, public and private universities and the private sector, so that the views of every major stakeholder are represented.</p>
           <div class="foot"><span class="folio">17</span><span>Governance and organization</span></div>
         </section>
-      <section class="page" data-label="Governance and organization">
+      <section class="page fill-v" data-label="Governance and organization">
           <span class="eyebrow">Section 07 · Board of Governors</span>
           <h3 class="h3 big">Composition of the Board</h3>
-          <table class="rt tight" style="margin-top:12px">
+          <table class="rt tight grow" style="margin-top:12px">
             <thead><tr><th style="width:26px">#</th><th style="width:30%">Member</th><th>Representation</th><th style="width:19%">Role</th></tr></thead>
             <tbody>
               <tr><td class="n">1</td><td class="k">Chairperson</td><td>Appointed by the Commission</td><td class="tag">Chairperson</td></tr>
@@ -1108,7 +1143,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Functional organization">
-      <section class="page" data-label="Functional organization">
+      <section class="page fill-v" data-label="Functional organization">
           <span class="eyebrow">Section 07 · Structure</span>
           <h3 class="h3 big"><i>7.2</i>Functional organization</h3>
           <p class="txt mt-s" style="max-width:600px">Below the Board, the Chief Executive Officer leads the Council. An Internal Audit unit reports independently, and a Secretariat provides technical, legal, financial and administrative advice. The work of ETC is organized into five functional groups.</p>
@@ -1130,17 +1165,17 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             </div>
           </div>
           <h3 class="h3" style="margin-top:22px"><i>7.3</i>Core departments at work</h3>
-          <div class="rcols" style="--n:3">
+          <div class="rcols grow" style="--n:3">
             <div><b>Test Development &amp; Evaluation</b><span>Designs tests, builds and maintains the item bank, marks descriptive papers, compiles results and runs psychometric analysis (Section 10).</span></div>
             <div><b>Test Operations</b><span>Plans, schedules and conducts tests across the country and manages candidate services (Section 15).</span></div>
             <div><b>Quality Assurance</b><span>Monitors test operations, paper development, printing and result generation, and handles legal matters and unfair-means hearings (Section 14).</span></div>
           </div>
           <div class="foot"><span class="folio">19</span><span>Governance and organization</span></div>
         </section>
-      <section class="page" data-label="Functional organization">
+      <section class="page fill-v" data-label="Functional organization">
           <span class="eyebrow">Section 07 · Functional groups</span>
           <h3 class="h3 big">Five functional groups</h3>
-          <table class="rt" style="margin-top:12px">
+          <table class="rt grow" style="margin-top:12px">
             <thead><tr><th style="width:24%">Functional group</th><th style="width:40%">Units</th><th>Main purpose</th></tr></thead>
             <tbody>
               <tr><td class="k">Quality Assurance Group</td><td>Monitoring &amp; Evaluation; International Collaboration &amp; Certification</td><td>Independent checking of quality across all functions; links with international bodies and standards.</td></tr>
@@ -1156,14 +1191,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== Section 08 · What we offer ===================== -->
     <section class="sheet spread" data-label="What we offer">
-      <section class="page" data-label="What we offer">
+      <section class="page fill-v" data-label="What we offer">
           <span class="sec-num" aria-hidden="true" data-n="08">08</span>
           <span class="eyebrow">Section 08 · What we offer</span>
           <h2 class="h2 sm">What we <span class="gold">offer.</span></h2>
           <p class="sub">Standardized assessment solutions for education and professional opportunities</p>
           <p class="lede">ETC designs, develops and administers standardized tests and assessments for six main purposes. Each service follows the same quality process, but the content, format and scoring are tailored to the decision the client needs to make.</p>
           <h3 class="h3 mt-l"><i>8.1</i>Assessment services</h3>
-          <div class="rgrid n3 row" style="--n:3">
+          <div class="rgrid n3 row grow" style="--n:3">
             <div><span class="ic"><svg class="ico"><use href="#i-cap"/></svg></span><div><b>Admissions</b><span class="d">Standardized tests that help universities and colleges select students fairly and on merit.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-scale"/></svg></span><div><b>Bar Council licence</b><span class="d">The Law Graduate Assessment Test for law graduates seeking enrolment as advocates.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-badge"/></svg></span><div><b>Scholarships</b><span class="d">Eligibility and merit tests for HEC and other national scholarship programmes.</span></div></div>
@@ -1173,11 +1208,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">21</span><span>What we offer</span></div>
         </section>
-      <section class="page" data-label="What we offer">
+      <section class="page fill-v" data-label="What we offer">
           <figure class="pb top soft" style="--h:200px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/skills.jpg" alt="A technician candidate wiring a training panel while an examiner observes" decoding="async" style="object-position:50% 35%"></figure>
-          <div class="z" style="margin-top:150px">
+          <div class="z fill-v grow" style="margin-top:150px">
             <h3 class="h3"><i>8.2</i>Types of tests and assessments</h3>
-            <table class="rt">
+            <table class="rt grow">
               <thead><tr><th style="width:22%">Type</th><th style="width:46%">What it is</th><th>Typical use</th></tr></thead>
               <tbody>
                 <tr><td class="k">MCQ-based tests</td><td>Objective questions with one correct answer among several options. Scored by machine, quickly and without bias.</td><td>Admissions, scholarships, recruitment, licensing.</td></tr>
@@ -1193,12 +1228,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Key attributes · Customized assessment">
-      <section class="page" data-label="Key attributes of an ETC test">
+      <section class="page fill-v" data-label="Key attributes of an ETC test">
           <figure class="pb side soft" style="--w:34%"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-omr.jpg" alt="An OMR scanner feeding a stack of bubble answer sheets" decoding="async"></figure>
           <span class="eyebrow">Section 08 · What makes it ours</span>
           <h3 class="h3 big"><i>8.3</i>Key attributes of an ETC test</h3>
-          <div class="z" style="max-width:480px">
-            <div class="rgrid n2 row" style="--n:2;margin-top:16px">
+          <div class="z fill-v grow" style="max-width:480px">
+            <div class="rgrid n2 row grow" style="--n:2;margin-top:16px">
               <div><span class="ic"><svg class="ico"><use href="#i-target"/></svg></span><div><b>Purpose-driven</b><span class="d">Every test starts with a clear statement of what decision the scores will support.</span></div></div>
               <div><span class="ic"><svg class="ico"><use href="#i-grid"/></svg></span><div><b>Blueprint-based</b><span class="d">A Table of Specifications fixes the topics, number of questions and thinking levels in advance.</span></div></div>
               <div><span class="ic"><svg class="ico"><use href="#i-std"/></svg></span><div><b>Standardized</b><span class="d">All candidates face the same conditions, timing and scoring rules.</span></div></div>
@@ -1244,10 +1279,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">25</span><span>Products of ETC</span></div>
         </section>
-      <section class="page" data-label="Products of ETC">
+      <section class="page fill-v" data-label="Products of ETC">
           <span class="eyebrow">Section 09 · Portfolio</span>
           <h3 class="h3 big"><i>9.1</i>Portfolio overview</h3>
-          <table class="rt" style="margin-top:12px">
+          <table class="rt grow" style="margin-top:12px">
             <thead><tr><th style="width:30%">Product</th><th style="width:21%">Who takes it</th><th>Purpose</th><th class="num" style="width:13%">Fee*</th></tr></thead>
             <tbody>
               <tr><td class="k">LAT <small>Law Admission Test</small></td><td>Applicants to LLB programmes</td><td>Mandatory for admission to LLB programmes in public and private universities</td><td class="num k">Rs. 2,000</td></tr>
@@ -1332,7 +1367,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="USAT">
-      <section class="page" data-label="USAT — Undergraduate Studies Admission Test">
+      <section class="page fill-v" data-label="USAT — Undergraduate Studies Admission Test">
           <figure class="pb corner" style="--w:40%;--h:200px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/test-usat.jpg" alt="Intermediate students preparing together in a classroom" decoding="async"></figure>
           <span class="eyebrow">Section 09 · Product 9.6</span>
           <div class="acr" style="font-size:46px;margin-top:12px"><span class="gold">USAT</span></div>
@@ -1350,7 +1385,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             <p class="small" style="margin-top:6px">Part I: a Common Core of 45 questions (20 Verbal Reasoning and 25 Quantitative Reasoning) taken by everyone, plus 30 discipline-specific questions. Part II: one argument-based essay (15 marks) and one narrative essay (10 marks), each chosen from three options.</p>
           </div>
           <h3 class="h3" style="margin-top:10px">USAT categories</h3>
-          <table class="rt tight">
+          <table class="rt tight grow">
             <thead><tr><th style="width:17%">Category</th><th style="width:25%">Stream</th><th>Discipline-specific subjects (30 MCQs)</th></tr></thead>
             <tbody>
               <tr><td class="k">USAT-E</td><td>Pre-Engineering</td><td>Physics 10 · Chemistry 10 · Mathematics 10</td></tr>
@@ -1363,7 +1398,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">31</span><span>Products of ETC</span></div>
         </section>
-      <section class="page" data-label="USAT — what it assesses">
+      <section class="page fill-v" data-label="USAT — what it assesses">
           <span class="eyebrow">Section 09 · USAT</span>
           <h3 class="h3 big">What USAT assesses</h3>
           <table class="rt roomy" style="margin-top:12px">
@@ -1377,7 +1412,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <h3 class="h3 mt-xl">Learning outcomes</h3>
           <p class="cap">A successful USAT candidate can:</p>
-          <div class="rcols" style="--n:4">
+          <div class="rcols grow" style="--n:4">
             <div><i>01</i><span style="margin-top:0;color:#2A3A33;font-size:9.6px">Show basic understanding of core concepts in the chosen discipline.</span></div>
             <div><i>02</i><span style="margin-top:0;color:#2A3A33;font-size:9.6px">Apply rules, formulas and standard procedures to solve well-defined problems.</span></div>
             <div><i>03</i><span style="margin-top:0;color:#2A3A33;font-size:9.6px">Analyse relationships, patterns and structures in reasoning, numerical and subject questions.</span></div>
@@ -1389,10 +1424,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="USAT blueprints">
-      <section class="page" data-label="USAT — Common Core Table of Specifications">
+      <section class="page fill-v" data-label="USAT — Common Core Table of Specifications">
           <span class="eyebrow">Section 09 · USAT blueprint</span>
           <h3 class="h3 big">Common Core — Table of Specifications <span style="font-weight:500;color:var(--muted);font-size:13px">(45 MCQs)</span></h3>
-          <table class="rt tight heat" style="margin-top:12px">
+          <table class="rt tight heat grow" style="margin-top:12px">
             <thead><tr><th style="width:30px"></th><th>Content area</th><th class="v" style="width:7%">K</th><th class="v" style="width:7%">U</th><th class="v" style="width:7%">Ap</th><th class="v" style="width:7%">An</th><th class="v" style="width:7%">E</th><th class="v" style="width:7%">C</th><th class="num" style="width:8%">Total</th></tr></thead>
             <tbody>
               <tr><td class="n" style="font-size:10px">A1</td><td class="k" style="font-size:9.8px">Analogy</td><td class="v" data-v="1" title="Analogy: 1 at K"><span>1</span></td><td class="v" data-v="2" title="Analogy: 2 at U"><span>2</span></td><td class="v" data-v="1" title="Analogy: 1 at Ap"><span>1</span></td><td class="v" data-v="1" title="Analogy: 1 at An"><span>1</span></td><td class="v" data-v="0" title="Analogy: 0 at E"><span>0</span></td><td class="v" data-v="0" title="Analogy: 0 at C"><span>0</span></td><td class="num k">5</td></tr>
@@ -1413,7 +1448,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <p class="small" style="margin-top:8px"><b>K</b> Knowledge · <b>U</b> Understanding · <b>Ap</b> Application · <b>An</b> Analysis · <b>E</b> Evaluation · <b>C</b> Create. The full Bloom’s legend is in Section 10.4. Shading shows how many questions sit in each cell.</p>
           <div class="foot"><span class="folio">33</span><span>Products of ETC</span></div>
         </section>
-      <section class="page" data-label="USAT — thinking levels and essays">
+      <section class="page fill-v" data-label="USAT — thinking levels and essays">
           <span class="eyebrow">Section 09 · USAT blueprint</span>
           <h3 class="h3 big">Thinking-level profile of each USAT category <span style="font-weight:500;color:var(--muted);font-size:13px">(75 MCQs)</span></h3>
           <div class="sbars">
@@ -1427,7 +1462,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="keyrow"><span><i class="lv1"></i>K Knowledge</span><span><i class="lv2"></i>U Understanding</span><span><i class="lv3"></i>Ap Application</span><span><i class="lv4"></i>An Analysis</span><span><i class="lv5"></i>E Evaluation</span><span><i class="lv6"></i>C Create</span></div>
           <p class="small" style="margin-top:8px">HEC’s official USAT document sets subject-wise weightages only. The thinking-level distribution above is ETC’s planning map for item writing: reasoning sections lean towards Application and Analysis, while content subjects lean towards Knowledge and Understanding.</p>
           <h3 class="h3" style="margin-top:16px">Part II — Essay writing</h3>
-          <table class="rt tight">
+          <table class="rt tight grow">
             <thead><tr><th style="width:36%">Component</th><th class="num" style="width:9%">Marks</th><th style="padding-left:16px">Main thinking level</th></tr></thead>
             <tbody>
               <tr><td class="k">Argument-based essay <small>1 of 3 choices</small></td><td class="num k">15</td><td style="padding-left:16px">Evaluation and Creation — building and defending a position with reasons</td></tr>
@@ -1441,21 +1476,21 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== 9.7 Customized · Section 10 · Test development ===================== -->
     <section class="sheet spread" data-label="Customized tests · Test development">
-      <section class="page" data-label="Customized tests">
+      <section class="page fill-v" data-label="Customized tests">
           <div class="pattern tr" aria-hidden="true" style="width:460px;height:360px"></div>
           <span class="eyebrow">Section 09 · Product 9.7</span>
           <div class="acr" style="font-size:52px">Customized <span class="gold">tests.</span></div>
           <p class="prod-name">Built to order for government, regulators, universities and projects</p>
           <p class="txt mt-m z" style="max-width:520px">Beyond its national products, ETC builds tests to order for government departments, regulators, universities and projects. These include recruitment tests for specific cadres, admission tests for individual universities (for example the Quaid-i-Azam University undergraduate admission test and MDCAT for SZABMU), scholarship tests, psychometric and personality evaluations, skill assessments and screening tests.</p>
           <p class="txt mt-s z" style="max-width:520px">Every customized test follows the same blueprint, review, piloting and analysis process as the national products.</p>
-          <div class="figs c3 z" style="margin-top:26px">
+          <div class="figs c3 z big" style="margin-top:auto;margin-bottom:4px">
             <div><b>850</b><span>Blueprints developed</span><small>For distinct cadres to date</small></div>
             <div><b>261</b><span>Test projects</span><small>Delivered for clients</small></div>
             <div><b>1,750</b><span>Distinct papers</span><small>Developed with no repetition</small></div>
           </div>
           <div class="foot"><span class="folio">35</span><span>Products of ETC</span></div>
         </section>
-      <section class="page" data-label="Test development and evaluation">
+      <section class="page fill-v" data-label="Test development and evaluation">
           <span class="sec-num" aria-hidden="true" data-n="10">10</span>
           <span class="eyebrow">Section 10 · Test development and evaluation</span>
           <h2 class="h2 sm">Test development<br>and <span class="gold">evaluation.</span></h2>
@@ -1463,7 +1498,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <h3 class="h3 mt-l"><i>10.1</i>Role of the department</h3>
           <p class="txt mt-s">The Test Development &amp; Evaluation Department is the academic engine of ETC. It is responsible for test design, item bank development, paper generation, paper marking, result compilation and psychometric analysis. All papers are generated in a secure environment using a calibrated test-item databank, and standard quality-assurance procedures are applied to protect the validity, reliability and fairness of every assessment.</p>
           <h3 class="h3 mt-m"><i>10.2</i>Responsibilities</h3>
-          <div class="rcols" style="--n:4">
+          <div class="rcols grow" style="--n:4">
             <div><b>Design</b><ul class="ticks sm"><li>Defining the purpose of each test</li><li>Developing blueprints and Tables of Specifications</li><li>Setting paper patterns for customized tests</li></ul></div>
             <div><b>Development</b><ul class="ticks sm"><li>Writing and reviewing test items</li><li>Assembling papers for regular and customized products</li><li>Piloting assembled tests</li></ul></div>
             <div><b>Evaluation</b><ul class="ticks sm"><li>Pre-test and post-test psychometric analysis</li><li>Marking descriptive papers</li><li>Generating results</li></ul></div>
@@ -1474,11 +1509,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="The 13-step workflow">
-      <section class="page" data-label="The 13-step test development workflow">
+      <section class="page fill-v" data-label="The 13-step test development workflow">
           <span class="eyebrow">Section 10 · Workflow</span>
           <h3 class="h3 big"><i>10.3</i>The 13-step test development workflow</h3>
           <p class="cap" style="max-width:600px">Every question follows the same path before it can count towards a candidate’s score. Some steps involve external experts; others are carried out in-house by ETC staff.</p>
-          <table class="rt tight wf" style="margin-top:12px">
+          <table class="rt tight wf grow" style="margin-top:12px">
             <thead><tr><th style="width:30px">Step</th><th style="width:26%">Stage</th><th>What happens</th><th style="width:13%">By</th></tr></thead>
             <tbody>
               <tr><td class="n">01</td><td class="k">Test blueprint</td><td>The purpose, content areas, number of items and thinking levels are fixed in a Table of Specifications.</td><td class="tag in">In-house</td></tr>
@@ -1517,22 +1552,22 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <h3 class="h3 big"><i>10.4</i>Blueprints and Bloom’s Taxonomy</h3>
           <p class="txt mt-s" style="max-width:610px">A blueprint (Table of Specifications) is the plan of a test. It makes sure that the paper covers the right topics in the right proportions and asks candidates to think at the right levels. ETC uses Bloom’s Taxonomy to describe these thinking levels:</p>
           <div class="stairs">
-            <div class="riser" style="height:132px"><div class="code">K</div><b>Knowledge</b><span>Recalls facts, terms, definitions and formulas.</span></div>
-            <div class="riser" style="height:156px"><div class="code">U</div><b>Understanding</b><span>Explains, interprets and summarizes ideas.</span></div>
-            <div class="riser" style="height:180px"><div class="code">Ap</div><b>Application</b><span>Uses rules, formulas and concepts to solve new problems.</span></div>
-            <div class="riser" style="height:204px"><div class="code">An</div><b>Analysis</b><span>Breaks information down and identifies relationships and patterns.</span></div>
-            <div class="riser" style="height:228px"><div class="code">E</div><b>Evaluation</b><span>Judges validity and makes evidence-based decisions.</span></div>
-            <div class="riser" style="height:252px"><div class="code">C</div><b>Create</b><span>Combines ideas to form a new structure or argument.</span></div>
+            <div class="riser" style="height:170px"><div class="code">K</div><b>Knowledge</b><span>Recalls facts, terms, definitions and formulas.</span></div>
+            <div class="riser" style="height:198px"><div class="code">U</div><b>Understanding</b><span>Explains, interprets and summarizes ideas.</span></div>
+            <div class="riser" style="height:226px"><div class="code">Ap</div><b>Application</b><span>Uses rules, formulas and concepts to solve new problems.</span></div>
+            <div class="riser" style="height:254px"><div class="code">An</div><b>Analysis</b><span>Breaks information down and identifies relationships and patterns.</span></div>
+            <div class="riser" style="height:282px"><div class="code">E</div><b>Evaluation</b><span>Judges validity and makes evidence-based decisions.</span></div>
+            <div class="riser" style="height:310px"><div class="code">C</div><b>Create</b><span>Combines ideas to form a new structure or argument.</span></div>
           </div>
           <p class="cap-fig" style="display:flex;justify-content:space-between"><span>Simple recall</span><span>→ Higher-order thinking</span></p>
           <div class="foot"><span class="folio">39</span><span>Test development and evaluation</span></div>
         </section>
-      <section class="page" data-label="Good practice in item writing">
+      <section class="page fill-v" data-label="Good practice in item writing">
           <figure class="pb side soft" style="--w:38%"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/experts.jpg" alt="Subject experts reviewing draft question papers with red pens" decoding="async" style="object-position:62% 50%"></figure>
           <span class="eyebrow">Section 10 · Item writing</span>
           <h3 class="h3 big"><i>10.5</i>Good practice in item writing</h3>
           <p class="txt mt-s z" style="max-width:440px">In line with international practice, including the ETS Standards for Quality and Fairness, ETC item writers are trained to:</p>
-          <ol class="steps z" style="max-width:440px;margin-top:14px">
+          <ol class="steps z grow" style="max-width:440px;margin-top:14px">
             <li><span>Test <b>one clear idea</b> per question, linked to a specific blueprint cell.</span></li>
             <li><span>Write a <b>clear question stem</b> and one, and only one, correct answer.</span></li>
             <li><span>Use <b>plausible wrong options</b> (distractors) based on common mistakes, not tricks.</span></li>
@@ -1544,24 +1579,24 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
     <!-- ===================== Section 11 · Item bank ===================== -->
     <section class="sheet spread" data-label="The ETC item bank">
-      <section class="page" data-label="The ETC item bank">
+      <section class="page fill-v" data-label="The ETC item bank">
           <figure class="pb corner" style="--w:50%;--h:360px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/server.jpg" alt="A secure server room with rows of racks and a biometric door panel" decoding="async"></figure>
           <span class="eyebrow">Section 11 · The ETC item bank</span>
           <h2 class="h2 sm">The ETC item<br><span class="gold">bank.</span></h2>
           <p class="sub">A large, calibrated and secure national resource</p>
           <h3 class="h3 mt-l"><i>11.1</i>Size and composition</h3>
           <p class="txt mt-s z" style="max-width:430px">The item bank is ETC’s most valuable academic asset. It allows the Council to build many different but equivalent papers, to avoid repeating questions, and to respond quickly to new client needs. In total, 230,685 items have been developed so far. The twelve main subject banks are shown opposite.</p>
-          <div class="z" style="margin-top:22px;max-width:430px;border-top:2px solid var(--gold);padding-top:12px">
+          <div class="z" style="margin-top:auto;margin-bottom:4px;max-width:430px;border-top:2px solid var(--gold);padding-top:12px">
             <div style="font-family:var(--display);font-weight:800;font-size:54px;letter-spacing:-2.4px;line-height:1;color:var(--deep)">230,685</div>
             <p style="margin-top:6px;font-size:10px;font-weight:800;color:var(--ink)">Items developed to date</p>
             <p class="small" style="margin-top:8px">The twelve listed subject banks together hold <b>188,310</b> items; the overall figure of 230,685 is the total number of items developed to date.</p>
           </div>
           <div class="foot"><span class="folio">41</span><span>The ETC item bank</span></div>
         </section>
-      <section class="page" data-label="The ETC item bank">
+      <section class="page fill-v" data-label="The ETC item bank">
           <span class="eyebrow">Section 11 · Twelve subject banks</span>
           <h3 class="h3 big">Items in the twelve main subject banks</h3>
-          <div class="hbars" role="img" aria-label="Items per subject bank, largest first: Verbal Reasoning 32,976 down to Islamic Studies and Ethics 4,315">
+          <div class="hbars grow" role="img" aria-label="Items per subject bank, largest first: Verbal Reasoning 32,976 down to Islamic Studies and Ethics 4,315">
             <div class="r" title="Verbal Reasoning: 32,976 items (17.5% of listed banks)"><i>1</i><b>Verbal Reasoning</b><div class="track"><div class="fillb" style="width:100.0%"></div></div><span class="val">32,976<small>17.5%</small></span></div>
             <div class="r" title="Quantitative Reasoning: 29,276 items (15.5% of listed banks)"><i>2</i><b>Quantitative Reasoning</b><div class="track"><div class="fillb" style="width:88.8%"></div></div><span class="val">29,276<small>15.5%</small></span></div>
             <div class="r" title="Physical &amp; Biological Sciences: 22,596 items (12.0% of listed banks)"><i>3</i><b>Physical &amp; Biological Sciences</b><div class="track"><div class="fillb" style="width:68.5%"></div></div><span class="val">22,596<small>12.0%</small></span></div>
@@ -1582,13 +1617,13 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Calibration · Security of the bank">
-      <section class="page" data-label="Calibration and tagging">
+      <section class="page fill-v" data-label="Calibration and tagging">
           <div class="pattern br" aria-hidden="true"></div>
           <span class="eyebrow">Section 11 · Calibration</span>
           <h3 class="h3 big"><i>11.2</i>Calibration and tagging</h3>
           <p class="txt mt-s" style="max-width:600px">An item is not simply stored as a question and answer. Each one carries a record of information, called tags, that makes it possible to build balanced papers automatically:</p>
           <p class="cap-fig" style="margin-top:16px">Specimen item record</p>
-          <dl class="dl z" style="--dt:190px;margin-top:6px">
+          <dl class="dl z grow" style="--dt:190px;margin-top:6px">
             <div><dt>Subject, topic and sub-topic</dt><dd>Quantitative Reasoning › Algebra › Linear equations</dd></div>
             <div><dt>Bloom’s level</dt><dd>Application</dd></div>
             <div><dt>Difficulty (p-value)</dt><dd><b>0.58</b> — answered correctly by 58% of pilot candidates</dd></div>
@@ -1601,8 +1636,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">43</span><span>The ETC item bank</span></div>
         </section>
       <section class="page" data-label="Security of the bank">
-          <figure class="pb top soft" style="--h:210px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-sealed.jpg" alt="Sealed, tamper-evident examination boxes on secure shelving" decoding="async" style="object-position:50% 40%"></figure>
-          <div class="z" style="margin-top:140px">
+          <figure class="pb top soft" style="--h:300px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-sealed.jpg" alt="Sealed, tamper-evident examination boxes on secure shelving" decoding="async" style="object-position:50% 40%"></figure>
+          <div class="z" style="margin-top:218px">
             <h3 class="h3"><i>11.3</i>Security of the bank</h3>
             <p class="txt mt-s">Access to the bank is strictly controlled and logged. Papers are produced by an automated test generation system that selects calibrated items to match the blueprint, so that no single person sees a complete paper in advance. Item exposure is monitored, and items that have been used often are rested or retired. ETC’s roadmap includes a fully encrypted item-banking system and psychometric tagging of a large-scale calibrated bank.</p>
             <div class="rcols" style="--n:4;margin-top:16px">
@@ -1618,19 +1653,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 
     <!-- ===================== Section 12 · Psychometrics ===================== -->
     <section class="sheet spread" data-label="Psychometric properties">
-      <section class="page" data-label="Psychometric properties of test items">
+      <section class="page fill-v" data-label="Psychometric properties of test items">
           <span class="sec-num" aria-hidden="true" data-n="12">12</span>
           <span class="eyebrow">Section 12 · Psychometric properties of test items</span>
           <h2 class="h2 sm">Psychometric<br><span class="gold">properties.</span></h2>
           <p class="sub">Pre-test (pilot) and post-hoc analysis</p>
           <p class="lede">Psychometrics is the science of measuring knowledge and ability accurately. ETC uses it twice for every item: before the item is used for real decisions (pre-test analysis) and after every live test (post-hoc analysis).</p>
-          <div style="display:grid;grid-template-columns:1fr 250px;gap:28px;margin-top:18px;align-items:start">
+          <div class="grow" style="display:grid;grid-template-columns:1fr 300px;gap:30px;margin-top:18px;align-items:center">
             <div>
               <h3 class="h3"><i>12.1</i>Why item analysis matters</h3>
               <p class="txt mt-s">A test score is only as good as the questions behind it. A question may look fine to an expert but still behave badly with real candidates. It may be too easy, too hard, confusing, have two possible answers, or favour one group over another. Statistical item analysis finds these problems using actual candidate responses, so that they can be fixed before they affect anyone’s result.</p>
             </div>
             <figure>
-              <svg class="svgfig" viewBox="0 0 250 150" width="250" height="150" role="img" aria-label="Illustrative item characteristic curves for an easy, a medium and a hard item">
+              <svg class="svgfig" viewBox="0 0 250 150" width="300" height="180" role="img" aria-label="Illustrative item characteristic curves for an easy, a medium and a hard item">
                 <path d="M30 8V122H246" fill="none" stroke="#8C8A80" stroke-width="1"/>
                 <path d="M30 120 C 70 120, 70 18, 120 14 S 200 10, 244 10" fill="none" stroke="#A8CDB7" stroke-width="2.2"/>
                 <path d="M30 121 C 100 121, 110 16, 160 13 S 220 11, 244 11" fill="none" stroke="#2E7D5B" stroke-width="2.2"/>
@@ -1646,12 +1681,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">45</span><span>Psychometric properties</span></div>
         </section>
-      <section class="page" data-label="Pre-test (pilot) analysis">
+      <section class="page fill-v" data-label="Pre-test (pilot) analysis">
           <figure class="pb side soft" style="--w:38%"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/analyst.jpg" alt="A data analyst reviewing score distributions and item curves on two monitors" decoding="async" style="object-position:40% 50%"></figure>
           <span class="eyebrow">Section 12 · Before live use</span>
           <h3 class="h3 big"><i>12.2</i>Pre-test (pilot) analysis</h3>
           <p class="txt mt-s z" style="max-width:450px">Before an item is used in a live test, it is tried out on a sample of students who are similar to the real candidates. ETC has pilot-tested <b>802 test batteries</b> so far. The pilot shows how each item really behaves.</p>
-          <ol class="steps tight z" style="max-width:450px;margin-top:12px">
+          <ol class="steps tight z grow" style="max-width:450px;margin-top:12px">
             <li><span><b>Assemble</b> pilot forms that cover the blueprint, mixing new items with a few proven anchor items.</span></li>
             <li><span><b>Administer</b> the pilot to a suitable sample of students at partner institutions under real test conditions.</span></li>
             <li><span><b>Score and analyse</b> each item for difficulty, discrimination, distractor performance and fairness.</span></li>
@@ -1664,11 +1699,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Key item statistics">
-      <section class="page" data-label="Key item statistics">
+      <section class="page fill-v" data-label="Key item statistics">
           <span class="eyebrow">Section 12 · Statistics</span>
           <h3 class="h3 big"><i>12.3</i>Key item statistics</h3>
           <p class="txt mt-s" style="max-width:620px">The table below explains the main statistics ETC uses. The ranges shown are benchmarks widely used in professional testing practice; the exact limits can be adjusted for the purpose and level of each test.</p>
-          <table class="rt" style="margin-top:12px">
+          <table class="rt grow" style="margin-top:12px">
             <thead><tr><th style="width:20%">Statistic</th><th style="width:26%">What it tells us</th><th style="width:26%">Typical benchmark</th><th>Action if outside</th></tr></thead>
             <tbody>
               <tr><td class="k">Difficulty index <small>p-value</small></td><td>Share of candidates who answered correctly (0 to 1). Higher means easier.</td><td>About 0.30 – 0.85; best information near 0.40 – 0.70</td><td>Too easy or too hard items are revised, moved to a suitable test, or dropped.</td></tr>
@@ -1679,9 +1714,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">47</span><span>Psychometric properties</span></div>
         </section>
-      <section class="page" data-label="Key item statistics">
+      <section class="page fill-v" data-label="Key item statistics">
           <span class="eyebrow">Section 12 · Statistics, continued</span>
-          <table class="rt" style="margin-top:16px">
+          <table class="rt grow" style="margin-top:16px">
             <thead><tr><th style="width:20%">Statistic</th><th style="width:26%">What it tells us</th><th style="width:26%">Typical benchmark</th><th>Action if outside</th></tr></thead>
             <tbody>
               <tr><td class="k">Item–total correlation <small>α-if-deleted</small></td><td>How much the item contributes to the reliability of the whole test.</td><td>Positive; reliability should not rise if the item is removed</td><td>Items that lower reliability are reviewed.</td></tr>
@@ -1712,11 +1747,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Fairness (DIF) · Post-hoc analysis">
-      <section class="page" data-label="Fairness analysis (DIF)">
+      <section class="page fill-v" data-label="Fairness analysis (DIF)">
           <span class="eyebrow">Section 12 · Fairness</span>
           <h3 class="h3 big"><i>12.4</i>Fairness analysis (DIF)</h3>
           <p class="txt mt-s" style="max-width:640px">Following the approach published by ETS (Educational Testing Service, USA), DIF analysis compares candidates from different groups (for example male and female candidates, or urban and rural candidates) who have the same overall ability. If one group still finds an item much harder, the item may contain something unrelated to the skill being measured, such as unfamiliar context or wording.</p>
-          <table class="rt roomy" style="margin-top:14px">
+          <table class="rt roomy grow" style="margin-top:14px">
             <thead><tr><th style="width:24%">DIF category</th><th style="width:34%">Meaning</th><th>Use in test assembly</th></tr></thead>
             <tbody>
               <tr><td class="k"><span style="color:var(--green-2)">A</span> — Negligible</td><td>Little or no difference between matched groups.</td><td>Preferred; used freely.</td></tr>
@@ -1727,11 +1762,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="note"><b>A signal, not a verdict</b><p>DIF on its own does not prove bias. It is a signal that an item must be examined by trained reviewers, who decide whether the difference reflects a real skill difference or an unfair feature of the question.</p></div>
           <div class="foot"><span class="folio">49</span><span>Psychometric properties</span></div>
         </section>
-      <section class="page" data-label="Post-hoc analysis after the live test">
+      <section class="page fill-v" data-label="Post-hoc analysis after the live test">
           <span class="eyebrow">Section 12 · After the live test</span>
           <h3 class="h3 big"><i>12.5</i>Post-hoc analysis after the live test</h3>
           <p class="txt mt-s" style="max-width:600px">Once a live test has been administered, and before results are announced, ETC runs a full post-hoc analysis on the actual candidate responses:</p>
-          <div class="rgrid n2 row" style="--n:2;margin-top:14px">
+          <div class="rgrid n2 row grow" style="--n:2;margin-top:14px">
             <div><span class="ic"><svg class="ico"><use href="#i-key"/></svg></span><div><b>Key validation</b><span class="d">Every item is checked for signs of a wrong key or two correct answers, for example when many high-scoring candidates choose the same wrong option.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-chart"/></svg></span><div><b>Item re-analysis</b><span class="d">Difficulty, discrimination and distractor statistics are recalculated on the full population and compared with pilot values.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-scale"/></svg></span><div><b>Fairness re-check</b><span class="d">DIF is calculated where group sizes are large enough.</span></div></div>
@@ -1744,10 +1779,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Pre-test vs post-hoc · Item life cycle">
-      <section class="page" data-label="Comparing pre-test and post-hoc analysis">
+      <section class="page fill-v" data-label="Comparing pre-test and post-hoc analysis">
           <span class="eyebrow">Section 12 · Two checks, one aim</span>
           <h3 class="h3 big"><i>12.6</i>Comparing pre-test and post-hoc analysis</h3>
-          <table class="rt roomy" style="margin-top:14px">
+          <table class="rt roomy grow" style="margin-top:14px">
             <thead><tr><th style="width:20%">Feature</th><th style="width:40%">Pre-test (pilot) analysis</th><th>Post-hoc analysis</th></tr></thead>
             <tbody>
               <tr><td class="k">When</td><td>Before the item is used for real decisions</td><td>After the live test, before results are released</td></tr>
@@ -1760,11 +1795,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">51</span><span>Psychometric properties</span></div>
         </section>
-      <section class="page" data-label="The item life cycle">
+      <section class="page fill-v" data-label="The item life cycle">
           <div class="pattern br" aria-hidden="true"></div>
           <span class="eyebrow">Section 12 · Life cycle</span>
           <h3 class="h3 big"><i>12.7</i>The item life cycle</h3>
-          <div style="display:grid;grid-template-columns:330px 1fr;gap:26px;align-items:center;margin-top:6px" class="z">
+          <div style="display:grid;grid-template-columns:330px 1fr;gap:26px;align-items:center;margin-top:6px" class="z grow">
             <svg class="svgfig" viewBox="0 0 330 300" width="330" height="300" role="img" aria-label="Item life cycle: Write then Review then Pilot then Analyse then Bank then Use then Re-analyse then Revise or retire, and back to the start">
             <circle cx="165" cy="150" r="96" fill="none" stroke="#D9BE7C" stroke-width="2"/>
             <path d="M-4 -3.5 L3 0 L-4 3.5" fill="none" stroke="#B8913A" stroke-width="1.6" transform="translate(201.7 61.3) rotate(22.5)"/>
@@ -1817,10 +1852,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">53</span><span>Reliability and validity</span></div>
         </section>
-      <section class="page" data-label="Types of reliability">
+      <section class="page fill-v" data-label="Types of reliability">
           <span class="eyebrow">Section 13 · Reliability</span>
           <h3 class="h3 big">How ETC checks reliability</h3>
-          <table class="rt" style="margin-top:12px">
+          <table class="rt grow" style="margin-top:12px">
             <thead><tr><th style="width:22%">Type of reliability</th><th style="width:32%">Question it answers</th><th>How ETC checks it</th></tr></thead>
             <tbody>
               <tr><td class="k">Internal consistency</td><td>Do all items in the test measure the same thing?</td><td>KR-20 or Cronbach’s alpha calculated for every live test and each section.</td></tr>
@@ -1836,7 +1871,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Validity · Evidence by product">
-      <section class="page" data-label="What is validity?">
+      <section class="page fill-v" data-label="What is validity?">
           <span class="eyebrow">Section 13 · Validity</span>
           <h3 class="h3 big"><i>13.2</i>What is validity?</h3>
           <div style="display:grid;grid-template-columns:1fr 196px;gap:24px;align-items:center">
@@ -1848,7 +1883,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
               <text x="150" y="88" font-size="7.6" text-anchor="middle" fill="#1F5E45" font-weight="700">Reliable and valid</text>
             </svg>
           </div>
-          <table class="rt tight" style="margin-top:10px">
+          <table class="rt tight grow" style="margin-top:10px">
             <thead><tr><th style="width:21%">Validity evidence</th><th style="width:36%">What it shows</th><th>How ETC builds it</th></tr></thead>
             <tbody>
               <tr><td class="k">Content</td><td>The test covers the right knowledge and skills in the right balance.</td><td>Blueprints, subject-committee review and item–blueprint alignment checks.</td></tr>
@@ -1861,11 +1896,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">55</span><span>Reliability and validity</span></div>
         </section>
-      <section class="page" data-label="Reliability and validity of each assessment">
+      <section class="page fill-v" data-label="Reliability and validity of each assessment">
           <span class="eyebrow">Section 13 · By product</span>
           <h3 class="h3 big"><i>13.3</i>Reliability and validity of each assessment</h3>
           <p class="cap" style="max-width:600px">How reliability and validity are established for each ETC product, according to the decision that the scores support.</p>
-          <table class="rt roomy" style="margin-top:12px">
+          <table class="rt roomy grow" style="margin-top:12px">
             <thead><tr><th style="width:15%">Product</th><th style="width:42%">Reliability evidence</th><th>Validity evidence</th></tr></thead>
             <tbody>
               <tr><td class="k">LAT</td><td>KR-20 / alpha for each section and total; parallel forms for the two annual sessions; rubric-based marking for any written component.</td><td>Content matched to skills needed for legal study; review by law and language experts; comparison of LAT scores with first-year LLB results.</td></tr>
@@ -1878,9 +1913,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Evidence by product · Interpreting scores">
-      <section class="page" data-label="Reliability and validity of each assessment">
+      <section class="page fill-v" data-label="Reliability and validity of each assessment">
           <span class="eyebrow">Section 13 · By product, continued</span>
-          <table class="rt roomy" style="margin-top:16px">
+          <table class="rt roomy grow" style="margin-top:16px">
             <thead><tr><th style="width:15%">Product</th><th style="width:42%">Reliability evidence</th><th>Validity evidence</th></tr></thead>
             <tbody>
               <tr><td class="k">HAAT-Subject</td><td>Reliability by subject paper; item-bank calibration for each subject; equivalence of subject forms.</td><td>Subject committee review of advanced content; alignment with doctoral entry expectations; relation to PhD progress.</td></tr>
@@ -1890,14 +1925,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">57</span><span>Reliability and validity</span></div>
         </section>
-      <section class="page" data-label="Interpreting scores responsibly">
+      <section class="page fill-v" data-label="Interpreting scores responsibly">
           <div class="pattern tr" aria-hidden="true"></div>
           <span class="eyebrow">Section 13 · Using scores well</span>
           <h3 class="h3 big"><i>13.4</i>Interpreting scores responsibly</h3>
           <p class="cap-fig" style="margin-top:18px">An example of the Standard Error of Measurement</p>
           <p class="txt mt-s z" style="max-width:600px">Suppose a test has a reliability of <b>0.90</b> and a score spread (standard deviation) of <b>10 marks</b>. The SEM is about 3 marks:</p>
           <p class="z" style="margin-top:12px;font-family:var(--quote);font-style:italic;font-size:20px;color:var(--deep)">10 × √(1 − 0.90) ≈ 3.2</p>
-          <div class="z" style="margin-top:20px">
+          <div class="z" style="margin-top:auto">
             <svg class="svgfig" viewBox="0 0 694 92" width="694" height="92" role="img" aria-label="A score of 62 with a likely range from 59 to 65">
               <line x1="20" y1="50" x2="674" y2="50" stroke="#C9C1B0" stroke-width="1.5"/>
               <rect x="255.4" y="40" width="157.0" height="20" rx="4" fill="#A8CDB7" opacity=".7"/>
@@ -1910,20 +1945,20 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             </svg>
           </div>
           <p class="txt mt-m z" style="max-width:600px">This means a candidate who scores 62 would probably score between about 59 and 65 if tested again.</p>
-          <div class="note"><b>Our advice to institutions</b><p>ETC advises institutions not to treat very small score differences as meaningful, and to use scores together with other relevant information.</p></div>
+          <div class="note" style="margin-top:auto;margin-bottom:4px"><b>Our advice to institutions</b><p>ETC advises institutions not to treat very small score differences as meaningful, and to use scores together with other relevant information.</p></div>
           <div class="foot"><span>Institutional Profile 2026</span><span class="folio">58</span></div>
         </section>
     </section>
     <!-- ===================== Section 14 · Quality ===================== -->
     <section class="sheet spread" data-label="Quality standards">
-      <section class="page" data-label="Quality standards and quality assurance">
+      <section class="page fill-v" data-label="Quality standards and quality assurance">
           <figure class="pb corner" style="--w:48%;--h:330px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/review.jpg" alt="A magnifying glass resting on a printed multiple-choice paper with a red pen" decoding="async"></figure>
           <span class="eyebrow z">Section 14 · Quality standards and quality assurance</span>
           <h2 class="h2 sm z">Quality standards<br>and <span class="gold">assurance.</span></h2>
           <p class="sub z">Multi-layer review to protect validity, reliability, fairness and quality</p>
           <h3 class="h3 mt-xl z"><i>14.1</i>Our quality framework</h3>
           <p class="txt mt-s z" style="max-width:420px">ETC’s quality framework is built on international best practice. A useful reference is the ETS Standards for Quality and Fairness, which set out what a responsible testing organization should do at every stage. The table opposite shows the main areas and how ETC applies them.</p>
-          <div class="rcols z" style="--n:4;margin-top:30px">
+          <div class="rcols z grow" style="--n:4;margin-top:30px">
             <div><b style="font-size:20px">9</b><span>Standard areas applied</span></div>
             <div><b style="font-size:20px">5</b><span>Quality-control committees</span></div>
             <div><b style="font-size:20px">4</b><span>Review lenses per question</span></div>
@@ -1931,10 +1966,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">59</span><span>Quality standards</span></div>
         </section>
-      <section class="page" data-label="Quality framework">
+      <section class="page fill-v" data-label="Quality framework">
           <span class="eyebrow">Section 14 · Framework</span>
           <h3 class="h3 big">Standards and how ETC applies them</h3>
-          <table class="rt" style="margin-top:12px">
+          <table class="rt grow" style="margin-top:12px">
             <thead><tr><th style="width:22%">Standard area</th><th style="width:38%">What good practice requires</th><th>How ETC applies it</th></tr></thead>
             <tbody>
               <tr><td class="k">Validity</td><td>Clear statement of what the test measures and evidence that scores support their intended use.</td><td>Test purpose and blueprint agreed for every product; validity evidence collected (Section 13).</td></tr>
@@ -1949,7 +1984,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Framework · Committees · Review">
-      <section class="page" data-label="Quality framework · committees">
+      <section class="page fill-v" data-label="Quality framework · committees">
           <span class="eyebrow">Section 14 · Framework, continued</span>
           <table class="rt tight" style="margin-top:14px">
             <thead><tr><th style="width:22%">Standard area</th><th style="width:38%">What good practice requires</th><th>How ETC applies it</th></tr></thead>
@@ -1962,7 +1997,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <h3 class="h3" style="margin-top:22px"><i>14.2</i>Five quality-control committees</h3>
           <p class="cap">Each question in the ETC Question Bank represents the combined effort of several expert groups:</p>
-          <table class="rt tight">
+          <table class="rt tight grow">
             <thead><tr><th style="width:28%">Committee</th><th>Role</th></tr></thead>
             <tbody>
               <tr><td class="k">Academic Committee</td><td>Sets academic policy and oversees the content and standards of assessments.</td></tr>
@@ -1974,11 +2009,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </table>
           <div class="foot"><span class="folio">61</span><span>Quality standards</span></div>
         </section>
-      <section class="page" data-label="Multi-dimensional review · QA department">
+      <section class="page fill-v" data-label="Multi-dimensional review · QA department">
           <div class="pattern br" aria-hidden="true"></div>
           <span class="eyebrow">Section 14 · Every question, four lenses</span>
           <h3 class="h3 big"><i>14.3</i>Multi-dimensional review of every question</h3>
-          <div class="rgrid n2 row" style="--n:2;margin-top:14px">
+          <div class="rgrid n2 row grow" style="--n:2;margin-top:14px">
             <div><span class="ic"><svg class="ico"><use href="#i-check"/></svg></span><div><b>Technical review</b><span class="d">Is the content correct? Is there exactly one right answer? Does it match the blueprint and Bloom’s level?</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-spell"/></svg></span><div><b>Grammatical review</b><span class="d">Is the language correct, consistent and free of errors?</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-chat"/></svg></span><div><b>Linguistic review</b><span class="d">Is the wording clear and simple, so that it tests the skill and not reading difficulty?</span></div></div>
@@ -1991,7 +2026,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Monitoring · Security · Scoring">
-      <section class="page" data-label="Three-tier monitoring · Test security">
+      <section class="page fill-v" data-label="Three-tier monitoring · Test security">
           <span class="eyebrow">Section 14 · Oversight</span>
           <h3 class="h3 big"><i>14.5</i>Three-tier monitoring and oversight</h3>
           <p class="txt mt-s" style="max-width:620px">Test administration is monitored at three levels, including senior HEC officials. This independent layer of oversight ensures transparency and makes sure that protocols are followed at every test centre.</p>
@@ -2001,7 +2036,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             <div><i>Tier 3</i><b>Senior HEC officials</b><span>Independent oversight of the whole process and protocol compliance.</span></div>
           </div>
           <h3 class="h3" style="margin-top:24px"><i>14.6</i>Test security</h3>
-          <div class="rgrid n2 row" style="--n:2">
+          <div class="rgrid n2 row grow" style="--n:2">
             <div><span class="ic"><svg class="ico"><use href="#i-gear"/></svg></span><div><span class="d" style="margin-top:0;color:#2A3A33">Papers generated automatically in a secure environment from the calibrated bank.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-print"/></svg></span><div><span class="d" style="margin-top:0;color:#2A3A33">Secure printing at ETC’s own printing press, with controlled access.</span></div></div>
             <div><span class="ic"><svg class="ico"><use href="#i-truck"/></svg></span><div><span class="d" style="margin-top:0;color:#2A3A33">Sealed, tracked transport and storage of confidential materials, with additional security for handling, transport and delivery.</span></div></div>
@@ -2054,27 +2089,27 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Test-day journey · What sets ETC apart">
-      <section class="page" data-label="The test-day journey">
+      <section class="page fill-v" data-label="The test-day journey">
           <figure class="pb side soft" style="--w:36%"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/candidate-centre.jpg" alt="A candidate showing an admit card at a test centre registration desk" decoding="async" style="object-position:40% 50%"></figure>
           <span class="eyebrow">Section 15 · On the day</span>
           <h3 class="h3 big"><i>15.3</i>The test-day journey</h3>
-          <ol class="tl z" style="max-width:470px;margin-top:12px">
-            <li><span class="when"><small>Step 1</small>Registration</span><p>Candidates register and pay online and receive their admit card with centre, date and time.</p></li>
-            <li><span class="when"><small>Step 2</small>Arrival &amp; ID</span><p>Candidates are verified against their admit card and identity document.</p></li>
-            <li><span class="when"><small>Step 3</small>Seating</span><p>Candidates are seated according to the seating plan and given standard instructions.</p></li>
-            <li><span class="when"><small>Step 4</small>Administration</span><p>Sealed papers are opened in front of candidates; timing is strictly followed.</p></li>
-            <li><span class="when"><small>Step 5</small>Collection</span><p>Answer sheets are counted, sealed and returned securely to ETC.</p></li>
-            <li><span class="when"><small>Step 6</small>Scanning</span><p>Answer sheets are scanned, scored and analysed (post-hoc analysis).</p></li>
-            <li class="now"><span class="when"><small>Step 7</small>Results</span><p>Results are published online and shared with client institutions.</p></li>
+          <ol class="tl fill z" style="max-width:470px">
+            <li><span class="when"><small>Step 1</small>Registration</span><span class="mk" aria-hidden="true"><i></i></span><p>Candidates register and pay online and receive their admit card with centre, date and time.</p></li>
+            <li><span class="when"><small>Step 2</small>Arrival &amp; ID</span><span class="mk" aria-hidden="true"><i></i></span><p>Candidates are verified against their admit card and identity document.</p></li>
+            <li><span class="when"><small>Step 3</small>Seating</span><span class="mk" aria-hidden="true"><i></i></span><p>Candidates are seated according to the seating plan and given standard instructions.</p></li>
+            <li><span class="when"><small>Step 4</small>Administration</span><span class="mk" aria-hidden="true"><i></i></span><p>Sealed papers are opened in front of candidates; timing is strictly followed.</p></li>
+            <li><span class="when"><small>Step 5</small>Collection</span><span class="mk" aria-hidden="true"><i></i></span><p>Answer sheets are counted, sealed and returned securely to ETC.</p></li>
+            <li><span class="when"><small>Step 6</small>Scanning</span><span class="mk" aria-hidden="true"><i></i></span><p>Answer sheets are scanned, scored and analysed (post-hoc analysis).</p></li>
+            <li class="now"><span class="when"><small>Step 7</small>Results</span><span class="mk" aria-hidden="true"><i></i></span><p>Results are published online and shared with client institutions.</p></li>
           </ol>
           <div class="foot"><span class="folio">67</span><span>Test operations</span></div>
         </section>
-      <section class="page" data-label="What sets ETC apart">
+      <section class="page fill-v" data-label="What sets ETC apart">
           <span class="sec-num" aria-hidden="true" data-n="16">16</span>
           <span class="eyebrow">Section 16 · What sets ETC apart</span>
           <h2 class="h2 sm">What sets ETC <span class="gold">apart.</span></h2>
           <p class="sub">Points of difference from other testing agencies</p>
-          <table class="rt tight" style="margin-top:16px">
+          <table class="rt tight grow" style="margin-top:16px">
             <thead><tr><th style="width:30px">#</th><th style="width:34%">Strength</th><th>What it means for candidates and institutions</th></tr></thead>
             <tbody>
               <tr><td class="n">01</td><td class="k">Standardized, competency-based assessment</td><td>A complete standardized framework ensures consistency, validity, reliability and fairness, aligned with defined competencies and learning outcomes.</td></tr>
@@ -2092,12 +2127,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Strengths · Track record">
-      <section class="page" data-label="One integrated system">
+      <section class="page fill-v" data-label="One integrated system">
           <div class="pattern br" aria-hidden="true"></div>
           <span class="eyebrow">Section 16 · One integrated system</span>
           <h3 class="h3 big">From item development to result processing</h3>
           <p class="txt mt-s" style="max-width:600px">ETC’s workflow connects test design, item development, review, piloting, secure paper assembly, administration, marking, result generation and psychometric analysis into one integrated, quality-controlled system.</p>
-          <div class="chain z">
+          <div class="chain z grow" style="align-content:center">
               <div><span class="dot">1</span><span class="ic sm"><svg class="ico"><use href="#i-target"/></svg></span><b>Test design</b></div>
               <div><span class="dot">2</span><span class="ic sm"><svg class="ico"><use href="#i-pen"/></svg></span><b>Item development</b></div>
               <div><span class="dot">3</span><span class="ic sm"><svg class="ico"><use href="#i-search"/></svg></span><b>Review</b></div>
@@ -2110,14 +2145,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">69</span><span>What sets ETC apart</span></div>
         </section>
-      <section class="page" data-label="Track record and clients">
+      <section class="page fill-v" data-label="Track record and clients">
           <span class="sec-num" aria-hidden="true" data-n="17">17</span>
           <span class="eyebrow">Section 17 · Track record and clients</span>
           <h2 class="h2 sm">Track record and <span class="gold">clients.</span></h2>
           <p class="sub">Experience across education, government and the professions</p>
           <h3 class="h3 mt-l"><i>17.1</i>Testing record since 1 July 2021</h3>
-          <div style="margin-top:10px;border-top:2px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;gap:30px">
-            <table class="rt tight ledger" style="margin-top:0">
+          <div class="grow" style="margin-top:10px;border-top:2px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;gap:30px">
+            <table class="rt tight ledger" style="margin-top:0;height:100%">
               <tbody>
                 <tr><td>Number of test projects</td><td class="num big">261</td></tr>
                 <tr><td>Distinct papers developed with no repetition</td><td class="num big">1,750</td></tr>
@@ -2126,7 +2161,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
                 <tr><td>Test batteries pilot-tested</td><td class="num big">802</td></tr>
               </tbody>
             </table>
-            <table class="rt tight ledger" style="margin-top:0">
+            <table class="rt tight ledger" style="margin-top:0;height:100%">
               <tbody>
                 <tr><td>Question bank items developed</td><td class="num big">230,685</td></tr>
                 <tr><td>Test centres <small>capacity ≈ 100,000</small></td><td class="num big">103</td></tr>
@@ -2140,12 +2175,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Clients · Transparency">
-      <section class="page" data-label="Clients and institutional partners">
+      <section class="page fill-v" data-label="Clients and institutional partners">
           <figure class="pb top soft" style="--h:170px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/campus.jpg" alt="A historic red-brick university building with white domes and a green lawn" decoding="async" style="object-position:50% 35%"></figure>
-          <div class="z" style="margin-top:96px">
+          <div class="z fill-v grow" style="margin-top:96px">
             <h3 class="h3"><i>17.2</i>Clients and institutional partners</h3>
             <p class="cap">ETC has provided testing and assessment services to a wide range of organizations across Pakistan:</p>
-            <dl class="dl" style="--dt:118px;margin-top:8px">
+            <dl class="dl grow" style="--dt:118px;margin-top:8px">
               <div><dt>Federal &amp; regulatory bodies</dt><dd>Higher Education Commission (HRM &amp; HRD Divisions); Federal Directorate of Education; Federal Ombudsman; NAVTTC; National Curriculum Council; Drug Regulatory Authority of Pakistan (DRAP); Ministry of Defence Production (MODP); Benazir Income Support Programme (BISP); Pakistan Infrastructure Development Co. Ltd. (PIDCL); AML-CFT assessment project</dd></div>
               <div><dt>Provincial &amp; Gilgit-Baltistan bodies</dt><dd>GB Chief Court; GB Board of Revenue; GB Police; GB Election Commission; GB Health Department; BPPRA; BRC Balochistan; Punjab Social Protection Authority (PSPA); BEEF (LAW-GAT related assessment)</dd></div>
               <div><dt>Universities</dt><dd>University of Karachi; Quaid-i-Azam University (undergraduate admission test); Allama Iqbal Open University; Fatima Jinnah University; Rawalpindi Women University; University of Education Lahore; Shah Abdul Latif University Khairpur; Emerson University Multan; University of Mianwali; University of Layyah; University of Loralai; University of Turbat; University of Skardu; University of Haripur; University of Haveli Kahuta (AJK); SZABMU (MDCAT)</dd></div>
@@ -2154,14 +2189,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           </div>
           <div class="foot"><span class="folio">71</span><span>Track record and clients</span></div>
         </section>
-      <section class="page" data-label="Transparency and our commitment to candidates">
+      <section class="page fill-v" data-label="Transparency and our commitment to candidates">
           <span class="sec-num" aria-hidden="true" data-n="18">18</span>
           <span class="eyebrow">Section 18 · Transparency</span>
           <h2 class="h2 sm">Our commitment<br>to <span class="gold">candidates.</span></h2>
           <p class="sub">Clear information, fair treatment and a voice for every candidate</p>
           <p class="lede" style="max-width:600px">Transparency is one of ETC’s founding values. In line with international standards on test-takers’ rights and responsibilities, ETC is committed to the following:</p>
           <h3 class="h3 mt-m"><i>18.1</i>What candidates can expect from ETC</h3>
-          <ul class="ticks ruled c2" style="column-gap:28px">
+          <ul class="ticks ruled c2 grow" style="column-gap:28px">
             <li>Clear, advance information about the test purpose, format, syllabus, timing, fee and rules.</li>
             <li>Equal treatment under the same conditions, wherever and whenever the test is taken.</li>
             <li>Questions that have been reviewed for accuracy and fairness, and statistically checked.</li>
@@ -2175,7 +2210,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Accountability · Strategic roadmap">
-      <section class="page" data-label="What ETC expects · How we stay accountable">
+      <section class="page fill-v" data-label="What ETC expects · How we stay accountable">
           <figure class="pb corner" style="--w:44%;--h:230px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/callcentre.jpg" alt="Candidate support agents with headsets helping callers" decoding="async"></figure>
           <span class="eyebrow z">Section 18 · Both sides of the desk</span>
           <h3 class="h3 big z"><i>18.2</i>What ETC expects from candidates</h3>
@@ -2187,7 +2222,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
             <li>Keep the content of the test confidential.</li>
           </ul>
           <h3 class="h3 z" style="margin-top:22px"><i>18.3</i>How we stay accountable</h3>
-          <table class="rt tight z">
+          <table class="rt tight z grow">
             <thead><tr><th style="width:42%">Mechanism</th><th>Purpose</th></tr></thead>
             <tbody>
               <tr><td class="k">Published rules and test patterns</td><td>Everyone knows the rules before the test.</td></tr>
@@ -2200,8 +2235,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
           <div class="foot"><span class="folio">73</span><span>Transparency</span></div>
         </section>
       <section class="page" data-label="Strategic roadmap">
-          <figure class="pb top" style="--h:250px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/sunrise.jpg" alt="Sunrise over Islamabad and the Margalla Hills" decoding="async" style="object-position:50% 60%"></figure>
-          <div class="z" style="margin-top:150px">
+          <figure class="pb top" style="--h:330px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/sunrise.jpg" alt="Sunrise over Islamabad and the Margalla Hills" decoding="async" style="object-position:50% 60%"></figure>
+          <div class="z" style="margin-top:236px">
             <span class="eyebrow">Section 19 · Strategic roadmap</span>
             <h2 class="h2 sm">Strategic <span class="gold">roadmap.</span></h2>
             <p class="sub">Future interventions for a stronger national assessment system</p>
@@ -2213,9 +2248,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Roadmap themes · Glossary">
-      <section class="page" data-label="Strategic roadmap">
+      <section class="page fill-v" data-label="Strategic roadmap">
           <span class="eyebrow">Section 19 · Planned interventions</span>
-          <table class="rt tight" style="margin-top:14px">
+          <table class="rt tight grow" style="margin-top:14px">
             <thead><tr><th style="width:34px"></th><th style="width:26%">Theme</th><th>Planned interventions</th></tr></thead>
             <tbody>
               <tr><td><span class="ic" style="width:26px;height:26px"><svg class="ico" style="width:14px;height:14px"><use href="#i-doc"/></svg></span></td><td class="k">National assessment policy</td><td>Develop a Pakistan National Assessment Framework; provide data-driven policy input to higher-education reforms.</td></tr>
@@ -2252,9 +2287,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
     </section>
 
     <section class="sheet spread" data-label="Glossary · Contact">
-      <section class="page" data-label="Glossary of assessment terms">
+      <section class="page fill-v" data-label="Glossary of assessment terms">
           <span class="eyebrow">Section 20 · Glossary, continued</span>
-          <dl class="gloss">
+          <dl class="gloss grow">
             <div><dt>Discrimination index</dt><dd>How well an item separates stronger from weaker candidates.</dd></div>
             <div><dt>Distractor</dt><dd>A wrong answer option in an MCQ.</dd></div>
             <div><dt>DIF</dt><dd>Differential Item Functioning: a check of whether equally able candidates from different groups perform differently on an item.</dd></div>
