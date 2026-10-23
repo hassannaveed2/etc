@@ -5,6 +5,8 @@ export type RateLimiter = {
   /** True when the key is already at its limit, without recording anything. */
   blocked(key: string): boolean;
   reset(key: string): void;
+  /** Forgets every key (test-only reset route). */
+  clear(): void;
 };
 
 export function createRateLimiter(opts: { limit: number; windowMs: number; now?: () => number }): RateLimiter {
@@ -29,6 +31,9 @@ export function createRateLimiter(opts: { limit: number; windowMs: number; now?:
     },
     reset(key) {
       hits.delete(key);
+    },
+    clear() {
+      hits.clear();
     },
   };
 }
