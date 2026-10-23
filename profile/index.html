@@ -695,6 +695,13 @@ table.grow td { vertical-align: middle; }
 .gloss.grow > div { display: flex; flex-direction: column; justify-content: center; }
 .gloss.grow > div:nth-child(odd) { border-right: 0; }
 
+.rgrid.attr > div { padding: 10px 18px 10px; }
+.rgrid.attr.grow > div { justify-content: center; }
+.rgrid.attr .ic { width: 30px; height: 30px; margin-bottom: 7px; }
+.rgrid.attr .ic .ico { width: 15px; height: 15px; }
+.rgrid.attr b { font-size: 13px; }
+.rgrid.attr span.d { font-size: 9.6px; }
+.z.fill-v > .eyebrow { align-self: flex-start; }
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   .brand span, .brand b { display: none; }
@@ -1229,17 +1236,17 @@ table.grow td { vertical-align: middle; }
 
     <section class="sheet spread" data-label="Key attributes · Customized assessment">
       <section class="page fill-v" data-label="Key attributes of an ETC test">
-          <figure class="pb side soft" style="--w:34%"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-omr.jpg" alt="An OMR scanner feeding a stack of bubble answer sheets" decoding="async"></figure>
-          <span class="eyebrow">Section 08 · What makes it ours</span>
-          <h3 class="h3 big"><i>8.3</i>Key attributes of an ETC test</h3>
-          <div class="z fill-v grow" style="max-width:480px">
-            <div class="rgrid n2 row grow" style="--n:2;margin-top:16px">
-              <div><span class="ic"><svg class="ico"><use href="#i-target"/></svg></span><div><b>Purpose-driven</b><span class="d">Every test starts with a clear statement of what decision the scores will support.</span></div></div>
-              <div><span class="ic"><svg class="ico"><use href="#i-grid"/></svg></span><div><b>Blueprint-based</b><span class="d">A Table of Specifications fixes the topics, number of questions and thinking levels in advance.</span></div></div>
-              <div><span class="ic"><svg class="ico"><use href="#i-std"/></svg></span><div><b>Standardized</b><span class="d">All candidates face the same conditions, timing and scoring rules.</span></div></div>
-              <div><span class="ic"><svg class="ico"><use href="#i-chart"/></svg></span><div><b>Evidence-based</b><span class="d">Questions are piloted and analysed before use, and checked again after every live test.</span></div></div>
-              <div><span class="ic"><svg class="ico"><use href="#i-lock"/></svg></span><div><b>Secure</b><span class="d">Papers are generated automatically in a secure environment from a calibrated item bank.</span></div></div>
-              <div><span class="ic"><svg class="ico"><use href="#i-clock"/></svg></span><div><b>Timely</b><span class="d">Automated scanning and result processing allow fast, accurate results.</span></div></div>
+          <figure class="pb top soft" style="--h:200px"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/images/quality-omr.jpg" alt="An OMR scanner feeding a stack of bubble answer sheets" decoding="async" style="object-position:50% 38%"></figure>
+          <div class="z fill-v grow" style="margin-top:104px">
+            <span class="eyebrow">Section 08 · What makes it ours</span>
+            <h3 class="h3 big"><i>8.3</i>Key attributes of an ETC test</h3>
+            <div class="rgrid n3 attr grow" style="--n:3;margin-top:14px">
+              <div><span class="ic"><svg class="ico"><use href="#i-target"/></svg></span><b>Purpose-driven</b><span class="d">Every test starts with a clear statement of what decision the scores will support.</span></div>
+              <div><span class="ic"><svg class="ico"><use href="#i-grid"/></svg></span><b>Blueprint-based</b><span class="d">A Table of Specifications fixes the topics, number of questions and thinking levels in advance.</span></div>
+              <div><span class="ic"><svg class="ico"><use href="#i-std"/></svg></span><b>Standardized</b><span class="d">All candidates face the same conditions, timing and scoring rules.</span></div>
+              <div><span class="ic"><svg class="ico"><use href="#i-chart"/></svg></span><b>Evidence-based</b><span class="d">Questions are piloted and analysed before use, and checked again after every live test.</span></div>
+              <div><span class="ic"><svg class="ico"><use href="#i-lock"/></svg></span><b>Secure</b><span class="d">Papers are generated automatically in a secure environment from a calibrated item bank.</span></div>
+              <div><span class="ic"><svg class="ico"><use href="#i-clock"/></svg></span><b>Timely</b><span class="d">Automated scanning and result processing allow fast, accurate results.</span></div>
             </div>
           </div>
           <div class="foot"><span class="folio">23</span><span>What we offer</span></div>
