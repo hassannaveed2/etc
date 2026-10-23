@@ -657,17 +657,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .tbc { color: var(--muted) !important; font-style: italic; font-weight: 500 !important; }
 .back-sheet .page { box-shadow: 0 18px 50px rgba(30, 24, 10, .2); }
 .back h2 { font-family: var(--display); }
-/* Integrated workflow chain (two rows on a gold line) */
-.chain { display: grid; grid-template-columns: repeat(5, 1fr); row-gap: 40px; margin-top: 30px; position: relative; }
-/* connector from each circle to the next one in its row */
-.chain > div:not(:nth-child(5n)):not(:last-child)::after { content: ""; position: absolute; top: 17px; left: 36px; right: 0; height: 2px; background: var(--gold); }
-.chain > div { position: relative; padding-right: 12px; }
-.chain .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); display: grid; place-items: center;
-  font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--deep); position: relative; }
-.chain .ic.sm { margin-top: 12px; width: 28px; height: 28px; }
-.chain .ic.sm .ico { width: 14px; height: 14px; }
-.chain b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.25; color: var(--ink); }
-.chain > div:last-child .dot { background: var(--gold); }
+/* Integrated workflow: a winding path through nine stages */
+.snake { position: relative; width: 694px; height: 300px; margin: auto 0; }
+.snake-path { position: absolute; inset: 0; }
+.snake-steps { list-style: none; }
+.snake .st { position: absolute; width: 200px; margin-left: -100px; margin-top: -24px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.snake .node { position: relative; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--paper);
+  border: 2px solid var(--gold); color: var(--green); box-shadow: 0 0 0 5px var(--paper); }
+.snake .node .ico { width: 20px; height: 20px; }
+.snake .node i { position: absolute; top: -6px; right: -8px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: var(--deep); color: #fff;
+  font-style: normal; font-family: var(--display); font-weight: 800; font-size: 10px; line-height: 20px; text-align: center; }
+.snake .st b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.2; color: var(--ink); background: var(--paper); padding: 0 6px; }
+.snake .st.last .node { background: var(--gold); border-color: var(--gold); color: #fff; }
+.snake .st.last .node i { background: var(--gold-ink); }
 @media print { .acr .gold, .figs b em { -webkit-text-fill-color: currentColor; } .sec-num { -webkit-text-stroke: 2.6px #D9BE7C; } }
 
 /* ---------- Fill the page: the main block of a page grows into the free height ---------- */
@@ -2117,16 +2119,19 @@ table.grow td { vertical-align: middle; }
           <span class="eyebrow">Section 16 · One integrated system</span>
           <h3 class="h3 big">From item development to result processing</h3>
           <p class="txt mt-s" style="max-width:600px">ETC’s workflow connects test design, item development, review, piloting, secure paper assembly, administration, marking, result generation and psychometric analysis into one integrated, quality-controlled system.</p>
-          <div class="chain z grow" style="align-content:center">
-              <div><span class="dot">1</span><span class="ic sm"><svg class="ico"><use href="#i-target"/></svg></span><b>Test design</b></div>
-              <div><span class="dot">2</span><span class="ic sm"><svg class="ico"><use href="#i-pen"/></svg></span><b>Item development</b></div>
-              <div><span class="dot">3</span><span class="ic sm"><svg class="ico"><use href="#i-search"/></svg></span><b>Review</b></div>
-              <div><span class="dot">4</span><span class="ic sm"><svg class="ico"><use href="#i-users"/></svg></span><b>Piloting</b></div>
-              <div><span class="dot">5</span><span class="ic sm"><svg class="ico"><use href="#i-lock"/></svg></span><b>Secure paper assembly</b></div>
-              <div><span class="dot">6</span><span class="ic sm"><svg class="ico"><use href="#i-doc"/></svg></span><b>Administration</b></div>
-              <div><span class="dot">7</span><span class="ic sm"><svg class="ico"><use href="#i-check"/></svg></span><b>Marking</b></div>
-              <div><span class="dot">8</span><span class="ic sm"><svg class="ico"><use href="#i-chart"/></svg></span><b>Result generation</b></div>
-              <div><span class="dot">9</span><span class="ic sm"><svg class="ico"><use href="#i-cycle"/></svg></span><b>Psychometric analysis</b></div>
+          <div class="snake z">
+            <svg class="snake-path" viewBox="0 0 694 300" width="694" height="300" aria-hidden="true"><path d="M 115 40 H 600 A 55 55 0 0 1 600 150 H 94 A 55 55 0 0 0 94 260 H 579" fill="none" stroke="#D9BE7C" stroke-width="2.5" stroke-linecap="round"/><g fill="none" stroke="#B8913A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(231 40) rotate(0)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(463 40) rotate(0)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(655 95.0) rotate(90)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(463 150) rotate(180)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(231 150) rotate(180)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(39 205.0) rotate(90)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(231 260) rotate(0)"/><path d="M-3.5 -4.5 L2.5 0 L-3.5 4.5" transform="translate(463 260) rotate(0)"/></g></svg>
+            <ol class="snake-steps">
+              <li class="st" style="left:115px;top:40px"><span class="node"><svg class="ico"><use href="#i-target"/></svg><i>1</i></span><b>Test design</b></li>
+              <li class="st" style="left:347px;top:40px"><span class="node"><svg class="ico"><use href="#i-pen"/></svg><i>2</i></span><b>Item development</b></li>
+              <li class="st" style="left:579px;top:40px"><span class="node"><svg class="ico"><use href="#i-search"/></svg><i>3</i></span><b>Review</b></li>
+              <li class="st" style="left:579px;top:150px"><span class="node"><svg class="ico"><use href="#i-users"/></svg><i>4</i></span><b>Piloting</b></li>
+              <li class="st" style="left:347px;top:150px"><span class="node"><svg class="ico"><use href="#i-lock"/></svg><i>5</i></span><b>Secure paper assembly</b></li>
+              <li class="st" style="left:115px;top:150px"><span class="node"><svg class="ico"><use href="#i-doc"/></svg><i>6</i></span><b>Administration</b></li>
+              <li class="st" style="left:115px;top:260px"><span class="node"><svg class="ico"><use href="#i-check"/></svg><i>7</i></span><b>Marking</b></li>
+              <li class="st" style="left:347px;top:260px"><span class="node"><svg class="ico"><use href="#i-chart"/></svg><i>8</i></span><b>Result generation</b></li>
+              <li class="st last" style="left:579px;top:260px"><span class="node"><svg class="ico"><use href="#i-cycle"/></svg><i>9</i></span><b>Psychometric analysis</b></li>
+            </ol>
           </div>
           <div class="foot"><span class="folio">69</span><span>What sets ETC apart</span></div>
         </section>
