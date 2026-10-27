@@ -1,12 +1,12 @@
 # Publishes to GitHub Pages:
 #   /          Institutional Profile booklet (profile/)
 #   /website/  Frontend website mockup (mockup/)
-# One-time setup: repo Settings → Pages → Source: "GitHub Actions".
+# Publishes only from Shoaib. Pages source must be "GitHub Actions".
 name: Deploy to Pages
 
 on:
   push:
-    branches: [main]
+    branches: [Shoaib]
     paths:
       - "profile/**"
       - "mockup/**"
@@ -24,6 +24,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/Shoaib'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
