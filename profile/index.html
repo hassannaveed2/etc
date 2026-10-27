@@ -489,18 +489,13 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .flow .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--paper); border: 2px solid var(--gold); display: grid; place-items: center;
   font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--deep); position: relative; margin-top: 0; line-height: 1; }
 .flow b { display: block; margin-top: 12px; font-family: var(--display); font-weight: 700; font-size: 12px; line-height: 1.25; color: var(--ink); }
-.journey-snake { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 44px 28px; margin-top: 28px; flex: 1; }
+.journey-snake { list-style: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 1fr 1fr; gap: 28px; margin-top: 28px; flex: 1; }
 .journey-snake li { position: relative; padding-top: 14px; border-top: 2px solid var(--gold); }
 .journey-snake .when { display: block; font-family: var(--display); font-size: 15px; font-weight: 800; color: var(--ink); }
 .journey-snake .when small { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-ink); margin-bottom: 10px; }
 .journey-snake p { font-size: 12px; line-height: 1.7; margin-top: 12px; color: var(--muted); }
-.journey-snake li::after { content: "→"; position: absolute; right: -23px; top: 12px; color: var(--gold-ink); font-size: 22px; }
-.journey-snake li:nth-child(4)::after { content: "↓"; right: 50%; top: auto; bottom: -37px; }
-.journey-snake li:nth-child(5) { grid-column: 4; grid-row: 2; }
-.journey-snake li:nth-child(6) { grid-column: 3; grid-row: 2; }
-.journey-snake li:nth-child(7) { grid-column: 2; grid-row: 2; }
-.journey-snake li:nth-child(5)::after, .journey-snake li:nth-child(6)::after { content: "←"; right: auto; left: -23px; }
-.journey-snake li:last-child::after { content: none; }
+.journey-snake li { grid-column: span 3; }
+.journey-snake li:nth-child(n+5) { grid-column: span 4; }
 .assessment-flow b { font-size: 14px; line-height: 1.35; margin-top: 18px; }
 .assessment-flow > div > span:not(.dot) { font-size: 12px; line-height: 1.7; margin-top: 10px; }
 .flow span { display: block; margin-top: 5px; font-size: 9.2px; line-height: 1.5; color: var(--muted); }
