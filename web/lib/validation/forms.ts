@@ -78,11 +78,16 @@ export async function processSubmission<T>(fd: FormData, schema: z.ZodType<T>, d
 
   try {
     await deps.store(parsed.data, hashIp(deps.ip, deps.salt ?? process.env.IP_HASH_SALT ?? ""));
-  } catch (e) {
-    console.error("Form submission could not be stored:", e instanceof Error ? e.message : e);
+  } catch {
+    console.error("Form submission could not be stored.");
     return { status: "error", formError: STORE_FAILED, values };
   }
   deps.limiter.hit(key);
-  await deps.notify(parsed.data);
+  try {
+    await deps.notify(parsed.data);
+  } catch {
+    // The message is already saved. A settings or notification failure must not invite a duplicate retry.
+    console.error("Stored form submission could not be notified.");
+  }
   return { status: "success" };
 }

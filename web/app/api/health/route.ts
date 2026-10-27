@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { version } from "@/package.json";
+import packageInfo from "@/package.json";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,7 @@ export async function GET() {
       prisma.$queryRaw`SELECT 1`,
       new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 2000)),
     ]);
-    return NextResponse.json({ ok: true, db: "up", version: process.env.APP_VERSION ?? version }, { headers: NO_STORE });
+    return NextResponse.json({ ok: true, db: "up", version: process.env.APP_VERSION ?? packageInfo.version }, { headers: NO_STORE });
   } catch {
     return NextResponse.json({ ok: false, db: "down" }, { status: 503, headers: NO_STORE });
   }

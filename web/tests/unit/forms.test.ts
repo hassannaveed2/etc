@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import { contactInput, enquiryInput, processSubmission } from "@/lib/validation/forms";
+import { contactInput, enquiryInput, processSubmission, RATE_LIMITED } from "@/lib/validation/forms";
 import { createRateLimiter } from "@/lib/rate-limit";
 
 const enquiry = {
@@ -111,6 +111,34 @@ describe("processSubmission", () => {
     const r = await processSubmission(fd(contact), contactInput, d);
     expect(r).toMatchObject({ status: "error", formError: "Sorry, we couldn't send your message. Please try again.", values: contact });
     expect(d.notify).not.toHaveBeenCalled();
+  });
+
+  test("a notification failure still confirms the saved message and counts towards the limit", async () => {
+    const d = { ...deps(), notify: vi.fn(async () => { throw new Error("Notification failed for bilal@example.com"); }) };
+    const log = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(await processSubmission(fd(contact), contactInput, d)).toEqual({ status: "success" });
+      expect(d.store).toHaveBeenCalledOnce();
+      expect(d.notify).toHaveBeenCalledOnce();
+      expect(log).toHaveBeenCalledExactlyOnceWith("Stored form submission could not be notified.");
+      await processSubmission(fd(contact), contactInput, d);
+      expect(await processSubmission(fd(contact), contactInput, d)).toMatchObject({ status: "error", formError: RATE_LIMITED });
+      expect(d.store).toHaveBeenCalledTimes(2);
+    } finally {
+      log.mockRestore();
+    }
+  });
+
+  test("storage errors do not log submitted personal data", async () => {
+    const d = { ...deps(), store: vi.fn(async () => { throw new Error("Invalid data: bilal@example.com"); }) };
+    const log = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(await processSubmission(fd(contact), contactInput, d)).toMatchObject({ status: "error", values: contact });
+      expect(log).toHaveBeenCalledExactlyOnceWith("Form submission could not be stored.");
+      expect(d.limiter.blocked(`form|${d.ip}`)).toBe(false);
+    } finally {
+      log.mockRestore();
+    }
   });
 });
 
