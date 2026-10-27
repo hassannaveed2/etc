@@ -692,6 +692,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .back .mid p { margin-top: 10px; font-family: var(--display); font-size: 12.5px; font-weight: 500; color: var(--gold-hi); letter-spacing: .4px; }
 .back .base { position: absolute; left: 50px; right: 50px; bottom: 36px; display: flex; justify-content: space-between; align-items: end;
   font-size: 8.5px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255, 255, 255, .55); }
+.back .base > span { max-width: 48%; }
+.back .base > span:last-child { text-align: right; }
 .contact-list { margin-top: 24px; border-top: 2px solid var(--gold); width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
 .contact-list > div { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 24px 0; border-bottom: 1px solid var(--rule); }
 .contact-list b { display: block; font-size: 9px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: var(--muted); }
@@ -778,12 +780,10 @@ table.grow td { vertical-align: middle; }
 .ops-capacity .foot { left: 48px; right: 48px; color: #B9CDC0; }
 .ops-capacity .foot .folio { color: var(--gold-hi); }
 .ops-delivery { padding: 38px 48px 60px; }
-.ops-delivery-heading { position: relative; min-height: 126px; padding-right: 278px; }
+.ops-delivery-heading { position: relative; min-height: 126px; }
 .ops-delivery .ops-kicker { color: var(--green); font-size: 8.5px; letter-spacing: 1.3px; }
 .ops-delivery h2 { margin-top: 18px; font-size: 31px; line-height: 1.06; letter-spacing: -.9px; }
 .ops-delivery h2 span { color: var(--green); }
-.ops-inset { position: absolute; top: 0; right: 0; width: 246px; height: 126px; overflow: hidden; border-bottom: 3px solid var(--gold); }
-.ops-inset img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
 .ops-delivery .ops-section-label { margin-top: 12px; padding-top: 13px; border-top: 1px solid #DAD8CD; font-size: 10.5px; color: var(--muted); }
 .ops-delivery .ops-section-label span { color: var(--gold-ink); }
 .ops-duties { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 15px; }
@@ -915,7 +915,7 @@ table.grow td { vertical-align: middle; }
             <div class="stat"><b>1.85 M</b><span>Candidates tested</span><small>Since July 2021</small></div>
             <div class="stat"><b>103</b><span>Test centres</span><small>In 40 cities</small></div>
             <div class="stat"><b>230,685</b><span>Bank items</span><small>Developed to date</small></div>
-            <p class="edition">Knowledge for a<br>brighter Pakistan<em>2026 Edition</em></p>
+            <p class="edition">To Advance Quality and Equity in Education through Assessments<em>2026 Edition</em></p>
           </div>
         </section>
     </section>
@@ -1049,7 +1049,7 @@ table.grow td { vertical-align: middle; }
               <blockquote class="quote">Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.</blockquote>
             </div>
           </div>
-          <div class="portrait ed-portrait has-photo"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/real-ceo-portrait.jpg" alt="Dr Muhammad Imtiaz Haider, Chief Executive Officer, Education Testing Council" width="718" height="1280" style="object-position:50% 20%"></div>
+          <div class="portrait ed-portrait has-photo"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/real-ceo-portrait.jpg" alt="Dr Muhammad Imtiaz Haider, Chief Executive Officer, Education Testing Council" width="718" height="1280" style="position:absolute;inset:0;object-position:50% 45%"></div>
           <div class="who ed-name"><b>Dr Muhammad Imtiaz Haider</b><small>Chief Executive Officer · Education Testing Council</small></div>
           <div class="bottom"><h3 style="font-size:15px;letter-spacing:-.3px">Leadership commitments</h3>
           <div class="commit" style="margin-top:10px">
@@ -2109,7 +2109,6 @@ table.grow td { vertical-align: middle; }
           <div class="ops-delivery-heading">
             <span class="ops-kicker">Section 15 · Who does what</span>
             <h2>Every test.<br><span>Carefully coordinated.</span></h2>
-            <figure class="ops-inset"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/profile/real-queue.jpg" alt="Candidates queueing outside an ETC test centre before the exam" decoding="async"></figure>
           </div>
           <p class="ops-section-label"><span>15.2</span> Responsibilities of the Test Operations Department</p>
           <div class="ops-duties">
@@ -2371,7 +2370,7 @@ table.grow td { vertical-align: middle; }
             <h2>Education Testing <span class="gold">Council.</span></h2>
             <p>Merit · Transparency · Fairness · Quality</p>
           </div>
-          <div class="base"><span>Higher Education Commission · Islamabad, Pakistan</span><span>Knowledge for a brighter Pakistan</span></div>
+          <div class="base"><span>Higher Education Commission · Islamabad, Pakistan</span><span>To Advance Quality and Equity in Education through Assessments</span></div>
         </section>
       <div class="blank" aria-hidden="true"></div>
     </section>
