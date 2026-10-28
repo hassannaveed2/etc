@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Institutional Profile 2026 — Education Testing Council</title>
-<meta name="description" content="Education Testing Council Institutional Profile 2026 — A5 landscape booklet — the complete 2026 institutional profile.">
+<meta name="description" content="Education Testing Council Institutional Profile 2026 — A4 landscape booklet — the compact 32-page institutional profile.">
 <link rel="icon" href="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +20,11 @@
   --display: "Outfit", system-ui, sans-serif;
   --body: "Mulish", system-ui, sans-serif;
   --quote: "Source Serif 4", Georgia, serif;
-  /* A5 landscape at 96 dpi */
-  --pw: 794px; --ph: 560px;
+  /* A4 landscape at 96 dpi; the existing composition is scaled inside this canvas. */
+  --pw: 1123px; --ph: 794px;
+  --design-w: 794px; --design-h: 560px;
 }
+@page { size: A4 landscape; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body { background: var(--canvas); color: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; }
@@ -46,7 +48,7 @@ button { font: inherit; cursor: pointer; }
 
 .stage { position: fixed; inset: 56px 0 56px 0; display: flex; align-items: center; justify-content: center; padding: 18px 74px; }
 .book-frame { position: relative; }
-/* The book is always two A5 pages wide and scaled as one unit, so every sheet shares one scale. */
+/* The book is always two A4 pages wide and scaled as one unit, so every sheet shares one scale. */
 .book { position: absolute; top: 0; left: 0; width: calc(var(--pw) * 2); transform-origin: 0 0; }
 .sheet { position: relative; display: grid; grid-template-columns: var(--pw) var(--pw); height: var(--ph); }
 .sheet[hidden] { display: none; }
@@ -54,6 +56,9 @@ button { font: inherit; cursor: pointer; }
 .sheet.spread::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 40px); width: 80px; z-index: 6; pointer-events: none;
   background: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .07) 46%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .07) 54%, transparent 100%); }
 .sheet.single .blank { background: transparent; }
+body:not(.overview) .sheet.single { grid-template-columns: var(--pw); width: var(--pw); }
+body:not(.overview) .sheet.single .blank { display: none; }
+body:not(.overview) .sheet.single .page { grid-column: 1; }
 .sheet.single .page { box-shadow: 0 18px 50px rgba(30, 24, 10, .2); }
 .sheet-label { display: none; position: absolute; top: -24px; left: 0; font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
   text-transform: uppercase; color: #7B776D; }
@@ -76,7 +81,8 @@ body.overview .sheet { display: grid !important; margin-bottom: 40px; }
 body.overview .sheet-label { display: block; }
 
 /* ---------- Page base ---------- */
-.page { position: relative; width: var(--pw); height: var(--ph); flex: none; overflow: hidden; background: var(--paper); padding: 44px 50px 60px; }
+.page { position: relative; width: var(--pw); height: var(--ph); flex: none; overflow: hidden; background: var(--paper); padding: 0; }
+.page-inner { position: relative; width: var(--design-w); height: var(--design-h); padding: 44px 50px 60px; box-sizing: border-box; transform: scale(1.41436); transform-origin: 0 0; }
 .dark { background: var(--deep); color: #fff; }
 .cream { background: var(--cream); }
 
@@ -335,7 +341,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .ceo-who { top: auto; bottom: calc(560px - 312px); }
 
 /* Chairman photo blends into the paper: wider panel, left edge dissolves, no divider */
-.chair-photo { width: 64%; }
+.chair-photo { width: 50%; }
 .chair-photo img { object-position: 24% 50%;
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 46%);
           mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .35) 18%, #000 46%); }
@@ -538,7 +544,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -1.2
 .z { position: relative; z-index: 2; }
 .quality-point-icon { display: block; width: 22px; height: 22px; color: var(--green); margin-bottom: 10px; }
 .quality-row-icon { display: block; width: 18px; height: 18px; color: var(--green); margin-bottom: 6px; }
-.page > .foot { z-index: 3; }
+.page .foot { z-index: 3; }
 
 /* Timeline (vertical) */
 /* Each row carries its own marker column, so the line always runs through the centre of the circle.
@@ -804,8 +810,8 @@ table.grow td { vertical-align: middle; }
   .pager .count { display: none; }
 }
 
-/* ---------- Print: one A5 landscape sheet per page ---------- */
-@page { size: A5 landscape; margin: 0; }
+/* ---------- Print: one A4 landscape sheet per page ---------- */
+@page { size: A4 landscape; margin: 0; }
 @media print {
   html, body { height: auto; overflow: visible; background: #fff; }
   .topbar, .nav-arrow, .pager, .sheet-label { display: none !important; }
@@ -815,7 +821,7 @@ table.grow td { vertical-align: middle; }
   .sheet, .sheet[hidden] { display: block !important; height: auto; box-shadow: none !important; }
   .sheet::after { display: none; }
   .sheet .blank { display: none; }
-  .page { width: 210mm; height: 147.9mm; break-after: page; box-shadow: none !important; }
+  .page { width: 297mm; height: 210mm; break-after: page; box-shadow: none !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   /* Gradient text often prints blank: fall back to solid gold */
   .gold { -webkit-text-fill-color: currentColor; background: none !important; color: #C9A24E; }
@@ -933,7 +939,7 @@ table.grow td { vertical-align: middle; }
   <div class="brand">
     <img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="" width="31" height="34">
     <b>Education Testing Council</b>
-    <span>Institutional Profile 2026 · A5 landscape booklet</span>
+    <span>Institutional Profile 2026 · A4 landscape booklet</span>
   </div>
   <div class="controls">
     <div class="seg" role="group" aria-label="View mode">
@@ -974,15 +980,15 @@ table.grow td { vertical-align: middle; }
           <p class="toc-intro">Who we are, how we work, and the evidence behind every ETC assessment.</p>
           <ol class="toc">
             <li><span class="n">01</span><span class="t">Chairman’s Foreword</span><span class="p">03</span></li>
-            <li><span class="n">02</span><span class="t">Strategic Direction</span><span class="p">05</span></li>
-            <li><span class="n">03</span><span class="t">Leadership Navigation</span><span class="p">07</span></li>
-            <li><span class="n">04</span><span class="t">ETC at a Glance</span><span class="p">09</span></li>
-            <li><span class="n">05</span><span class="t">About the Education Testing Council</span><span class="p">11</span></li>
-            <li><span class="n">06</span><span class="t">Vision, Mission and Core Values</span><span class="p">14</span></li>
-            <li><span class="n">07</span><span class="t">Governance and Organization</span><span class="p">17</span></li>
-            <li><span class="n">08</span><span class="t">What We Offer</span><span class="p">21</span></li>
-            <li><span class="n">09</span><span class="t">Products of ETC</span><span class="p">25</span></li>
-            <li><span class="n">10</span><span class="t">Test Development and Evaluation</span><span class="p">36</span></li>
+            <li><span class="n">02</span><span class="t">CEO’s Message</span><span class="p">05</span></li>
+            <li><span class="n">03</span><span class="t">ETC at a Glance</span><span class="p">07</span></li>
+            <li><span class="n">04</span><span class="t">About the Council</span><span class="p">09</span></li>
+            <li><span class="n">05</span><span class="t">Governance and Organization</span><span class="p">11</span></li>
+            <li><span class="n">06</span><span class="t">Products of ETC</span><span class="p">13</span></li>
+            <li><span class="n">07</span><span class="t">HAT-General and HAAT-Subject</span><span class="p">15</span></li>
+            <li><span class="n">08</span><span class="t">USAT</span><span class="p">17</span></li>
+            <li><span class="n">09</span><span class="t">Customized Tests and Evaluation</span><span class="p">19</span></li>
+            <li><span class="n">10</span><span class="t">Psychometric Reports</span><span class="p">21</span></li>
           </ol>
           <div class="foot"><span class="folio">01</span><span>Contents</span></div>
         </section><section class="page" data-label="Contents">
@@ -995,16 +1001,10 @@ table.grow td { vertical-align: middle; }
             <div><b>Quality</b><span>Consistent standards, continuously improved.</span></div>
           </div>
           <ol class="toc toc-right">
-            <li><span class="n">11</span><span class="t">The ETC Item Bank</span><span class="p">41</span></li>
-            <li><span class="n">12</span><span class="t">Psychometric Properties of Test Items</span><span class="p">45</span></li>
-            <li><span class="n">13</span><span class="t">Reliability, Validity and Fairness of ETC Assessments</span><span class="p">56</span></li>
-            <li><span class="n">14</span><span class="t">Quality Standards and Quality Assurance</span><span class="p">64</span></li>
-            <li><span class="n">15</span><span class="t">Test Operations and National Reach</span><span class="p">70</span></li>
-            <li><span class="n">16</span><span class="t">What Sets ETC Apart</span><span class="p">74</span></li>
-            <li><span class="n">17</span><span class="t">Track Record and Clients</span><span class="p">76</span></li>
-            <li><span class="n">18</span><span class="t">Transparency and Our Commitment to Candidates</span><span class="p">78</span></li>
-            <li><span class="n">19</span><span class="t">Strategic Roadmap</span><span class="p">80</span></li>
-            <li><span class="n">20</span><span class="t">Glossary of Assessment Terms</span><span class="p">82</span></li>
+            <li><span class="n">11</span><span class="t">Reliability, Validity and Fairness</span><span class="p">23</span></li>
+            <li><span class="n">12</span><span class="t">Quality Standards and Operations</span><span class="p">25</span></li>
+            <li><span class="n">13</span><span class="t">Strategic Roadmap</span><span class="p">27</span></li>
+            <li><span class="n">14</span><span class="t">Glossary and Contact</span><span class="p">29</span></li>
           </ol>
           <div class="foot"><span>Institutional Profile 2026</span><span class="folio">02</span></div>
         </section></section>
@@ -2284,12 +2284,47 @@ table.grow td { vertical-align: middle; }
 
 <script>
 (function () {
+  /* Compact A4 edition: 15 interior spreads plus front/back covers = 32 pages. */
+  var compactLabels = [
+    "Contents",
+    "Chairman’s Foreword",
+    "CEO’s message",
+    "ETC at a glance",
+    "About the Council",
+    "Governance and organization",
+    "Products of ETC",
+    "HAT-General — Higher Education Aptitude Test · HAAT-Subject — Higher Education Aptitude & Achievement Test",
+    "USAT — Undergraduate Studies Admission Test · USAT — what it assesses",
+    "Customized tests · Test development and evaluation",
+    "Psychometric report — measurement · Psychometric report — precision and items",
+    "Types of reliability · What is validity?",
+    "Fair scoring · ISO · Test operations and national reach",
+    "Strategic roadmap · Glossary of assessment terms",
+    "Glossary of assessment terms · Contact"
+  ];
+  Array.prototype.slice.call(document.querySelectorAll('.sheet.spread')).forEach(function (s) {
+    if (compactLabels.indexOf(s.getAttribute('data-label')) === -1) s.remove();
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.page')).forEach(function (page) {
+    var inner = document.createElement('div');
+    inner.className = 'page-inner';
+    while (page.firstChild) inner.appendChild(page.firstChild);
+    page.appendChild(inner);
+  });
   var sheets = Array.prototype.slice.call(document.querySelectorAll(".sheet"));
   var stage = document.getElementById("stage"), frame = document.getElementById("frame"), book = document.getElementById("book");
   var prev = document.getElementById("prev"), next = document.getElementById("next");
   var label = document.getElementById("label"), count = document.getElementById("count"), dots = document.getElementById("dots");
-  var W = 794 * 2, H = 560, KEY = "etc-profile-sheet";
+  var W = 1123 * 2, H = 794, KEY = "etc-profile-sheet";
   var current = 0, mode = "spread";
+
+  /* Renumber the visible compact edition while retaining the cover folios. */
+  var folio = 1;
+  sheets.forEach(function (s) {
+    Array.prototype.forEach.call(s.querySelectorAll('.folio'), function (node) {
+      node.textContent = String(folio++);
+    });
+  });
 
   sheets.forEach(function (s, i) {
     var l = document.createElement("div");
@@ -2313,6 +2348,7 @@ table.grow td { vertical-align: middle; }
     Array.prototype.forEach.call(dots.children, function (d, j) { d.setAttribute("aria-current", String(j === current)); });
     try { sessionStorage.setItem(KEY, current); } catch (e) {}
     if (history.replaceState) history.replaceState(null, "", "#s" + current);
+    fit();
   }
 
   // One scale for the whole book (always two pages wide), like the reference viewer.
@@ -2322,8 +2358,10 @@ table.grow td { vertical-align: middle; }
       var cs = getComputedStyle(stage);
       var aw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
       var ah = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-      s = Math.min(aw / W, ah / H);
-      frame.style.width = W * s + "px";
+      var visibleWidth = sheets[current].classList.contains("single") ? W / 2 : W;
+      book.style.width = visibleWidth + "px";
+      s = Math.min(aw / visibleWidth, ah / H);
+      frame.style.width = visibleWidth * s + "px";
       frame.style.height = H * s + "px";
     } else {
       s = Math.min(1, (stage.clientWidth - 48) / W);
