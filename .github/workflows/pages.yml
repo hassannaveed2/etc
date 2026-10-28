@@ -1,5 +1,5 @@
 # Publishes to GitHub Pages:
-#   /          Institutional Profile booklet (profile/)
+#   /          Institutional a4 booklet (a4/)
 #   /website/  Frontend website mockup (mockup/)
 # Publishes only from Shoaib. Pages source must be "GitHub Actions".
 name: Deploy to Pages
@@ -8,7 +8,7 @@ on:
   push:
     branches: [Shoaib]
     paths:
-      - "profile/**"
+      - "a4/**"
       - "mockup/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir _site
-          cp -r profile/. _site/
+          cp -r a4/. _site/
           cp -r mockup _site/website
       - uses: actions/upload-pages-artifact@v4
         with:
